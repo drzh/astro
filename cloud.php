@@ -11,6 +11,7 @@
 
   $rg = '';
   $ch = '';
+  $it = '';
   $pa = '';
   if (isset($_GET['rg'])) {
     $rg = $_GET['rg'];
@@ -23,6 +24,14 @@
   }
   if (isset($_GET['it'])) {
     $it = $_GET['it'];
+  }
+
+  ## Set $rg and $it to the default value if it is not set
+  if ($rg == '') {
+    $rg = 'TX';
+  }
+  if ($it == '') {
+    $it = 'JPG';
   }
 
   $imgpre = array(
@@ -41,7 +50,7 @@
       'FullDisk' => '/678x678.gif',
       'CONUS' => '/1250x750.gif',
       'TX' => '/1200x1200.gif'
-    ),
+    )
   );
 
   $channeltype = array(
@@ -164,15 +173,15 @@
   echo '</table>';
 
   $urlpa = $pa ? '&pa=' . $pa : '';
-  echo '<table>';
-  foreach ($region as $r) {
-    echo '<tr><td align="right">', $r, ' : </td><td><a href="cloud.php?rg=', $r, '&ch=All', $urlpa, '">All</a>';
-    foreach (array_keys($channeltype) as $c) {
-      echo ' - <a href="cloud.php?rg=', $r, '&ch=', $c, $urlpa, '">', $c, '</a>';
-    }
-    echo '</td></tr>';
-  }
-  echo '</table>';
+  // echo '<table>';
+  // foreach ($region as $r) {
+  //   echo '<tr><td align="right">', $r, ' : </td><td><a href="cloud.php?rg=', $r, '&ch=All', $urlpa, '">All</a>';
+  //   foreach (array_keys($channeltype) as $c) {
+  //     echo ' - <a href="cloud.php?rg=', $r, '&ch=', $c, $urlpa, '">', $c, '</a>';
+  //   }
+  //   echo '</td></tr>';
+  // }
+  // echo '</table>';
 
   // plot img and marker
   $fproj = 'goes/site.fulldisk.proj';
@@ -286,7 +295,7 @@
       $stylepos = 'top: 0px; left: 0px; width:' . $scale[$it][$rg]['w'] . 'px; height: ' . $scale[$it][$rg]['h'] . 'px;';
       echo '<div style="position:relative; ', $stylepos, '">';
       $ran = rand(1, 1000000);
-      echo '<img src="', getimg($it, $rg, $ch), '?=', $ran, '">';
+      echo '<img src="', getimg($it, $rg, $c), '?=', $ran, '">';
       echo '<svg style="position:absolute; ', $stylepos, '" onload="init(evt)">';
       // plot path
       foreach ($paths as $path) {
