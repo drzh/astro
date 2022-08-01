@@ -1,0 +1,221 @@
+html * {
+    font-size: 15px;
+}
+
+a {
+    color: blue;
+    text-decoration: none;
+}
+
+a:hover {
+    color: red;
+}
+
+h2 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    //font-size: 30px;
+}
+
+h3 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+pre {
+    font-family: Consolas, monospace
+}
+
+.del {
+    text-decoration: line-through;
+}
+
+.citem {
+    background-color: blue;
+    color: white;
+    /* padding: 0px 3px 0px 3px; */
+    display: inline;
+}
+
+.cloudimg {
+    position: relative;
+    width: 720px;
+    height: 480px;
+}
+
+.cloudimg2 {
+    position: relative;
+    width: 2000px;
+    height: 1300px;
+}
+
+.skycoverimg {
+    position: relative;
+    width: 720px;
+    height: 480px;
+}
+
+.noaa1 {
+    position: relative;
+    width: 1600px;
+    height: 145px;
+}
+
+.line1 {
+    stroke: red;
+    stroke-width: 1;
+}
+
+.line2 {
+    stroke: black;
+    stroke-width: 2;
+}
+
+.line3 {
+    stroke: blue;
+    stroke-width: 1;
+}
+
+.scline1 {
+    stroke: #AAAAAA;
+    stroke-width: 1;
+    stroke-dasharray: 2, 4;
+    stroke-linecap: round;
+}
+
+.scline2 {
+    stroke: black;
+    stroke-width: 1;
+    stroke-dasharray: 1, 8;
+    stroke-linecap: round;
+}
+
+.path1 {
+    stroke: white;
+    stroke-width: 1;
+    stroke-dasharray: 5, 50;
+    file: none;
+}
+
+.path2 {
+    stroke: black;
+    stroke-width: 1;
+    stroke-dasharray: 5, 50;
+    stroke-dashoffset: 25;
+    file: none;
+}
+
+.scline3 {
+    stroke: black;
+    stroke-width: 1;
+}
+
+.sctext1 {
+    text-anchor: end;
+    alignment-baseline: central;
+    font-size: 15px;
+}
+
+.sctext2 {
+    text-anchor: start;
+    alignment-baseline: central;
+    font-size: 15px;
+}
+
+.sctext3 {
+    text-anchor: middle;
+    alignment-baseline: central;
+    font-size: 15px;
+}
+
+.sctext4 {
+    text-anchor: start;
+    alignment-baseline: central;
+    font-size: 15px;
+}
+
+.sccir1 {
+    stroke: red;
+    fill: red;
+}
+
+.sccir2 {
+    stroke: green;
+    fill: green;
+}
+
+.sccir3 {
+    stroke: orange;
+    fill: orange;
+}
+
+.sccir4 {
+    stroke: blue;
+    fill: blue;
+}
+
+.sccir5 {
+    stroke: yellow;
+    fill: yellow;
+}
+
+.sccir6 {
+    stroke: purple;
+    fill: purple;
+}
+
+.sccir7 {
+    stroke: cyan;
+    fill: cyan;
+}
+
+.screct1 {
+    stroke: #E8E8E8;
+    fill: #E8E8E8;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.staton,
+.staton:hover {
+    background-color: green;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.statoff,
+.statoff:hover {
+    background-color: red;
+    color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+}
+
+.radar {
+    position: relative;
+}
+
+#basemap,
+#image0,
+#image1,
+#image2,
+#image3,
+#image4,
+#image5,
+#image6,
+#image7,
+#image8,
+#image9 {
+    position: absolute;
+    /* left:9px; */
+    /* top:9px; */
+}

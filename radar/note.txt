@@ -1,0 +1,3 @@
+https://www.nsstc.uah.edu/users/brian.freitag/AWS_Radar_with_Python.html
+https://github.com/openradar/AMS_radar_in_the_cloud/blob/master/notebooks/Putting_it_all_together.ipynb
+https://github.com/openradar/AMS_radar_in_the_cloud

@@ -1,0 +1,206 @@
+Satellite,Status,NORAD,Uplink,Downlink,Beacon,Mode,Callsign,Reports,Info,Telemetry Decoder
+HA-1,tbd,tbd,145.930 FM,436.950 FM,437.505,437.350 9k6 BPSK,.,latest report,details,.
+OSIRIS-3U,ACTIVE,43027,.,.,437.505,38k4 GMSK,.,latest report,details,.
+EcAMSat,ACTIVE,43019,.,.,437.095,"1k2 AFSK, FM",KE6QLL,latest report,details,
+EagleSat,INACTIVE,43018,.,.,437.645,"1k2 AFSK, FM",.,latest report,details,.
+"RadFxSat (AO-91, FOX-1B)",ACTIVE,43017,435.250,.,145.960,"Voice + 0k2 FSK data, FM",.,latest report,details,.
+TechnoSat,ACTIVE,42829,435.950,435.950,.,"FM CW 
+4k8 GMSK",DP0TBA,latest report,details,
+BIRD-B (BRAC Onnesha),ACTIVE,42823,,,"437.372
+437.375","CW 
+1k2 AFSK/9k6 FSK/digital Voice",JG6YJS,latest report,details,
+"BIRD-G (GhanaSat-1, ANUSAT-1)",INACTIVE,42821,,,"437.372
+437.375","CW 
+1k2 AFSK/9k6 FSK/digital Voice",JG6YJP,latest report,details,
+BIRD-J (Toki),ACTIVE,42820,,,"437.372
+437.375","CW 
+1k2 AFSK/9k6 FSK/digital Voice",JG6YJO,latest report,details,
+"BIRD-M (Mazaalai, NUMSAT-1)",ACTIVE,42822,,,"437.372
+437.375","CW 
+1k2 AFSK/9k6 FSK/digital Voice",JG6YJQ,latest report,details,
+BIRD-N (EduSat-1),ACTIVE,42824,,,"437.372
+437.375","CW 
+1k2 AFSK/9k6 FSK/digital Voice",JG6YJR,latest report,details,
+SUCHAI,ACTIVE,42788,,,437.225,CW,SUCHAI,latest report,details,
+ROBUSTA-1B,ACTIVE,42792,,,437.325,CW / 1k2 AFSK,.,latest report,details,
+VENTA-1,INACTIVE,42791,,,437.325,9k6 FSK,.,latest report,details,
+SKCube,ACTIVE,42789,437.100,437.100,437.100,CW / 9k6 FSK,OM9SAT,latest report,details,
+D-SAT,ACTIVE,42794,,,437.505,4k8 GMSK,.,latest report,details,
+Max Valier Sat,ACTIVE,42778,,,145.960,CW,II3MV,latest report,details,
+NIUSAT,ACTIVE,42766,,,436.000,1k2 FSK,NIUGSR,latest report,details,
+CAS-4A,ACTIVE,42761,435.220,145.870,"145.855
+ 145.835","CW
+ 4k8 FSK AX.25",BJ1SK,latest report,details,
+CAS-4B,ACTIVE,42759,435.280,145.925,"145.910
+ 145.890","CW
+ 4k8 FSK AX.25",BJ1SL,latest report,details,
+PEGASUS,ACTIVE,42784,,,436.670,9k6 FSK TT-64,ON03AT,latest report,details,in progress
+NUDTSat,ACTIVE,42787,,,436.270,9k6 BPSK,ON06CN,latest report,details,
+VZLUSAT-1,ACTIVE,42790,,,437.240,CW/4k8 MSK,ON02CZ,latest report,details,
+"DRAGSAIL
+ (COMPASS-2)",INACTIVE,42777,,,437.300,1k2 AFSK,ON04DL,latest report,details,
+UCLSat,ACTIVE,42765,,,435.975,9k6 GMSK,ON03GB,latest report,details,
+AALTO-1,ACTIVE,42775,,,437.220,CW/9k6 FSK TT-64,OH2A1S,latest report,details,
+URSA MAIOR,ACTIVE,42776,,,435.950,9k6 FSK,ON02IT,latest report,details,in progress
+LITUANICASat-2,ACTIVE,42768,,,437.265,9k6 FSK,ON01LT,latest report,details,
+LINK,ACTIVE,42714,,,436.030,1k2 BPSK,ON01KR,latest report,details,
+ATLANTIS,ACTIVE,42737,,,436.390,9k6 FSK,ON02US,latest report,details,
+AALTO-2,INACTIVE,42729,,,437.335,CW/9k6 FSK,ON01FI,latest report,details,
+EX-ALTA1,ACTIVE,42734,,,436.705,"4k8 BPSK, USB",ON03CA,latest report,details,
+AOXINAG-1,INACTIVE,42735,,,436.150,"9k6 BPSK, USB",ON04CN,latest report,details,
+BeEAGLESAT,ACTIVE,42736,,,437.370,CW / 9k6 FSK,ON01TR,latest report,details,
+DUTHSAT,INACTIVE,42724,,,436.420,1k2 BPSK,ON01GR,latest report,details,
+LILACSAT-1,ACTIVE,42725,145.985,,436.510,9k6 PBSK,ON02CN,latest report,details,
+NSIGHT-1,ACTIVE,42726,,,435.900,9k6 FSK,ON02AZ,latest report,details,
+NJUST-1,ACTIVE,42722,,,436.570,1k2/9k6 BPSK,ON03CN,latest report,details,
+Challenger,ACTIVE,42721,,,437.510,9k6 FSK,WI2XTN,latest report,details,
+HAVELSAT,ACTIVE,42700,,,436.845,CW,ON02TR,latest report,details,
+Columbia,ACTIVE,42702,,,437.055,9k6 FSK,KD8CJT,latest report,details,
+PHOENIX,ACTIVE,42706,,,436.915,9k6 FSK,ON01TW,latest report,details,
+X-CUBESAT,ACTIVE,42707,,,437.020,1k2 AFSK,ON01FR,latest report,details,
+QBEE,INACTIVE,42708,,,435.800,9k6 FSK,ON01SE,latest report,details,
+CSUNSat1,ACTIVE,42715,,,437.400,"CW, FM",CSUNSAT,latest report,details,
+UPSat,INACTIVE,42716,,,435.765,9k6 FSK,ON02GR,latest report,details,
+SpaceCube,ACTIVE,42717,,,436.880,1k2 AFSK,ON05FR,latest report,details,
+Hoopoe,ACTIVE,42718,,,437.740,"9k6 BPSK, USB",ON01IL,latest report,details,
+UNSW-EC0,ACTIVE,42723,,,436.525,4k8 GMSK,ON02AU,latest report,details,
+INSPIRE-2,ACTIVE,42731,,,436.330,4k8 GMSK,ON03AU,latest report,details,
+ZA-AEROSAT,ACTIVE,42713,,,437.200,9k6 FSK,ON01AZ,latest report,details,
+"EO-88
+ (Nayif-1)",ACTIVE,42017,435.045 – 435.015,145.960 – 145.990,145.940,"LSB/USB
+ 1k2 BPSK",.,latest report,details,
+Tancredo-1,INACTIVE,41931,,,437.200,"1k2 AFSK
+ digitalker",PY0ETA,latest report,details,.
+ITF-2,ACTIVE,41932,,,437.525,CW,JQ1ZTK,latest report,details,
+VELOX-III,ACTIVE,41935,,,437.375,CW,JG6YBW,latest report,details,
+STARS-C MOTHER,INACTIVE,41895,,,"437.245
+ 437.405","CW
+ FM 1k2/9k6",JJ2YPL,latest report,details,
+STARS-C DAUGHTER,INACTIVE,41895,,,"437.255
+ 437.425","CW
+ FM 1k2/9k6",JJ2YPM,latest report,details,
+CAS-2T,INACTIVE,41845,145.925,435.615,435.710,"FM Voice, CW",.,latest report,details,
+PRATHAM,INACTIVE,41783,.,437.455,145.980,"1k2 AFSK, CW",.,latest report,details,
+AlSat-1N,ACTIVE,41789,.,.,437.650,9k6 FSK,.,latest report,details,
+Â³CAT-2,INACTIVE,41732,.,.,145.970,9k6 BPSK,3CAT2,latest report,details,
+LAPAN-A3,ACTIVE,41603,.,.,437.325,1k2 FFSK,.,latest report,details,
+BIROS,tbd,41604,435.950,435.950,.,4k8 GMSK,BIROS,latest report,details,
+BEESAT-4,ACTIVE,41619,435.950,435.950,.,4k8 GMSK,DP0BEH,latest report,details,
+SathyabamaSat,ACTIVE,41600,.,145.980,145.980,"CW, 2k4 BPSK",SNSAT,latest report,details,
+"LO-87
+ (NUSAT-1)",ACTIVE,41557,435.935 – 435.965,145.965 – 145.935,"145.900
+ 436.445","CW
+ 40k0 GFSK",.,latest report,details,
+NUSAT-2,ACTIVE,41558,.,.,437.445,40k0 GFSK,.,latest report,details,
+MINXSS-1,ACTIVE,41474,.,.,437.345,9k6 FSK,MINXSS,latest report,details,
+AIST-2D,ACTIVE,41465,.,"435.3065-435.3235
+ 435.3565-435.3735",435.315,"4k8 PSK, CW",RS-48,latest report,details,
+OUFTI-1,INACTIVE,41458,435.045,145.950,145.980,"D-STAR, CW",OUFTI-1,latest report,details,
+AAUSAT-4,ACTIVE,41460,.,.,437.425,GFSK,OZ4CUB,latest report,details,
+e-st@r-II,ACTIVE,41459,.,437.485,437.485,"1k2 AFSK
+ CW",ESTAR-2,latest report,details,
+HORYU-4,INACTIVE,41340,.,"437.375
+ 2400.3",437.375,"1k2 AFSK, 9k6 FSK, CW
+ 100k BPSK",.,latest report,details,
+ChubuSat-2,ACTIVE,41338,145.815,437.100,437.100,"9k6 FSK, CW",JJ2YPN,latest report,details,
+ChubuSat-3,ACTIVE,41339,145.840,437.425,437.425,"9k6 FSK, CW",JJ2YPO,latest report,details,
+AO-85 (FOX-1A),ACTIVE,40967,.,.,145.980,"Voice + 0k2 FSK data, FM",.,latest report,details,
+BisonSat,ACTIVE,40968,.,.,437.375,"9k6 FSK, FM",.,latest report,details,
+LQSat,INACTIVE,40958,.,.,"437.650
+ 2404.0 *","4k8 MSK, CW
+ QPSK",.,latest report,details,
+"TW-1A
+ (Shangkeda-2)",ACTIVE,40928,.,.,435.645,4k8/9k6 GMSK,.,latest report,details,
+"TW-1B
+ (NJUST-1)",ACTIVE,40927,.,.,437.645,4k8/9k6 GMSK,.,latest report,details,
+"TW-1C
+ (NJFA-1)",ACTIVE,40926,.,.,435.645,4k8/9k6 GMSK,.,latest report,details,
+"IO-86
+ (LAPAN-A2/ORARI)",ACTIVE,40931,"435.880
+ 145.825.","145.880
+ 145.825",437.425,"FM transponder
+ APRS digipeater.",.,latest report,details,
+XW-2A,ACTIVE,40903,435.030 – 435.050,145.665 – 145.685,"145.640
+ 145.660","19k2 GMSK AX.25
+ CW",BJ1SB,latest report,details,
+XW-2B,ACTIVE,40911,435.090 – 435.110,145.730 – 145.750,"145.705
+ 145.725","19k2 GMSK AX.25
+ CW",BJ1SC,latest report,details,
+XW-2C,ACTIVE,40906,435.150 – 435.170,145.795 – 145.815,"145.770
+ 145.790","19k2 GMSK
+ CW",BJ1SD,latest report,details,
+XW-2D,ACTIVE,40907,435.210 – 435.230,145.860 – 145.880,"145.835
+ 145.855","19k2 GMSK
+ CW",BJ1SE,latest report,details,
+XW-2F,ACTIVE,40910,435.330 – 435.350,145.980 – 145.999,"145.955
+ 145.975","9k6 GMSK
+ CW",BJ1SG,latest report,details,
+"DCBB
+ (CAS-3G)",ACTIVE,40912,.,.,"145.475
+ 437.950","9k6 GMSK
+ 9k6 GMSK",BJ1SH,latest report,details,
+LilacSat-2,ACTIVE,40908,144.350,437.200,437.225,"9k6 RRC-BPSK
+ 4k8 GFSK",BJ1SI,latest report,details,
+"NUDT-PhoneSat
+ (CAS3-I)",ACTIVE,40900,.,.,437.300,9k6 GMSK,.,latest report,details,
+DeorbitSail,INACTIVE,40719,.,.,145.975,1k2 BPSK,DOS,latest report,details,
+"NO-84
+ (ParkinsonSAT)",ACTIVE,40654,"145.825
+ 28.120","145.825
+ 435.350",145.825,"1k2 AFSK
+ PSK31",PSAT,latest report,details,
+Firebird-II FU3,ACTIVE,40377,.,437.405,.,19k2 FSK,K7MSU,latest report,details,
+Firebird-II FU4,ACTIVE,40378,.,437.230,.,19k2 FSK,K7MSU,latest report,details,
+GRIFEX,ACTIVE,40379,.,437.481,.,9k6 FSK,KD8SPS,latest report,details,
+DX-1,ACTIVE,40071,.,.,438.225,9k6 FSK,.,latest report,details,
+BugSat-1,ACTIVE,40014,.,.,437.445,9k6 FSK,LU7AA,latest report,details,
+DUCHIFAT,ACTIVE,40021,.,.,145.980,"CW, 1k2 BPSK",4X4HSL,latest report,details,
+PolyITAN,INACTIVE,40042,.,.,437.675,"CW, 9k6 FSK",EM0UKP,latest report,details,
+EO-79 (QB50p1),INACTIVE,40025,.,.,145.815,"CW, 1k2 BPSK",.,latest report,details,
+EO-80 (QB50p2),INACTIVE,40032,.,.,145.880,"CW, 1k2 BPSK",.,latest report,details,
+UniSat-6,ACTIVE,40012,.,.,437.426,9k6 FSK,II0US,latest report,details,
+TigriSat,ACTIVE,40043,.,.,435.000,9k6 FSK,HNATIG,latest report,details,
+SPROUT,ACTIVE,39770,437.600,437.600,437.525,"1k2 AFSK, CW, SSTV",JQ1ZJQ,latest report,details,
+AO-7 (Phase-2B,ACTIVE,07530,145.850-950,29.400-500,29.502,A,,latest report,details,
+AO-7 (Phase-2B),ACTIVE,07530,432.125-175,145.975-925,145.970,"B,C",,latest report,details
+UO-11 (UoSAT-2),ACTIVE,14781,.,145.826,,"FM, 1k2 FSK",UOSAT-2,latest report,details,
+RS-22 (Mozhayets),ACTIVE,27939,.,.,435.352,CW,,latest report,details,
+AO-27 (EYESAT-A),INACTIVE,22825,145.850,436.795,436.795,"1k2 AFSK,FM",,latest report,details,
+FO-29 (JAS-2),ACTIVE,24278,145.900-999,435.900-800,435.7964,"SSB,CW",8J1JCS,latest report,details,
+ISS,ACTIVE,25544,437.550,437.550,437.550,APRS,RS0ISS,latest report,details,
+ISS,ACTIVE,25544,145.20/144.49,145.800,,Voice,NA1SS,latest report,details,
+ISS,ACTIVE,25544,145.825,145.825,145.825,APRS,"RS0ISS-4,-11",latest report,details,
+NO-44 (PCsat1),ACTIVE,26931,145.827,145.827,145.827,1k2 AFSK,PCSAT-1,latest report,details,
+SO-50 (SaudiSat-1c),ACTIVE,27607,145.850,436.795,.,FM_tone 67.0Hz,,latest report,details,
+CO-55 (CUTE-I),ACTIVE,27844,.,437.470,436.8375,1k2 AFSK,JQ1YCY,latest report,details,
+CO-57 (XI-IV),ACTIVE,27848,.,437.490,436.8475,"1k2 AFSK,CW",JQ1YCW,latest report,details,
+CO-58 (XI-V),ACTIVE,28895,.,437.345,437.465,"1k2 AFSK,CW",JQ1YGW,latest report,details,
+CUTE1.7+APDII,ACTIVE,32785,1267.600,437.475,.,9600bps GMSK,JQ1YTC,latest report,details,
+CUTE1.7+APDII,ACTIVE,32785,.,437.475,437.275,"1k2 AFSK,CW",JQ1YTC,latest report,details,
+AAUSAT-II,ACTIVE,32788,.,437.432,437.432,1k2 FFSK/MSK,OZ2CUB,latest report,details,
+DO-64 (DELFI-C3),ACTIVE,32789,.,145.870,145.8675,1k2 BPSK,DLFIC3,latest report,details,
+CO-66 (SEEDS-II),ACTIVE,32791,.,437.485,437.485,"1k2 FM,CW,Talker",JQ1YGU,latest report,details,
+RS-30 (Yubileiniy),ACTIVE,32953,.,435.315/215,435.315,CW,RS30,latest report,details,
+PRISM (HITOMI),ACTIVE,33493,.,437.425,437.250,"AFSK,GMSK,CW",JQ1YCX,latest report,details,
+SwissCube-1,ACTIVE,35932,.,437.505,437.505,"1k2 AFSK (LSB),CW",HB9EG/1,latest report,details,
+BEESAT-4,ACTIVE,35933,.,436.000,436.000,9k6/4k8 GMSK,DP0BEE,latest report,details,
+GOMX-1,ACTIVE,39430,.,.,437.255,"2k4/4k8* GMSK
+ CW",.,latest report,details,
+ITUpSat-1,ACTIVE,35935,.,437.325,437.325,"19k2 GFSK,CW",,latest report,details,
+O/OREOS,ACTIVE,37224,.,437.305,437.3037,1k2 AFSK,KF6JBP,latest report,details,
+E1P-U2,ACTIVE,37855,.,437.505,437.502,"1k2 AFSK,LSB",,latest report,details,
+MCubed-1,ACTIVE,37855,.,437.485,437.485,"9k6 GMSK,KISS",,latest report,details,
+HORYU-2,ACTIVE,38340,.,437.375,437.378/372,1k2 FSK/CW,JG6YBW,latest report,details,
+AENEAS,ACTIVE,38760,.,437.600,437.600,1k2 AFSK,KE6YFA-1,latest report,details,
+STRaND-1,ACTIVE,39090,.,437.568,437.568,9k6 GMSK,,latest report,details,
+BEESAT-2,ACTIVE,39136,.,435.950,435.950,4k8 GMSK,DP0BEF,latest report,details,
+SOMP,ACTIVE,39135,.,437.504,437.504,"CW, 1k2 FSK",DP0TUD,latest report,details,
+CubeBug-1,ACTIVE,39153,.,437.438,437.438,1k2 AFSK,CUBEB1,latest report,details,
+AO-73 (FUNCube-1),ACTIVE,39444,435.150 â 435.130,145.950 â 145.970,145.935,1k2 BPSK,.,latest report,details,
+FUNCube-2 (on UKube-1),ACTIVE,40074,435.060 â 435.080,145.930 â 145.950,145.915,1k2 BPSK,.,latest report,details,
+FIRST MOVE,ACTIVE,39439,.,.,145.970,CW,.,latest report,details,
+ZACube-1,ACTIVE,39417,.,.,437.345,"CW, 1k2 AFSK",.,latest report,details,
+UWE-3,ACTIVE,39446,.,.,"436.395
+ 437.385",9k6 FSK,.,latest report,details,
+LO-74 (CubeBug-2),ACTIVE,39440,.,.,437.445,"1k2 AFSK, 9k6 FSK",.,latest report,details,
+MCubed-2,ACTIVE,90710,.,.,437.485,9k6 FSK,NOCALL,latest report,details,
