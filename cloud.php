@@ -172,18 +172,6 @@
 
   echo '</table>';
 
-  $urlpa = $pa ? '&pa=' . $pa : '';
-  // echo '<table>';
-  // foreach ($region as $r) {
-  //   echo '<tr><td align="right">', $r, ' : </td><td><a href="cloud.php?rg=', $r, '&ch=All', $urlpa, '">All</a>';
-  //   foreach (array_keys($channeltype) as $c) {
-  //     echo ' - <a href="cloud.php?rg=', $r, '&ch=', $c, $urlpa, '">', $c, '</a>';
-  //   }
-  //   echo '</td></tr>';
-  // }
-  // echo '</table>';
-
-  // plot img and marker
   $fproj = 'goes/site.fulldisk.proj';
 
   $scale = array(
