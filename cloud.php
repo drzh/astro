@@ -153,7 +153,7 @@
   // Image type menu
   $flag = 0;
   echo '<tr>';
-  echo '<td>Image Type:&nbsp;</td>';
+  echo '<td>Image:&nbsp;</td>';
   echo '<td>';
   foreach ($imgtype as $i => $n) {
     if ($flag == 0) {
