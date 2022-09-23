@@ -20,6 +20,7 @@ echo "<img align='top' src='https://www.timeanddate.com/scripts/sunmap.php?=$ran
 <h3>Band Conditions</h3>
 <a href='http://www.bandconditions.com' target='_blank'>Band Conditions</a><br>
 <h3>DX</h3>
+<a href='https://qsomap.org/' target='_balnk'>QSO Map</a><br>
 <a href='https://www.qrz.com/dxcluster' target='_blank'>QRZ.com DX Cluster</a><br>
 <a href='http://www.dxsummit.fi' target='_blank'>DX Summit</a><br>
 <a href='https://dxheat.com/dxc/' target='_blank'>DX Heat</a><br>
