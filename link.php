@@ -71,6 +71,8 @@
 <h3>Maps</h3>
 <a href='https://www.jasondavies.com/' target='_blank'>JasonDavies</a><br/>
 <a href='https://www.jasondavies.com/maps/transition/' target='_blank'>Map Projection Transitions</a><br/>
+<a href='http://www.shadedrelief.com/' target='_blank'>Maps</a><br/>
+<a href='https://maps.dot.gov/BTS/NationalTransportationNoiseMap/' target='_blank'>National Transportation Noise Maps</a><br/>
 <h3>Flight</h3>
 <a href='https://www.flightradar24.com/32.83,-96.79/6' target='_blank'>Flight Radar 24</a><br/>
 <h3>Mobile Phone</h3>
