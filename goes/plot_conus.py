@@ -92,7 +92,7 @@ elif band > 10:
 
 # Draw the countries and Brazilian states shapefiles
 # bmap.readshapefile('shapefiles/BRA_adm1','BRA_adm1',linewidth=0.50,color='darkslategray')
-bmap.readshapefile('shapefiles/cb_2017_us_state_500k','cb_2017_us_state_500k',linewidth=0.5,color='darkslategray')
+bmap.readshapefile('shapefiles/cb_2021_us_state_500k','cb_2021_us_state_500k',linewidth=0.5,color='darkslategray')
 
 # Draw the coastlines, countries, parallels and meridians
 steplon = int((extent[2] - extent[0]) / 10 / psize)
@@ -104,7 +104,7 @@ bmap.drawmeridians(np.arange(0.0, 360.0, step), linewidth=0.2, color='white', la
 # Insert the legend
 if band <= 6:
     cb = bmap.colorbar(location='right', size = str(2 / psize) + '%', pad = '0.5%', ticks=[20, 40, 60, 80])
-    cb.ax.set_xticklabels(['20', '40', '60', '80'])
+    #cb.ax.set_xticklabels(['20', '40', '60', '80'])
 else:
     cb = bmap.colorbar(location='right', size = str(2 / psize) + '%', pad = '0.5%')
      

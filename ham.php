@@ -42,6 +42,7 @@ echo "<img align='top' src='https://www.timeanddate.com/scripts/sunmap.php?=$ran
 <h3>HAM Resources</h3>
 <a href='https://www.scc-ares-races.org/generalinfo/phoneticalphabet.html' target='_blank'>Amateur Radio Phonetic Alphabet</a><br/>
 <a href='https://www.heavens-above.com/AmateurSats.aspx' target='_blank'>Amateur Radio Satellites - Heavens Above</a>
+<a href='https://www.short-wave.info/' target='_blank'>Short-Wave Info</a>
 <h3>QSO Parties</h3>
 <a href='https://qsoparty.eqth.net/index.html' target='_blank'>QSO Party Calendar by N5NA</a><br/>
 <a href='http://www.arrl.org/contest-calendar' target='_blank'>ARRL Contest Calendar</a>

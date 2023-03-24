@@ -37,4 +37,5 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
 <a href='/radiation.php'>Radiation</a>
 | <a href='/link.php'>Links</a>
 | <a href='/about.php'>About</a>
+| <a href='/eclipse2023/index.php'>2023 Eclipse</a>
 <hr>

@@ -31,7 +31,7 @@ ax.axis('off')
 bmap = Basemap(llcrnrlon=extent[0], llcrnrlat=extent[1], urcrnrlon=extent[2], urcrnrlat=extent[3], epsg=3395)
 
 # Draw the countries and Brazilian states shapefiles
-bmap.readshapefile('shapefiles/cb_2020_us_state_500k','cb_2020_us_state_500k',linewidth=0.5,color='darkslategray')
+bmap.readshapefile('shapefiles/cb_2021_us_state_500k','cb_2021_us_state_500k',linewidth=0.5,color='darkslategray')
 
 x, y = bmap(lon,lat)
 
