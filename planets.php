@@ -41,7 +41,7 @@ foreach ($filepattern as $fp) {
             if ($day != $daypre) {
               $daypre = $day;
               $day = date("D, n/j", strtotime($e[0] . ' ' . $tz));
-              echo '<tr align="center" bgcolor="#666666"><td colspan="9"><b><font color="white">', $day, '</font></b></td></tr>';
+              echo '<tr align="center" bgcolor="#222222"><td colspan="9"><b><font>', $day, '</font></b></td></tr>';
             }
             echo '<tr align="center">';
             foreach (range(1, 9) as $j) {
