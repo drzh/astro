@@ -9,7 +9,7 @@ $filepattern = array(array('planet/all/*.multi_info.*.format',
                            'Planet Rise and Set'),
 );
 
-$rowcolor = array('#FFFFFF', '#DDDDDD');
+$rowcolor = array('#444444', '#333333');
 $today = date('Ymd');
 
 foreach ($filepattern as $fp) {

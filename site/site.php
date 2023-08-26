@@ -24,8 +24,8 @@ $pos = array(
     'Hagerman National Wildlife Refuge',
     33.739,
     -96.752,
-    'http://www.cleardarksky.com/c/GrdvlTXcsk.gif',
-    'http://www.cleardarksky.com/c/GrdvlTXkey.html',
+    'http://www.cleardarksky.com/c/HgrmnNWRTXcsk.gif',
+    'http://www.cleardarksky.com/c/HgrmnNWRTXkey.html',
     'hagerman',
     'http://forecast.weather.gov/meteograms/Plotter.php?lat=33.739&lon=-96.752&wfo=FWD&zcode=TXZ119&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
     'TX'

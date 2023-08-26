@@ -15,10 +15,10 @@ $days = array(
 function datecolor($day1, $day2) {
   # if (($day2 - $day1) % 2 == 0) {
   if ((strtotime($day2) - strtotime($day1)) / 86400 % 2 == 0) {
-    return "#DDDDDD";
+    return "#444444";
   }
   else {
-    return "#FFFFFF";
+    return "#333333";
   }
 }
 

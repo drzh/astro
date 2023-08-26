@@ -2,13 +2,18 @@ html * {
     font-size: 15px;
 }
 
+body {
+    background-color: #333333;
+    color: darkgray;
+}
+
 a {
-    color: blue;
+    color: steelblue; 
     text-decoration: none;
 }
 
 a:hover {
-    color: red;
+    color: firebrick;
 }
 
 h2 {
@@ -23,7 +28,7 @@ h3 {
 }
 
 pre {
-    font-family: Consolas, monospace
+    font-family: Consolas, monospace;
 }
 
 .del {
@@ -31,8 +36,8 @@ pre {
 }
 
 .citem {
-    background-color: blue;
-    color: white;
+    background-color: steelblue;
+    color: #333333;
     /* padding: 0px 3px 0px 3px; */
     display: inline;
 }
@@ -114,29 +119,33 @@ pre {
     text-anchor: end;
     alignment-baseline: central;
     font-size: 15px;
+    fill: darkgray;
 }
 
 .sctext2 {
     text-anchor: start;
     alignment-baseline: central;
     font-size: 15px;
+    fill: darkgray;
 }
 
 .sctext3 {
     text-anchor: middle;
     alignment-baseline: central;
     font-size: 15px;
+    fill: darkgray;
 }
 
 .sctext4 {
     text-anchor: start;
     alignment-baseline: central;
     font-size: 15px;
+    fill: white;
 }
 
 .sccir1 {
-    stroke: red;
-    fill: red;
+    stroke: firebrick;
+    fill: firebrick;
 }
 
 .sccir2 {
@@ -170,8 +179,10 @@ pre {
 }
 
 .screct1 {
-    stroke: #E8E8E8;
-    fill: #E8E8E8;
+    #stroke: #E8E8E8;
+    stroke: #000000;
+    #fill: #E8E8E8;
+    fill: #000000;
 }
 
 .tooltip {

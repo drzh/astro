@@ -62,7 +62,7 @@
   }
 
   // Legend
-  echo '<svg style="width:300px; height:20px">';
+  echo '<svg style="width:300px; height:20px;">';
   echo '<circle cx=5 cy=10 r=3 class="sccir1" />';
   echo '<text x=15 y=15 class="sctext2">SkyCover</text>';
   echo '<circle cx=105 cy=10 r=2 class="sccir2" />';

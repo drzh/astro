@@ -58,7 +58,7 @@
     // 'AirMass' => 'AirMass',
     // 'Sandwich' => 'Sandwich',
     // 'DayCloudPhase' => 'DayCloudPhase',
-    'NightMicrophysics' => 'NightMicrophysics',
+    // 'NightMicrophysics' => 'NightMicrophysics',
     '01' => '0.47µm, Visible - Blue',
     '02' => '0.64µm, Visible - Red',
     '03' => '0.86µm, Near IR - Vegetation',

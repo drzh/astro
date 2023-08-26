@@ -94,10 +94,10 @@ if ($sat != '') {
             array_push($alertstime, $starttime - $offset);
           }
           if ($n % 2 == 0) {
-            echo '<tr bgcolor="#DDDDDD">';
+            echo '<tr bgcolor="#444444">';
           }
           else {
-            echo '<tr bgcolor="#FFFFFF">';
+            echo '<tr bgcolor="#333333">';
           }
           $e[8] = rtrim($e[8]);
           if ($n > 0) {
