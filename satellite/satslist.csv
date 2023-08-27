@@ -834,7 +834,7 @@ NanoSat-6;44346;;437.200 ;;9600bps GMSK;;unknown
 Nanosat-7;44339;437.345 ;2300.000 ;;;;unknown
 NanosatC-Br1;40024;;145.865 ;145.865 ;1200bps BPSK CW;NCBR1;inactive
 NanosatC-Br2;47950;;145.865 ;;1k2*/2k4/4k8/9k6BPSK;NCBR2;active
-Nanozond-1;57190;;437.000 ;;2k4-9k6 GMSK_USP;RS49S;active
+Nanozond-1;57190;;437.000 ;;2k4*-9k6 GMSK_USP;RS49S;active
 NAPA-2;48963;;401.120*/150;;1200bps BPSK;NAPS2;unknown
 NARSScube-1;44792;;;437.970 ;CW;;re-entered
 NARSScube-2;44718;;;437.974 ;CW;;re-entered
@@ -1119,7 +1119,7 @@ SaudiSat-1B;26549;;436.075 ;;9600bps FSK;SASAT2-11 12;inactive
 SaudiSat-1C;27607;145.850 ;436.795 ;;FM* tone 67.0Hz;;active
 SaudiSat-4;40016;;;;Ka-band SSB;;inactive
 SBUDNIC;52774;;435.000 ;;LoRa;;inactive
-SCOOB-2;57481;;437.500 ;;9600bps GFSK;;unknown
+SCOOB-2;57481;;437.500 ;;9600bps GFSK;;active
 SC-ODIN;57312;436.525 ;436.525 ;;GMSK;;inactive
 SDSAT;47721;;435.500 ;435.500 ;LoRa RTTY CW;;inactive
 SEAM;;;437.250 ;;9600bps GMSK;SA0SAT;failure
@@ -1458,7 +1458,7 @@ Vermont Lunar;39407;;437.305 ;;9600bps FSK;W1VTC2;re-entered
 Vigoride-6;56196;;400.500/400.524 ;;38k4 FSK;;unkown
 VisionCube;43758;;437.425 ;;9600bps GMSK;;unkown
 Vizard;53386;;437.800 ;;2400bps GMSK USP;RS33S;active
-VIZARD-meteo;57189;;437.825 ;;2k4-9k6 GMSK_USP;RS38S;unknown
+VIZARD-meteo;57189;;437.825 ;;2k4*-9k6 GMSK_USP;RS38S;active
 Voenmeh;53373;;436.050 ;;2400bps GMSK USP;RS29S;active
 VO-52;28650;435.220-435.280;145.930-145.870;145.936 ;SSB Carrier;Indian;inactive
 VO-52;28650;435.225-435.275;145.925-145.875;145.860 ;SSB CW;Dutch;inactive
