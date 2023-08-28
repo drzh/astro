@@ -1,5 +1,5 @@
 <?php
-$rowcolor = array('#FFFFFF', '#DDDDDD');
+$rowcolor = array('#333333', '#444444');
 $today = date('Ymd');
 
 // function cmp($a, $b) {
@@ -88,7 +88,7 @@ foreach ($filepattern as $fp) {
       // $day = date("D, n/j", strtotime($e[2] . $e[3] . " " . $e[4]));
       $day = date("D, n/j", $e[4]);
       if ($day != $daypre) {
-        echo '<tr align="center" bgcolor="#666666"><td colspan="3"><b><font color="white">', $day, '</font></b></td></tr>';
+        echo '<tr align="center" bgcolor="#666666"><td colspan="3"><b><font color="lightgray">', $day, '</font></b></td></tr>';
         $i = 0;
       }
       $daypre = $day;
