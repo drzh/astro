@@ -11,6 +11,16 @@ $pos = [
         'TX'
     ],
     [
+        'Hondo',
+        29.349,
+        -99.080,
+        'http://www.cleardarksky.com/c/HndTXcsk.gif',
+        'http://www.cleardarksky.com/c/HndTXKey.gif.html',
+        'corpuschristi',
+        'http://forecast.weather.gov/meteograms/Plotter.php?lat=29.35&lon=-99.08&wfo=EWX&zcode=TXZ204&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
+        'TX'
+    ],
+    [
         'Corpus Christi',
         27.801,
         -97.454,
