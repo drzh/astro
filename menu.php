@@ -1,12 +1,18 @@
 <?php
 echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
 
-<a href='/index.php'>Site</a> (<a href='/eclipse2023/index.php'>ASE</a>)
+2023 ASE: 
+<a href='/eclipse2023/index.php'>Site</a>
+  | <a href='/eclipse2023/skycover.php'>SkyCover</a>
+  | <a href='/cloud.php?rg=TX&ch=GEOCOLOR&it=JPG&pa=ase2023'>Cloud</a>
+<br/>
+
+<a href='/index.php'>Site</a>
 
 <?php if (file_exists('config/tgsky.off') || file_exists('../config/tgsky.off')) { ?>
   | <span class='del'>SkyCover</span>
 <?php } else { ?>
-  | <a href='/skycover.php'>SkyCover</a> (<a href='/eclipse2023/skycover.php'>ASE</a>)
+  | <a href='/skycover.php'>SkyCover</a>
 <?php } ?>
 
 <?php if (file_exists('config/tgskyus.off') || file_exists('../config/tgskyus.off')) { ?>
@@ -16,7 +22,7 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
 <?php } ?>
 
 | <a href='/ndfd.php'>NDFD</a>
-| <a href='/cloud.php'>Cloud</a> (<a href='/cloud.php?pa=ase2023'>ASE</a>)
+| <a href='/cloud.php'>Cloud</a>
 
 <?php if (file_exists('config/tggoes.off') || file_exists('../config/tggoes.off')) { ?>
   | <span class='del'>GOES</span>
