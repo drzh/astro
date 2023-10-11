@@ -2,8 +2,9 @@
 echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
 
 2023 ASE: 
-<a href='/eclipse2023/index.php'>Site</a>
+<a href='/eclipse2023/index.php?st=TX'>Site</a>
   | <a href='/eclipse2023/skycover.php'>SkyCover</a>
+  | <a href='/eclipse2023/nam.php'>NAM</a>
   | <a href='/cloud.php?rg=TX&ch=GEOCOLOR&it=JPG&pa=ase2023'>Cloud</a>
 <br/>
 
@@ -19,6 +20,12 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
   | <span class='del'>SkyCoverUS</span>
 <?php } else { ?>
   | <a href='/skycoverus.php'>SkyCoverUS</a>
+<?php } ?>
+
+<?php if (file_exists('config/tgnam.off') || file_exists('../config/tgnam.off')) { ?>
+  | <span class='del'>NAM</span>
+<?php } else { ?>
+  | <a href='/nam.php'>NAM</a>
 <?php } ?>
 
 | <a href='/ndfd.php'>NDFD</a>
