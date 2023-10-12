@@ -31,6 +31,10 @@ pre {
     font-family: Consolas, monospace;
 }
 
+.alert {
+    background-color: #880000;
+}
+
 .del {
     text-decoration: line-through;
 }
