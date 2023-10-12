@@ -49,12 +49,12 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
 | <a href='/sfa.php'>SFA</a>
 | <a href='/cloudhistory.php'>CloudHist</a>
 | <a href='/radar.php'>Radar</a>
-| <a href='/daynight.php'>DayNight</a>
 | <a href='/planets.php'>Planets</a>
 | <a href='/solar.php'>Solar</a>
 <br/ >
 
-<a href='/satellite_ha.php?sat=All&mag=3&max=20'>Sate (Vis)</a>
+<a href='/daynight.php'>DayNight</a>
+| <a href='/satellite_ha.php?sat=All&mag=3&max=20'>Sate (Vis)</a>
 | <a href='/satellite.php?sat=ALL_PRI&max=20'>Sate (Ham)</a>
 | <a href='/ham.php'>HAM</a>
 | <a href='/radiation.php'>Radiation</a>
