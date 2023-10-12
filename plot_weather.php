@@ -154,12 +154,12 @@
     # Plot relative humidity
     #$fname = $datadir . '/all.rhm.3day.UTC.format';
     $fname = $f2;
+    $plotrec2 = '';
     if (file_exists($fname)) {
       preg_match('/([A-Z]{3}).format/', $fname, $matches, PREG_OFFSET_CAPTURE);
       $tz = $matches[1][0];
       $fh = fopen($fname, "r");
       if ($fh) {
-        $plotrec2 = '';
         while (!feof($fh)) {
           $e = explode("\t", trim(fgets($fh)));
           if (count($e) == 3) {
@@ -179,6 +179,7 @@
     # Plot temprature
     #$fname = $datadir . '/all.temp.3day.UTC.format';
     $fname = $f3;
+    $plotrec3 = '';
     # Check if the file exists
     if (file_exists($fname)) {
       $temphigh = 40;
@@ -187,7 +188,6 @@
       $tz = $matches[1][0];
       $fh = fopen($fname, "r");
       if ($fh) {
-        $plotrec3 = '';
         while (!feof($fh)) {
           $e = explode("\t", trim(fgets($fh)));
           if (count($e) == 3) {

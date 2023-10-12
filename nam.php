@@ -5,7 +5,7 @@
 <body>
   <?php
   $datadir = '/home/celaeno/web/astro/nam';
-  $f1 = $datadir . '/all.skycover.60hr.UTC.format';
+  $f1 = $datadir . '/all.skycover.84hr.UTC.format';
   $f2 = '';
   $f3 = '';
   
