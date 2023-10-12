@@ -10,6 +10,8 @@ $toggle = [
   'SkyCoverUS' => 'tgskyus',
   'SatVis_Alert' => 'tgsatvisalt',
   'SatHam_Alert' => 'tgsathamalt',
+  'NAM-60' => 'tgnam60',
+  'NAM-84' => 'tgnam84',
 ];
 
 echo '<table width=200 border=1>';
