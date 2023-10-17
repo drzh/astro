@@ -9,7 +9,7 @@
   $f2 = $datadir . '/all.rhm.3day.UTC.format';
   $f3 = $datadir . '/all.temp.3day.UTC.format';
   
-  require '../site/site.eclipse2023.php';
+  require '../site/site.eclipse2024.php';
   require '../menu.php';
   include '../plot_weather.php';
   include('../tail.php');

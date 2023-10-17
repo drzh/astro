@@ -1,14 +1,6 @@
 <?php
 echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
 
-2023 ASE: 
-<a href='/eclipse2023/index.php?st=TX'>Site</a>
-  | <a href='/eclipse2023/skycover.php'>SkyCover</a>
-  | <a class='alert' href='/eclipse2023/nam60.php'>NAM-60</a>
-  | <a href='/eclipse2023/nam84.php'>NAM-84</a>
-  | <a href='/cloud.php?rg=TX&ch=GEOCOLOR&it=JPG&pa=ase2023'>Cloud</a>
-<br/>
-
 <a href='/index.php'>Site</a>
 
 <?php if (file_exists('config/tgsky.off') || file_exists('../config/tgsky.off')) { ?>
@@ -26,7 +18,7 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
 <?php if (file_exists('config/tgnam60.off') || file_exists('../config/tgnam60.off')) { ?>
   | <span class='del'>NAM-60</span>
 <?php } else { ?>
-  | <a class='alert' background-color='red' href='/nam60.php'>NAM-60</a>
+  | <a class='alert' href='/nam60.php'>NAM-60</a>
 <?php } ?>
 
 <?php if (file_exists('config/tgnam84.off') || file_exists('../config/tgnam84.off')) { ?>
@@ -60,4 +52,22 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
 | <a href='/radiation.php'>Radiation</a>
 | <a href='/link.php'>Links</a>
 | <a href='/about.php'>About</a>
+<br/ >
+
+2024 TSE: 
+<a href='/eclipse2024/index.php?st=TX'>Site</a>
+  | <a href='/eclipse2024/skycover.php'>SkyCover</a>
+<?php if (file_exists('config/tgnam60.off') || file_exists('../config/tgnam60.off')) { ?>
+  | <span class='del'>NAM-60</span>
+<?php } else { ?>
+  | <a class='alert' href='/eclipse2024/nam60.php'>NAM-60</a>
+<?php } ?>
+<?php if (file_exists('config/tgnam84.off') || file_exists('../config/tgnam84.off')) { ?>
+  | <span class='del'>NAM-84</span>
+<?php } else { ?>
+  | <a href='/eclipse2024/nam84.php'>NAM-84</a>
+<?php } ?>
+  | <a href='/cloud.php?rg=TX&ch=GEOCOLOR&it=JPG&pa=tse2024'>Cloud</a>
+<br/>
+
 <hr>

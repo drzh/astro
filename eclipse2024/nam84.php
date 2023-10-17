@@ -9,7 +9,7 @@
   $f2 = '';
   $f3 = '';
   
-  require '../site/site.eclipse2023.php';
+  require '../site/site.eclipse2024.php';
   require '../menu.php';
   include '../plot_weather.php';
   include('../tail.php');
