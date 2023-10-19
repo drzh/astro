@@ -240,5 +240,36 @@ $pos = [
 "",
 "TX"
 ],
+    [
+        'Cloud coverage along the central line',
+        365,
+        365,
+	'https://eclipsophile.com/wp-content/uploads/2021/02/Noam-centre-cloud.png',
+        '',
+        'histcloud',
+        '',
+        'History Cloud Coverage'
+    ],
+     [
+        'Cloud coverage along the central line - TX',
+        365,
+        365,
+        'https://eclipsophile.com/wp-content/uploads/2021/03/2024TSE-CentreCloud-graph-hires-TX-MO-sm.png',
+        '',
+        'histcloud',
+        '',
+        'History Cloud Coverage'
+    ],
+    [
+        'Cloud coverage map',
+        365,
+        365,
+	'https://eclipsophile.com/wp-content/uploads/2021/02/April-NoAm-cloud.png',
+        '',
+        'histcloud',
+        '',
+        'History Cloud Coverage'
+    ],
+
 ]
 ?>
