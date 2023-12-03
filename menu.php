@@ -1,5 +1,6 @@
 <?php
-echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
+echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
+<br/>
 
 <a href='/index.php'>Site</a>
 
@@ -28,7 +29,7 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
 <?php } ?>
 
 | <a href='/ndfd.php'>NDFD</a>
-<br/ >
+<br/>
 
 <a href='/cloud.php'>Cloud</a>
 
@@ -51,7 +52,7 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
 | <a href='/radiation.php'>Radiation</a>
 | <a href='/link.php'>Links</a>
 | <a href='/about.php'>About</a>
-<br/ >
+<br/>
 
 2024 TSE: 
 <a href='/eclipse2024/index.php?st=TX'>Site</a>
@@ -69,4 +70,8 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?><br/>
   | <a href='/cloud.php?rg=TX&ch=GEOCOLOR&it=JPG&pa=tse2024'>Cloud</a>
 <br/>
 
+<iframe src="https://free.timeanddate.com/countdown/i94s7et5/n70/cf12/cm0/cu1/ct3/cs1/caca3a3a3/co0/cr0/ss0/caca3a3a3/cpca3a3a3/pc333/tcfff/fs100/szw320/szh135/iso2024-04-08T12:23:00/baca3a3a3" allowtransparency="true" frameborder="0" width="36" height="33"></iframe>
+<br/>
+
 <hr>
+
