@@ -42,8 +42,15 @@
     'smokec' => array('Smoke', $link2, 1),
     'dustc' => array('Dust', $link2, 1),
   );
-
+  
+  $i = 0;
   foreach (array_keys($forecast) as $fc) {
+    if ($i == 0) {
+      $i = 1;
+    }
+    else {
+      echo ' | ';
+    }
     if ($forc == $fc) {
       echo '<div class="citem">', $forecast[$fc][0], '</div>';
     } else {
@@ -56,13 +63,8 @@
       }
       echo  '">', $forecast[$fc][0], '</a>';
     }
-    echo ' | ';
   }
-  echo '<a href="/nam.php';
-  if ($begin >= 0) {
-    echo '?&st=', $state, '&bg=', floor($begin / 3) + 1, '&ed=', floor($end / 3) + 1;
-  }
-  echo '">NAM</a><br/>';
+  echo '<br/>';
 
   $stateurl = array(
     'US' => 'conus',
