@@ -28,6 +28,8 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
   | <a href='/nam84.php'>NAM-84</a>
 <?php } ?>
 
+| <a href='/nam240.php'>NAM-240</a>
+
 | <a href='/ndfd.php'>NDFD</a>
 <br/>
 
