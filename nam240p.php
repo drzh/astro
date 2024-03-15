@@ -72,14 +72,14 @@
     }
 
     echo 'Day: ';
-    $i = 0;
+    $i = 2;
     $iend = 41;
     $istep = 4;
     while ($i < $iend) {
-        if ($i > 0) {
+        if ($i > 2) {
             echo ' | ';
         }
-        echo  '<a href="nam240p.php?bg=', $i, '&ed=', ($i + $istep - 1 < $iend) ? ($i + $istep - 1) : $iend, $pa == '' ? '' : '&pa=' . $pa, '">', ($i + $istep - 4) / 4, '</a>';
+        echo  '<a href="nam240p.php?bg=', $i, '&ed=', ($i + $istep - 1 < $iend) ? ($i + $istep - 1) : $iend, $pa == '' ? '' : '&pa=' . $pa, '">', ($i + $istep - 6) / 4, '</a>';
         $i += $istep;
     }
     echo '<br/>';
