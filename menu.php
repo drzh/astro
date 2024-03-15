@@ -28,7 +28,9 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
   | <a href='/nam84.php'>NAM-84</a>
 <?php } ?>
 
-| <a href='/nam240.php'>NAM-240</a>
+| <a href='/nam84p.php'>NAM-84-P</a>
+
+| <a href='/nam240p.php'>NAM-240-P</a>
 
 | <a href='/ndfd.php'>NDFD</a>
 <br/>
@@ -69,6 +71,8 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 <?php } else { ?>
   | <a href='/eclipse2024/nam84.php'>NAM-84</a>
 <?php } ?>
+  | <a href='/nam84p.php?pa=tse2024'>NAM-84-P</a>
+  | <a href='/nam240p.php?pa=tse2024'>NAM-240-P</a>
   | <a href='/cloud.php?rg=TX&ch=GEOCOLOR&it=JPG&pa=tse2024'>Cloud</a>
 <br/>
 
