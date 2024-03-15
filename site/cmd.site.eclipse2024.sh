@@ -1,0 +1,3 @@
+#!/bin/bash
+cat /home/celaeno/other/astro/eclipse/2024/TX-sites.csv | sed '1d' | grep POINT | perl -npe 's#"POINT \(##; s#\)"##;' | perl -npe 's# #\t#; s#,#\t#' | perl -npe 's#,$#\t#g' | sort -k2,2gr | awk -F'\t' '{print "["; print "\""$3"\","; printf "%.3f,\n", $2; printf "%.3f,\n", $1; print "\"\","; print "\"\","; print "\"\","; print "\"\","; print "\"TX\""; print "],"}' | cat <(echo "<?php") <(echo "\$pos = [") - <(echo "]") <(echo "?>") > site.eclipse2024.php
+cat /home/celaeno/other/astro/eclipse/2024/TX-sites.csv | sed '1d' | grep POINT | perl -npe 's#"POINT \(##; s#\)"##;' | perl -npe 's# #\t#; s#,#\t#' | perl -npe 's#,$#\t#g' | awk -F'\t' -vOFS='\t' '{printf "%s\t%.3f\t%.3f\n",$3,$1,$2}' > site.eclipse2024.pos
