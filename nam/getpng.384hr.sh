@@ -2,6 +2,10 @@
 
 # Download the NAM 384-hour forecast png from https://weather.cod.edu/forecast/
 
+dir='png.384'
+
+cd $dir
+
 urlmod='https://weather.cod.edu/forecast/assets/php/scripts/mkzip.php?parms=YYYYMMDDHH-GFS-US-prec-cloud-0-384'
 
 # Get the current date and time in UTC
@@ -24,7 +28,6 @@ while [ ! -d png.$date$hour ] && [ $n -lt $nmax ]; do
         # Remove all other directories 'png.*'
         rm -rf png.*
         unzip tmp.zip -d png.$date$hour
-        rm tmp.zip
         # If 'current' exists, remove it
         if [ -f current ]; then
             rm current
@@ -33,9 +36,12 @@ while [ ! -d png.$date$hour ] && [ $n -lt $nmax ]; do
         ln -s png.$date$hour current
         break
     fi
+    rm tmp.zip
     # Minus 6 hour from the datehour
     date=$(date -u -d "$date $hour -6 hours" +%Y%m%d)
     hour=$(date -u -d "$date $hour -6 hours" +%H)
     url=$(echo $urlmod | sed "s/YYYYMMDDHH/$date$hour/g")
     n=$((n+1))
 done
+
+cd -

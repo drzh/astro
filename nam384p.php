@@ -71,7 +71,7 @@
     }
   }
 
-  echo 'Hour: ';
+  echo 'Day: ';
   $i = 1;
   $iend = 128;
   $istep = 8;
@@ -79,7 +79,7 @@
     if ($i > 1) {
       echo ' | ';
     }
-    echo  '<a href="nam384p.php?bg=', $i, '&ed=', ($i + $istep - 1 < $iend) ? ($i + $istep - 1) : $iend, $pa == '' ? '' : '&pa=' . $pa, '">', $i * 3, "-", ($i + $istep - 1) * 3, '</a>';
+    echo  '<a href="nam384p.php?bg=', $i, '&ed=', ($i + $istep - 1 < $iend) ? ($i + $istep - 1) : $iend, $pa == '' ? '' : '&pa=' . $pa, '">', ($i + $istep - 1) * 3 / 24 -1, '</a>';
     $i += $istep;
   }
   echo '<br/>';
