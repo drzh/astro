@@ -13,7 +13,7 @@ date=$(date -u +%Y%m%d)
 hour=$(date -u +%H)
 
 # Round (floor) the hour to 00, 06, 12 or 18
-hour=$(echo $hour | awk '{print int($1/6)*6}')
+hour=$(echo $hour | awk '{printf("%02d", int($1/6)*6)}')
 
 # Set max number of loops
 nmax=8
@@ -28,6 +28,7 @@ while [ ! -d png.$date$hour ] && [ $n -lt $nmax ]; do
         # Remove all other directories 'png.*'
         rm -rf png.*
         unzip tmp.zip -d png.$date$hour
+        rm tmp.zip
         # If 'current' exists, remove it
         if [ -f current ]; then
             rm current
