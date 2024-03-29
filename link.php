@@ -20,6 +20,7 @@
 <a href='https://www.wunderground.com/wundermap' target='_blank'>WUNDERMAP</a><br/>
 <a href='http://www.eldoradocountyweather.com/current/models/North-America/NAM-MISC/nam-total-cloud-cover.html' target='_blank'>48 Hour North America Cloud Cover</a><br/>
 <a href='https://weather.cod.edu/forecast/' target='_blank'>College of DuPage Weather Forcast</a><br/>
+<a href='https://home.pivotalweather.com/' target='_blank'>Pivotal Weather</a><br/>
 <a href='https://earthobservatory.nasa.gov/global-maps' target='_blank'>Global Maps of Weather Data</a><br/>
 <a href='https://www.weather.gov/Radar' target='_blank'>National Doppler Radar Map</a><br/>
 <a href='https://www.nbcdfw.com/weather/' target='_blank'>NBC interactive Doppler Radar Map</a><br/>

@@ -26,16 +26,23 @@ while [ ! -d png.$date$hour ] && [ $n -lt $nmax ]; do
     # Check if the file is empty; if not, unzip the file
     if [ -s tmp.zip ]; then
         # Remove all other directories 'png.*'
-        rm -rf png.*
-        unzip tmp.zip -d png.$date$hour
+        #rm -rf png.*
+        unzip tmp.zip -d tmp
         rm tmp.zip
-        # If 'current' exists, remove it
-        if [ -f current ]; then
-            rm current
+        # If the folder have at least 128 files, go ahead
+        if [ $(ls tmp/ | wc -l) -ge 128 ]; then
+            # If 'current' exists, remove it
+            if [ -L current ]; then
+                rm current
+            fi
+            # Recreat the symlink 'current' to the new directory
+            rm -rf png.*
+            mv tmp png.$date$hour
+            ln -s png.$date$hour current
+            break
+        else
+            rm -rf tmp
         fi
-        # Recreat the symlink 'current' to the new directory
-        ln -s png.$date$hour current
-        break
     fi
     rm tmp.zip
     # Minus 6 hour from the datehour
