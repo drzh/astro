@@ -74,17 +74,17 @@
   foreach (array_keys($stateurl) as $st) {
     echo $st, ': ';
     $i = 0;
-    $iend = 87;
-    $istep = 9;
+    $iend = 165;
+    $istep = 24;
     while ($i < $iend) {
       if ($i > 1) {
         echo ' | ';
       }
-      $atext = $i . '-' . ($i + 8);
-      if ($state == $st && $begin == $i && $end == $i + 8) {
+      $atext = $i / 24;
+      if ($state == $st && $begin == $i && $end == $i + 23) {
         echo '<div class="citem">', $atext, '</div>';
       } else {
-        echo '<a href="ndfd.php?fc=', $forc, '&st=', $st, '&bg=', $i, '&ed=', $i + 8, '">', $atext, '</a>';
+        echo '<a href="ndfd.php?fc=', $forc, '&st=', $st, '&bg=', $i, '&ed=', $i + 23, '">', $atext, '</a>';
       }
       $i += $istep;
     }
@@ -94,7 +94,11 @@
   if ($begin >= 0 && $state != '') {
     $i = $begin;
     while ($i <= $end && array_key_exists($forc, $forecast)) {
-      echo '<img src="', $forecast[$forc][1], $stateurl[$state], '/', $forc, $i / $forecast[$forc][2] + 1, '_', $stateurl[$state], '.png"><br/><br/>';
+      $pic_id = $i / $forecast[$forc][2] + 1;
+      if ($pic_id < 25 || $pic_id % 2 == 1) {
+        echo '<br/>';
+        echo '<img src="', $forecast[$forc][1], $stateurl[$state], '/', $forc, $i / $forecast[$forc][2] + 1, '_', $stateurl[$state], '.png"><br/>';
+      }
       $i += $forecast[$forc][2];
     }
   }

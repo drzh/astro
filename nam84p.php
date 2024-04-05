@@ -74,8 +74,8 @@
   echo 'Hour: ';
   $i = 1;
   $iend = 28;
-  $istep = 3;
-  while ($i < $iend) {
+  $istep = 4;
+  while ($i <= $iend) {
     if ($i > 1) {
       echo ' | ';
     }
