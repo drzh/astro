@@ -10,6 +10,29 @@ $pos = [
 "",
 "TX"
 ],
+
+[
+"3:51 - Conway",
+35.088,
+-92.421,
+"http://www.cleardarksky.com/c/ArSkyObARcsk.gif",
+"http://www.cleardarksky.com/c/ArSkyObARkey.html",
+"conway",
+"",
+"AR"
+],
+
+[
+"3:24 - Hot Spring",
+34.434,
+-93.045,
+"http://www.cleardarksky.com/c/LkHmltnARcsk.gif",
+"http://www.cleardarksky.com/c/LkHmltnARkey.html",
+"hotspring",
+"",
+"AR"
+],
+
 [
 "4:18 - Cooper Lake State Park South Sulphur Headquarters",
 33.288,

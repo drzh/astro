@@ -58,7 +58,7 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 <br/>
 
 2024 TSE: 
-<a href='/eclipse2024/index.php?st=TX'>Site</a>
+<a href='/eclipse2024/index.php?st=all'>Site</a>
   | <a href='/eclipse2024/skycover.php'>SkyCover</a>
 <?php if (file_exists('config/tgnam60.off') || file_exists('../config/tgnam60.off')) { ?>
   | <span class='del'>NAM-60</span>

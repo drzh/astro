@@ -1,0 +1,131 @@
+# Script for Eclipse Day 2019
+# Action,Date/Ref,Offset sign,Time (offset),Camera,Exposure,Aperture,ISO,MLU,Quality,Size,Incremental,Comment
+#
+########## AUDIO FILES USED IN SCRIPT HERE ##########
+#
+PLAY,C1,-,10:00.0,10_Minutes.wav, , , , , , , ,Ten Minute Reminder
+PLAY,C2,-,25:00.0,home.m4a, , , , , , , ,25 minute check focus reminder
+PLAY,C2,-,20:00.0,home.m4a, , , , , , , ,20 minute check focus reminder
+PLAY,C2,-,10:00.0,10_Minutes.wav, , , , , , , ,Ten Minute Reminder
+PLAY,C2,-,05:00.0,5MinReminderAlignScope.m4a, , , , , , , ,Five Minute Reminder
+PLAY,C2,-,01:00.0,OneMinutewFilterReminder.m4a, , , , , , , ,One Minute Reminder
+PLAY,C2,-,00:30.0,Filters_Off.wav, , , , , , , ,FILTERS OFF!!!!
+PLAY,C3,+,00:24.5,Filters_On.wav, , , , , , , ,FILTERS ON!!!!
+#
+#
+########## CAPTURE SUN PRE-C1 WITH D850-SC ##########
+#
+# Three bracketed exposures
+#
+TAKEPIC,C1,-,10:05.0,D850-SC,1/1000,7.1,100,1,RAW,None,N,D850-SC: Pre-C1 to check focus and exposure
+TAKEPIC,C1,-,10:04.0,D850-SC,1/640,7.1,100,1,RAW,None,Y,D850-SC: Pre-C1 to check focus and exposure
+TAKEPIC,C1,-,10:03.0,D850-SC,1/400,7.1,100,1,RAW,None,Y,D850-SC: Pre-C1 to check focus and exposure
+#
+#
+########## CAPTURE SUN PRE-C1 WITH D850-02 ##########
+#
+# Three bracketed exposures
+#
+TAKEPIC,C1,-,10:02.5,D850-02,1/1000,7.1,100,1,RAW,None,N,D850-02: Pre-C1 to check focus and exposure
+TAKEPIC,C1,-,10:01.5,D850-02,1/640,7.1,100,1,RAW,None,Y,D850-02: Pre-C1 to check focus and exposure
+TAKEPIC,C1,-,10:00.5,D850-02,1/400,7.1,100,1,RAW,None,Y,D850-02: Pre-C1 to check focus and exposure
+#
+#
+########## CAPTURE PARTIAL PHASES WITH D850-SC ##########
+#
+# Two exposures at each time 
+#
+# Partial stages every 5% of magnitude before C2 and after C3
+FOR,(VAR),0,5,95
+TAKEPIC,MAGPRE (VAR) ,+,00:02.0,D850-SC,1/640,7.1,100,1,RAW,None,Y,D850-SC:  Partial 1/640
+TAKEPIC,MAGPRE (VAR) ,+,00:04.0,D850-SC,1/400,7.1,100,1,RAW,None,Y,D850-SC:  Partial 1/400
+TAKEPIC,MAGPOST (VAR),+,00:02.0,D850-SC,1/640,7.1,100,1,RAW,None,Y,D850-SC:  Partial 1/640
+TAKEPIC,MAGPOST (VAR),+,00:04.0,D850-SC,1/400,7.1,100,1,RAW,None,Y,D850-SC:  Partial 1/400
+ENDFOR
+#
+#
+####==== C2 SEQUENCE FOR CHROMOSPHERE AND BAILYS BEADS WITH D850-SC ====####
+# 
+LVPSTART,C2,-,00:43.0,D850-SC, , , , , , , ,D850-SC:  Start Live View photography
+EXPMODM,C2,-,00:41.0,D850-SC, , , , , , , ,D850-SC:  Set to Manual Mode (M)
+CHGCSSL,C2,-,00:39.0,D850-SC, , ,5, , , , ,D850-SC:  Continuous shooting set to 5 fps
+#
+TAKEBST,C2,-,00:20.0,D850-SC,1/500,7.1,100,20,RAW,None,Y,D850-SC:  First burst of images before C2 (1/500)
+TAKEBST,C2,-,00:12.5,D850-SC,1/500,7.1,100,20,RAW,None,Y,D850-SC:  Second burst of images before C2 (1/500)
+TAKEBST,C2,-,00:05.0,D850-SC,1/500,7.1,100,20,RAW,None,Y,D850-SC:  Third burst of images before C2 (1/500)
+TAKEBST,C2,+,00:00.5,D850-SC,1/500,7.1,100,10,RAW,None,Y,D850-SC:  Fourth burst of images before C2 (1/500)
+#
+#
+####==== C2 SEQUENCE FOR DIAMOND RING AND BAILYS BEADS WITH D850-02 ====####
+#
+BKTDATA,7,1.0EV,u0o
+LVPSTART,C2,-,00:42.0,D850-02, , , , , , , ,D850-02: Start Live View photography
+EXPMODM,C2,-,00:40.0,D850-02, , , , , , , ,D850-02: Set on to Manual Mode (M)
+CHGCSSL,C2,-,00:38.0,D850-02, , ,5, , , , ,D850-02: Continuous shooting set to 5 fps
+SETBKT,C2,-,00:36.0,D850-02, , ,1, , , , ,D850-02: Activate bracketing
+#
+#
+# Bracket diamond ring and Baily’s Beads at C2
+TAKEBST,C2,-,00:23.5,D850-02,1/500,7.1,100,7,RAW,None,N,D850-02: First bracket of images before C2 (1/4000, 1/2000, 1/1000, 1/500, 1/250, 1/125, 1/60)
+TAKEBST,C2,-,00:20.5,D850-02,1/500,7.1,100,7,RAW,None,Y,D850-02: Second bracket of images before C2 (1/4000, 1/2000, 1/1000, 1/500, 1/250, 1/125, 1/60)
+TAKEBST,C2,-,00:17.5,D850-02,1/250,7.1,100,7,RAW,None,Y,D850-02: Third bracket of images before C2 (1/2000, 1/1000, 1/500, 1/250, 1/125, 1/60, 1/30)
+TAKEBST,C2,-,00:14.5,D850-02,1/250,7.1,100,7,RAW,None,Y,D850-02: Fourth bracket of images before C2 (1/2000, 1/1000, 1/500, 1/250, 1/125, 1/60, 1/30)
+TAKEBST,C2,-,00:11.5,D850-02,1/125,7.1,100,7,RAW,None,Y,D850-02: Fifth bracket of images before C2 (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30, 1/15)
+TAKEBST,C2,-,00:08.5,D850-02,1/125,7.1,100,7,RAW,None,Y,D850-02: Sixth bracket of images before C2 (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30, 1/15)
+TAKEBST,C2,-,00:05.5,D850-02,1/125,7.1,100,7,RAW,None,Y,D850-02: Seventh bracket of images before C2 (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30, 1/15)
+TAKEBST,C2,-,00:02.5,D850-02,1/125,7.1,100,7,RAW,None,Y,D850-02: Eighth bracket of images before C2 (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30, 1/15)
+TAKEBST,C2,+,00:01.5,D850-02,1/125,7.1,100,7,RAW,None,Y,D850-02: Ninth bracket of images before C2 (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30, 1/15)
+#
+SETBKT,C2,+,00:04.0,D850-02, , ,0, , , , ,D850-02: Deactivate bracketing
+#
+#
+####==== BRACKET SEQUENCE DURING TOTALITY WITH D850-SC ====####
+#
+RAMPUP,C2,+,00:05.0,D850-SC,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-SC:  Sequence C2 +5 sec
+RAMPUP,C2,+,00:25.0,D850-SC,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-SC:  Sequence C2 +25 sec
+RAMPUP,C2,+,00:45.0,D850-SC,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-SC:  Sequence C2 +45 sec
+RAMPUP,C3,-,01:00.0,D850-SC,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-SC:  Sequence C3 -60 sec
+RAMPUP,C3,-,00:40.0,D850-SC,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-SC:  Sequence C3 -40 sec
+RAMPUP,C3,-,00:20.0,D850-SC,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-SC:  Sequence C3 -20 sec
+TAKEBST,MAX,-,00:06.0,D850-SC,4,7.1,100,3,RAW,None,N,D850-SC:  Burst of three earthshine images at MAX
+#
+#
+####==== BRACKET SEQUENCE DURING TOTALITY WITH D850-02 ====####
+#
+RAMPUP,C2,+,00:05.5,D850-02,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-02:  Sequence C2 +5 sec
+RAMPUP,C2,+,00:25.5,D850-02,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-02:  Sequence C2 +25 sec
+RAMPUP,C2,+,00:45.5,D850-02,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-02:  Sequence C2 +45 sec
+RAMPUP,C3,-,01:05.5,D850-02,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-02:  Sequence C3 -60 sec
+RAMPUP,C3,-,00:45.5,D850-02,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-02:  Sequence C3 -40 sec
+RAMPUP,C3,-,00:25.5,D850-02,1/2000,7.1,100,0.0,RAW,None,Y,13,1.0,D850-02:  Sequence C3 -20 sec
+TAKEBST,C2,+,01:05.0,D850-02,4,7.1,100,2,RAW,None,Y,D850-02:  Burst of two earthshine images at MAX
+#
+#
+####==== C3 SEQUENCE FOR CHROMOSPHERE AND BAILYS BEADS WITH D850-SC ====####
+#
+TAKEBST,C3,-,00:00.5,D850-SC,1/500,7.1,100,10,RAW,None,Y,D850-SC:  First burst of images after C3 (1/500)
+TAKEBST,C3,+,00:05.0,D850-SC,1/500,7.1,100,20,RAW,None,Y,D850-SC:  Second burst of images after C3 (1/500)
+TAKEBST,C3,+,00:12.5,D850-SC,1/500,7.1,100,20,RAW,None,Y,D850-SC:  Third burst of images after C3 (1/500)
+TAKEBST,C3,+,00:20.0,D850-SC,1/500,7.1,100,20,RAW,None,Y,D850-SC:  Fourth burst of images after C3 (1/500)
+#
+LVPSTOP,C3,+,00:30.0,D850-SC, , , , , , , ,D850-SC:  Stop Live View photography
+#
+#
+####==== C3 SEQUENCE FOR DIAMOND RING WITH D850-02 ====####
+#
+SETBKT,C3,-,00:05.0,D850-02, , ,1, , , , ,D850-02: Activate bracketing
+#
+# Bracket diamond ring and Baily’s Beads at C3
+TAKEBST,C3,-,00:02.0,D850-02,1/125,7.1,100,7,RAW,None,Y,D850-02: First bracket of images after C3 (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30, 1/15)
+TAKEBST,C3,+,00:01.0,D850-02,1/125,7.1,100,7,RAW,None,Y,D850-02: Second bracket of images after C3 (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30, 1/15)
+TAKEBST,C3,+,00:04.0,D850-02,1/125,7.1,100,7,RAW,None,Y,D850-02: Third bracket of images after C3 (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30, 1/15)
+TAKEBST,C3,+,00:07.0,D850-02,1/125,7.1,100,7,RAW,None,Y,D850-02: Fourth bracket of images after C3 (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30, 1/15)
+TAKEBST,C3,+,00:10.0,D850-02,1/125,7.1,100,7,RAW,None,Y,D850-02: Fifth bracket of images after C3 (1/1000, 1/500, 1/250, 1/125, 1/60, 1/30, 1/15)
+TAKEBST,C3,+,00:13.0,D850-02,1/250,7.1,100,7,RAW,None,Y,D850-02: Sixth bracket of images after C3 (1/2000, 1/1000, 1/500, 1/250, 1/125, 1/60, 1/30)
+TAKEBST,C3,+,00:16.0,D850-02,1/250,7.1,100,7,RAW,None,Y,D850-02: Seventh bracket of images after C3 (1/2000, 1/1000, 1/500, 1/250, 1/125, 1/60, 1/30)
+TAKEBST,C3,+,00:19.0,D850-02,1/500,7.1,100,7,RAW,None,Y,D850-02: Eighth bracket of images after C3 (1/4000, 1/2000, 1/1000, 1/500, 1/250, 1/125, 1/60)
+TAKEBST,C3,+,00:22.0,D850-02,1/500,7.1,100,7,RAW,None,Y,D850-02: Ninth bracket of images after C3 (1/4000, 1/2000, 1/1000, 1/500, 1/250, 1/125, 1/60)
+#
+LVPSTOP,C3,+,00:27.5,D850-02, , , , , , , ,D850-02: Stop Live View
+SETBKT,C3,+,00:29.5,D850-02, , ,0, , , , ,D850-02: Deactivate bracketing
+#
