@@ -1241,6 +1241,7 @@ SATLLA-2A;50984;;437.250 ;;9600bps FSK 62.5k LoRa*;;unknown
 SATLLA-2B;50986;;437.250 ;;9600bps FSK 62.5k LoRa*;;unknown
 SATLLA-2I;56227;;437.250 ;;LoRa;;unknown
 Sathyabamasat;41600;;145.980 ;;2400bps BPSK CW;SNSAT;re-entered
+Saturn;57174;;435.790 ;;1200bps AFSK;RS43S;active
 SaudiSat-1A;26545;;436.775 ;;9600bps FSK;SASAT1-11 12;inactive
 SaudiSat-1B;26549;;436.075 ;;9600bps FSK;SASAT2-11 12;inactive
 SaudiSat-1C;27607;145.850 ;436.795 ;;FM* tone 67.0Hz;;active
