@@ -31,6 +31,16 @@ $pos = array(
     'TX'
   ),
   array(
+    "孔令华农场 (Onion Creek Ranch)",
+    32.230,
+    -96.767,
+    "http://www.cleardarksky.com/c/WxhchTXcsk.gif",
+    "http://www.cleardarksky.com/c/WxhchTXkey.html",
+    "klh",
+    "",
+    "TX"
+  ),
+  array(
     'Arm Point Park',
     32.890,
     -96.000,

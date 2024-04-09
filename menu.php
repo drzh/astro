@@ -16,8 +16,11 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
   | <a href='/skycoverus.php'>SkyCoverUS</a>
 <?php } ?>
 
+| <a href='/ndfd.php'>NDFD</a>
+<br/>
+
 <?php if (file_exists('config/tgnam60.off') || file_exists('../config/tgnam60.off')) { ?>
-  | <span class='del'>NAM-60</span>
+<span class='del'>NAM-60</span>
 <?php } else { ?>
   | <a class='alert' href='/nam60.php'>NAM-60</a>
 <?php } ?>
@@ -31,7 +34,6 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/nam84p.php'>NAM-84-P</a>
 | <a href='/nam240p.php'>NAM-240-P</a>
 | <a href='/nam384p.php'>NAM-384-P</a>
-| <a href='/ndfd.php'>NDFD</a>
 <br/>
 
 <a href='/cloud.php'>Cloud</a>
@@ -55,28 +57,6 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/radiation.php'>Radiation</a>
 | <a href='/link.php'>Links</a>
 | <a href='/about.php'>About</a>
-<br/>
-
-2024 TSE: 
-<a href='/eclipse2024/index.php?st=all'>Site</a>
-  | <a href='/eclipse2024/skycover.php'>SkyCover</a>
-<?php if (file_exists('config/tgnam60.off') || file_exists('../config/tgnam60.off')) { ?>
-  | <span class='del'>NAM-60</span>
-<?php } else { ?>
-  | <a class='alert' href='/eclipse2024/nam60.php'>NAM-60</a>
-<?php } ?>
-<?php if (file_exists('config/tgnam84.off') || file_exists('../config/tgnam84.off')) { ?>
-  | <span class='del'>NAM-84</span>
-<?php } else { ?>
-  | <a href='/eclipse2024/nam84.php'>NAM-84</a>
-<?php } ?>
-  | <a href='/nam84p.php?pa=tse2024'>NAM-84-P</a>
-  | <a href='/nam240p.php?pa=tse2024'>NAM-240-P</a>
-  | <a href='/nam384p.php?pa=tse2024'>NAM-384-P</a>
-  | <a href='/cloud.php?rg=TX&ch=GEOCOLOR&it=JPG&pa=tse2024'>Cloud</a>
-<br/>
-
-<iframe src="https://free.timeanddate.com/countdown/i94s7et5/n70/cf12/cm0/cu1/ct3/cs1/caca3a3a3/co0/cr0/ss0/caca3a3a3/cpca3a3a3/pc333/tcfff/fs100/szw320/szh135/iso2024-04-08T12:23:00/baca3a3a3" allowtransparency="true" frameborder="0" width="36" height="33"></iframe>
 <br/>
 
 <hr>
