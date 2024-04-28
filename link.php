@@ -46,6 +46,7 @@
 <a href='https://in-the-sky.org/' target='_blank'>In The Sky</a><br/>
 <a href='https://theskylive.com/' target='_blank'>The Sky Live</a><br/>
 <a href='https://cobs.si/' target='_blank'>Comet Observation Database (COBS)</a><br/>
+<a href='http://astro.vanbuitenen.nl/' target='_blank'>astro.vanbuitenen.nl</a><br/>
 <a href='https://www.cloudynights.com/' target='_blank'>Cloudy Nights</a><br/>
 <a href='http://www.skyandtelescope.com/observing/sky-at-a-glance/' target='_blank'>Sky & Telescope - This Week’s Sky At a Glance</a><br/>
 <a href='http://thecmb.org/' target='_blank'>Cosmic Microwave Background - Planck mission</a><br/>
@@ -56,6 +57,7 @@
 <a href='https://skyandtelescope.org/wp-content/plugins/observing-tools/satellite_transit/tracker.html' target='_blank'>Satellite Transit Tool</a><br/>
 <h3>Satellite</h3>
 <a href='https://celestrak.com/' target='_blank'>CelesTrak</a>
+<a href='https://in-the-sky.org/satmap_radar.php' target='_blank'>Live Map of Satellite Positions</a>
 <h3>Astrophotograph</h3>
 <a href='http://nova.astrometry.net/' target='_blank'>Astrometry.net</a><br/>
 <h3>Dark Site</h3>
