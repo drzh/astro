@@ -10,6 +10,8 @@ include("../head.php") ?>
     # Read the tsv file from the variable 'tb' in URL and display it as a table, and the color of the rows are alternating.
     if (isset($_GET['tb'])) {
         $tb = $_GET['tb'];
+        # Remove the path from the file name to avoid security issue.
+        $tb = basename($tb);
         $fh = fopen($tb, "r") or die("Cannot open file!\n");
         echo "<table class='table1'>";
         $i = 1;
@@ -25,7 +27,7 @@ include("../head.php") ?>
         echo "</table>";
     }
 
-    include('tail.php');
+    include('../tail.php');
     ?>
 </body>
 
