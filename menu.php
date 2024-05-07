@@ -17,7 +17,6 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 <?php } ?>
 
 | <a href='/ndfd.php'>NDFD</a>
-| <a href='/table/table.php?tb=C_2023_A3_Tsuchinshan-ATLA.rise_set.2024.CDT.table.txt'>Comet A3</a>
 <br/>
 
 <?php if (file_exists('config/tgnam60.off') || file_exists('../config/tgnam60.off')) { ?>
@@ -49,7 +48,6 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/radar.php'>Radar</a>
 | <a href='/daynight.php'>Night</a>
 | <a href='/planets.php'>Planets</a>
-| <a href='/table/table.php?tb=C_2023_A3_Tsuchinshan-ATLA.rise_set.2024.CDT.table.txt'>Comet A3</a>
 | <a href='/solar.php'>Solar</a>
 <br/ >
 
@@ -61,5 +59,6 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/about.php'>About</a>
 <br/>
 
+<a href='/table/table.php?tb=C_2023_A3_Tsuchinshan-ATLA.rise_set.2024.CDT.table.txt'>Comet A3</a>
 <hr>
 
