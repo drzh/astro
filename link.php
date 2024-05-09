@@ -88,11 +88,7 @@
 <a href='http://www.worldtimezone.com/' target='_blank'>World Time Zone Map</a><br/>
 <a href='http://www.worldtimezone.com/time-usa12.php' target='_blank'>US Time Zone Map</a><br/>
 <h3>Eclipse</h3>
-<a href='https://eclipse.gsfc.nasa.gov/SEgoogle/SEgoogle2001/SE2023Oct14Agoogle.html' target='_blank'>NASA 2023 Solar Eclipse</a><br/>
-<a href='http://xjubier.free.fr/en/site_pages/solar_eclipses/ASE_20231014_pg01.html' target='_blank'>Xavier M. Jubier 2023</a><br/>
-<a href='https://eclipse.gsfc.nasa.gov/SEgoogle/SEgoogle2001/SE2024Apr08Tgoogle.html' target='_blank'>NASA 2024 Solar Eclipse</a><br/>
-<a href='http://xjubier.free.fr/en/site_pages/solar_eclipses/TSE_20240408_pg01.html' target='_blank'>Xavier M. Jubier 2024</a><br/>
-<a href='https://eclipsophile.com/future-eclipses-2019-2024/' target='_blank'>Eclipsophile 2021-2026</a><br/>
+<a href='https://www.timeanddate.com/eclipse/' target='_blank'>Time and Date Eclipse Central</a><br/>
 <a href='http://xjubier.free.fr/en/site_pages/SolarEclipsesGoogleEarth.html' target='_blank'>Solar Eclipse Google Map KML Files</a><br/>
 <h3>Other</h3>
 <a href='https://brickseek.com/' target='_blank'>Inventory Checker</a><br/>
