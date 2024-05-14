@@ -63,6 +63,7 @@
 <h3>Dark Site</h3>
 <a href='http://cires.colorado.edu/Artificial-light' target='_blank'>World Atlas of Artificial Sky Brightness</a><br/>
 <a href='https://www.lightpollutionmap.info/#zoom=4&lat=4900000&lon=-10300000&layers=B0TFFFFF' target='_blank'>Light Pollution Map</a><br/>
+<a href='https://djlorenz.github.io/astronomy/lp2022/' target='_blank'>Light Pollution Atlas 2022</a><br/>
 <a href='http://darksitefinder.com/maps/world.html' target='_blank'>Dark Site Finder</a><br/>
 <h3>Meteorology</h3>
 <a href='https://cloudatlas.wmo.int' target='_blank'>WMO International Cloud Atla</a><br/>
