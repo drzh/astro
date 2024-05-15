@@ -1,0 +1,2 @@
+#!/bin/bash
+paste <(zstdcat  ~/other/astro/comet/C_2023_A3_Tsuchinshan-ATLAS.RA.DEC.rise.set.select.zst) <(zstdcat ~/other/astro/comet/C_2023_A3_Tsuchinshan-ATLAS.RA.DEC.rise.set.select.zst | awk -F'\t' '{print $10"z"}' | date -f - +%F_%T) | cut -f1,8,13 | perl -npe 's#_#\t#; s#\-##g; s#:\d\d$##; s#:##; s#rise#Rise#; s#set#Set#' | perl -npe 's%\(TsuchinshanATLAS\)%&#9732;%' > C_2023_A3_Tsuchinshan-ATLA.rise_set.2024.CDT.format
