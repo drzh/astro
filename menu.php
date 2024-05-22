@@ -17,6 +17,16 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 <?php } ?>
 
 | <a href='/ndfd.php'>NDFD</a>
+| <a href='/cloud.php'>Cloud</a>
+
+<?php if (file_exists('config/tggoes.off') || file_exists('../config/tggoes.off')) { ?>
+  | <span class='del'>GOES</span>
+<?php } else { ?>
+  | <a href='/goes.php'>GOES</a>
+<?php } ?>
+
+| <a href='/sfa.php'>SFA</a>
+| <a href='/radar.php'>Radar</a>
 <br/>
 
 <?php if (file_exists('config/tgnam60.off') || file_exists('../config/tgnam60.off')) { ?>
@@ -36,17 +46,8 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/nam384p.php'>NAM-384-P</a>
 <br/>
 
-<a href='/cloud.php'>Cloud</a>
-
-<?php if (file_exists('config/tggoes.off') || file_exists('../config/tggoes.off')) { ?>
-  | <span class='del'>GOES</span>
-<?php } else { ?>
-  | <a href='/goes.php'>GOES</a>
-<?php } ?>
-
-| <a href='/sfa.php'>SFA</a>
-| <a href='/radar.php'>Radar</a>
-| <a href='/daynight.php'>Night</a>
+<a href='/daynight.php'>Night</a>
+| <a href='/light_pollution/lp.php'>LightPollution</a>
 | <a href='/planets.php'>Planets</a>
 | <a href='/table/table.php?tb=occultation.txt'>Occultation</a>
 | <a href='/table/table.php?tb=cobs.commet.list.observed.json.txt'>Comets</a>
@@ -57,7 +58,6 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/satellite.php?sat=ALL_PRI&max=20'>Sate (Ham)</a>
 | <a href='/ham.php'>HAM</a>
 | <a href='/radiation.php'>Radiation</a>
-| <a href='/light_pollution/lp.php'>LP</a>
 | <a href='/link.php'>Links</a>
 | <a href='/about.php'>About</a>
 <br/>
