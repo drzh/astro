@@ -48,6 +48,7 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/radar.php'>Radar</a>
 | <a href='/daynight.php'>Night</a>
 | <a href='/planets.php'>Planets</a>
+| <a href='/table/table.php?tb=occultation.txt'>Occultation</a>
 | <a href='/table/table.php?tb=cobs.commet.list.observed.json.txt'>Comets</a>
 | <a href='/solar.php'>Solar</a>
 <br/ >
