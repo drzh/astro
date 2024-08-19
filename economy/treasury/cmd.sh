@@ -1,0 +1,6 @@
+#!/bin/bash
+y=`date +%Y`
+curl "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/${y}/all?field_tdr_date_value=${y}&type=daily_treasury_yield_curve&page&_format=csv" | gzip -c > data/${y}.daily_treasury_yield_curve.csv.gz
+zcat data/${y}.daily_treasury_yield_curve.csv.gz | perl -npe 's# ##g; s#"##g; s#,#\t#g; s#(\d\d)/(\d\d)/(\d\d\d\d)#$3-$1-$2#; ' | python3 /home/celaeno/script/other/convert_matrix_to_pair.py | awk -vOFS='\t' '{print $1,$3,$2}' | cat <(zcat data/all.daily_treasury_yield_curve.txt.gz) - | sort | uniq | sort -k1,1 -s | gzip -c > data/tmp.daily_treasury_yield_curve.txt.gz
+mv data/tmp.daily_treasury_yield_curve.txt.gz data/all.daily_treasury_yield_curve.txt.gz
+zcat data/all.daily_treasury_yield_curve.txt.gz | cut -f1 | sort | uniq | tail -n 300 | awk -vOFS='\t' '{print NR,$0}' | /home/celaeno/script/other/myjoin -F2 /dev/stdin <(zcat data/all.daily_treasury_yield_curve.txt.gz | awk '{if($3=="3Mo" || $3=="1Yr" || $3=="2Yr" || $3=="5Yr" || $3=="10Yr" || $3=="30Yr")print}') -m | cut -f1,3- > treasury_rate.300d.data
