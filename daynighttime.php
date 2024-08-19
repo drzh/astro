@@ -25,7 +25,7 @@ function datecolor($day1, $day2) {
 // Moon phase
 $moonphase = "<tr align='center'>";
 $moonphase .= "<td>moon phase</td>";
-$fname = 'data/moon.phase.2016_2025.CST.format';
+$fname = 'data/moon.phase.2024_2035.CST.format';
 $fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
 foreach ($days as $day) {
   $phase = "-";
@@ -34,9 +34,9 @@ foreach ($days as $day) {
     $e[1] = rtrim($e[1]);
     if ($e[0] == $day) {
       $phase = $e[1];
-      if ($phase != '-') {
-        $phase *= 100;
-      }
+      #if ($phase != '-') {
+        #$phase *= 100;
+      #}
       break;
     }
   }
@@ -62,7 +62,11 @@ foreach ($pos as $p) {
     }
     echo "</tr>", "\n";
     foreach ($event as $eve) {
-      $fname = 'data/' . $p[5] . "." . $eve . ".2016_2025.CST.format";
+      $fname = 'data/' . $p[5] . "." . $eve . ".2024_2035.CST.format";
+      if (!file_exists($fname)) {
+        echo "Cannot find file: $fname\n";
+        continue;
+      }
       $fh = fopen($fname, "r") or die("Cannot open file!\n");
       echo "<tr align='center'>";
       echo "<td valign='top'>", $eve, "</td>";
