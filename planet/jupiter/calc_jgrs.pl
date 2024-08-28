@@ -19,9 +19,9 @@ use Math::Trig;
 
 sub get_red_spot_pos {
   my ($yy, $mm) = @_;
-  my $Red_Spot_init = 50.0;
+  my $Red_Spot_init = 57.0;
   my $start_yy = 2024;
-  my $start_mm = 2;
+  my $start_mm = 7;
   my $m = ($yy - $start_yy) * 12 + $mm - $start_mm;
   my $Red_Spot = $Red_Spot_init + $m * 2.5;
   return $Red_Spot

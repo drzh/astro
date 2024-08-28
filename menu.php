@@ -58,6 +58,7 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/satellite.php?sat=ALL_PRI&max=20'>Sate (Ham)</a>
 | <a href='/ham.php'>HAM</a>
 | <a href='/radiation.php'>Radiation</a>
+| <a href='/economy.php'>Eco</a>
 | <a href='/link.php'>Links</a>
 | <a href='/about.php'>About</a>
 <br/>
