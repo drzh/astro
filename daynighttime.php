@@ -25,7 +25,7 @@ function datecolor($day1, $day2) {
 // Moon phase
 $moonphase = "<tr align='center'>";
 $moonphase .= "<td>moon phase</td>";
-$fname = 'data/moon.phase.2024_2035.CST.format';
+$fname = 'data/moon.phase.2024_2035.CDT.format';
 $fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
 foreach ($days as $day) {
   $phase = "-";
@@ -52,7 +52,7 @@ foreach ($pos as $p) {
     echo "<tr align='center'>", "\n";
     echo "<th>Day</th>", "\n";
     foreach ($days as $day) {
-      echo "<th colspan='2' bgcolor='", datecolor($today, $day), "'>", date("D, n/j", strtotime($day . " CST")), "</th>", "\n";
+      echo "<th colspan='2' bgcolor='", datecolor($today, $day), "'>", date("D, n/j", strtotime($day . " CDT")), "</th>", "\n";
     }
     echo "</tr>", "\n";
     echo "<th align='center'>Event</th>", "\n";
@@ -62,7 +62,7 @@ foreach ($pos as $p) {
     }
     echo "</tr>", "\n";
     foreach ($event as $eve) {
-      $fname = 'data/' . $p[5] . "." . $eve . ".2024_2035.CST.format";
+      $fname = 'data/' . $p[5] . "." . $eve . ".2024_2035.CDT.format";
       if (!file_exists($fname)) {
         echo "Cannot find file: $fname\n";
         continue;
@@ -78,10 +78,10 @@ foreach ($pos as $p) {
           $e[2] = rtrim($e[2]);
           if ($e[0] == $day) {
             if (strcmp($e[1], "-") != 0) {
-              $begin = date("H:i", strtotime($e[0] . $e[1] . " CST"));
+              $begin = date("H:i", strtotime($e[0] . $e[1] . " CDT"));
             }
             if (strcmp($e[2], "-") != 0) {
-              $end = date("H:i", strtotime($e[0] . $e[2] . " CST"));
+              $end = date("H:i", strtotime($e[0] . $e[2] . " CDT"));
             }
             break;
           }
