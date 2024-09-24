@@ -47,7 +47,7 @@
 <a href='https://theskylive.com/' target='_blank'>The Sky Live</a><br/>
 <a href='https://cobs.si/' target='_blank'>Comet Observation Database (COBS)</a><br/>
 <a href='http://astro.vanbuitenen.nl/' target='_blank'>astro.vanbuitenen.nl</a><br/>
-<a href='https://www.minorplanetcenter.net/data' target='_blank'></a>IAU Minor Planet Center<br/>
+<a href='https://www.minorplanetcenter.net/data' target='_blank'>IAU Minor Planet Center</a><br/>
 <a href='https://www.cloudynights.com/' target='_blank'>Cloudy Nights</a><br/>
 <a href='http://www.skyandtelescope.com/observing/sky-at-a-glance/' target='_blank'>Sky & Telescope - This Week’s Sky At a Glance</a><br/>
 <a href='http://thecmb.org/' target='_blank'>Cosmic Microwave Background - Planck mission</a><br/>
