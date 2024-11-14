@@ -26,8 +26,9 @@ function datecolor($day1, $day2) {
 $moonphase = "<tr align='center'>";
 $moonphase .= "<td>moon phase</td>";
 $fname = 'data/moon.phase.2024_2035.CDT.format';
-$fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
+#$fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
 foreach ($days as $day) {
+  $fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
   $phase = "-";
   while(! feof($fh)) {
     $e = explode("\t", fgets($fh));
@@ -39,11 +40,15 @@ foreach ($days as $day) {
       #}
       break;
     }
+    if (strcmp($e[0], $day) > 0) {
+      break;
+    }
   }
+  fclose($fh);
   $moonphase .= "<td colspan='2' bgcolor='" . datecolor($today, $day) . "'>" . $phase . "</td>";
 }
 $moonphase .= "</tr>";
-fclose($fh);
+#fclose($fh);
 
 foreach ($pos as $p) {
   echo "<h2><a href='$p[4]' target='_blank'>$p[0]</a> (<a href='http://maps.google.com/maps?q=$p[1],$p[2]' target='_blank'>$p[1], $p[2]</a>)</h2>";
