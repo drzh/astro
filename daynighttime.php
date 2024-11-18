@@ -1,5 +1,6 @@
 <?php
 
+$tz = 'America/Chicago';
 $event = array('sun', 'civil', 'nautical', 'astronomical', 'moon');
 $today = date('Ymd');
 $days = array(
@@ -57,7 +58,7 @@ foreach ($pos as $p) {
     echo "<tr align='center'>", "\n";
     echo "<th>Day</th>", "\n";
     foreach ($days as $day) {
-      echo "<th colspan='2' bgcolor='", datecolor($today, $day), "'>", date("D, n/j", strtotime($day . " CDT")), "</th>", "\n";
+      echo "<th colspan='2' bgcolor='", datecolor($today, $day), "'>", date("D, n/j", strtotime($day)), "</th>", "\n";
     }
     echo "</tr>", "\n";
     echo "<th align='center'>Event</th>", "\n";
@@ -72,31 +73,31 @@ foreach ($pos as $p) {
         echo "Cannot find file: $fname\n";
         continue;
       }
-      $fh = fopen($fname, "r") or die("Cannot open file!\n");
       echo "<tr align='center'>";
       echo "<td valign='top'>", $eve, "</td>";
       foreach ($days as $day) {
         $begin = "-";
         $end = "-";
+        $fh = fopen($fname, "r") or die("Cannot open file!\n");
         while(! feof($fh)) {
           $e = explode("\t", fgets($fh));
           $e[2] = rtrim($e[2]);
-          if ($e[0] == $day) {
+	  if ($e[0] == $day) {
             if (strcmp($e[1], "-") != 0) {
-              $begin = date("H:i", strtotime($e[0] . $e[1] . " CDT"));
+              $begin = date("H:i", strtotime($e[0] . $e[1] . " " . $tz));
             }
             if (strcmp($e[2], "-") != 0) {
-              $end = date("H:i", strtotime($e[0] . $e[2] . " CDT"));
+              $end = date("H:i", strtotime($e[0] . $e[2] . " " . $tz));
             }
             break;
           }
-        }
+	}
+	fclose($fh);
         echo "<td valign='top' bgcolor='", datecolor($today, $day), "'>", $begin, "</td>";
         echo "<td valign='top' bgcolor='", datecolor($today, $day), "'>", $end, "</td>";
         //echo "<td valign='top' bgcolor='", datecolor($day), "'>", strtotime($day), ', ', strtotime($today), ', ', (strtotime($day) - strtotime($today)) / 86400, "</td>";
       }
       echo "</tr>", "\n";
-      fclose($fh);
     }
     echo $moonphase;
     echo "</table>", "\n";
