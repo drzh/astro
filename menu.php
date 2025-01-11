@@ -32,7 +32,7 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 <?php if (file_exists('config/tgnam60.off') || file_exists('../config/tgnam60.off')) { ?>
 <span class='del'>NAM-60</span>
 <?php } else { ?>
-  | <a class='alert' href='/nam60.php'>NAM-60</a>
+<a class='alert' href='/nam60.php'>NAM-60</a>
 <?php } ?>
 
 <?php if (file_exists('config/tgnam84.off') || file_exists('../config/tgnam84.off')) { ?>
@@ -63,6 +63,5 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/about.php'>About</a>
 <br/>
 
-<a href='/table/table.php?tb=C_2023_A3_Tsuchinshan-ATLA.rise_set.2024.CDT.table.txt'>Comet A3</a>
 <hr>
 

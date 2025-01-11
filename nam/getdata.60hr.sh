@@ -16,8 +16,8 @@ echo $$ > ${LOCKFILE}
 
 url='s3://noaa-nam-pds/'
 
-cmdls='/usr/bin/aws s3 --no-sign-request ls'
-cmdcp='/usr/bin/aws s3 --no-sign-request cp'
+cmdls='/usr/local/bin/aws s3 --no-sign-request ls'
+cmdcp='/usr/local/bin/aws s3 --no-sign-request cp'
 
 wgrib2='/home/celaeno/usr/bin/wgrib2'
 

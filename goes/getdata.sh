@@ -24,8 +24,8 @@ urlall=`echo $url1 $url2`
 
 # cmdls='/usr/bin/aws s3 --no-sign-request --endpoint-url https://osdc.rcc.uchicago.edu --no-verify-ssl ls'
 # cmdcp='/usr/bin/aws s3 --no-sign-request --endpoint-url https://osdc.rcc.uchicago.edu --no-verify-ssl cp'
-cmdls='/usr/bin/aws s3 --no-sign-request --no-verify-ssl ls'
-cmdcp='/usr/bin/aws s3 --no-sign-request --no-verify-ssl cp'
+cmdls='/usr/local/bin/aws s3 --no-sign-request --no-verify-ssl ls'
+cmdcp='/usr/local/bin/aws s3 --no-sign-request --no-verify-ssl cp'
 
 for f in `ls data/ | grep nc`; do
     rm data/$f
