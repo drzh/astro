@@ -1,7 +1,7 @@
 <?php
 
-#$state = '';
-$state='TX';
+$state = '';
+#$state='TX';
 if (isset($_GET['st'])) {
   $state = $_GET['st'];
 }
