@@ -62,10 +62,11 @@
 <h3>Astrophotograph</h3>
 <a href='http://nova.astrometry.net/' target='_blank'>Astrometry.net</a><br/>
 <h3>Dark Site</h3>
-<a href='http://cires.colorado.edu/Artificial-light' target='_blank'>World Atlas of Artificial Sky Brightness</a><br/>
-<a href='https://www.lightpollutionmap.info/#zoom=4&lat=4900000&lon=-10300000&layers=B0TFFFFF' target='_blank'>Light Pollution Map</a><br/>
-<a href='https://djlorenz.github.io/astronomy/lp2022/' target='_blank'>Light Pollution Atlas 2022</a><br/>
-<a href='http://darksitefinder.com/maps/world.html' target='_blank'>Dark Site Finder</a><br/>
+<a href='https://www.depts.ttu.edu/phas/News_and_Events/3RR.php' target='_blank'>3RF - TTUS 3RR Star Parties</a><br/>
+<a href='http://cires.colorado.edu/Artificial-light' target='_blank'>World Atlas of Artificial Sky Brightness (2016)</a><br/>
+<a href='https://www.lightpollutionmap.info/#zoom=4&lat=4900000&lon=-10300000&layers=B0TFFFFF' target='_blank'>Light Pollution Map (2015)</a><br/>
+<a href='https://djlorenz.github.io/astronomy/lp/' target='_blank'>Light Pollution Atlas (2024)</a><br/>
+<a href='http://darksitefinder.com/maps/world.html' target='_blank'>Dark Site Finder (2022)</a><br/>
 <h3>Meteorology</h3>
 <a href='https://cloudatlas.wmo.int' target='_blank'>WMO International Cloud Atla</a><br/>
 <a href='https://cloudappreciationsociety.org/' target='_blank'>The Cloud Appreciation Society</a><br/>

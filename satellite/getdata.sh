@@ -14,7 +14,7 @@ for s in `cat satellite.list | sed 's# #+#g'`; do
     ../format_table_to_tsv.pl sat.${newf}.ori.html > sat.${newf}.table.tsv
 done
 
-cat *tsv | head -n1 > sat.ALL.table.tsv
+cat `ls *tsv | grep -v ALL` | head -n1 > sat.ALL.table.tsv
 cat *tsv | grep -v Date | sort -k2,3 >> sat.ALL.table.tsv
 cat sat.ALL.table.tsv | head -n1 > sat.ALL_PRI.table.tsv
 for s in `cat ../priority.list | grep -v ALL`; do f="sat.${s}.table.tsv" ; if [ -e $f ]; then cat $f; fi ; done | grep -v Date | sort -k2,3 >> sat.ALL_PRI.table.tsv
