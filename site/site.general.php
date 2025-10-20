@@ -17,7 +17,17 @@ $pos = array(
     'http://www.cleardarksky.com/c/AtokaOKcsk.gif',
     'http://www.cleardarksky.com/c/AtokaOKkey.html',
     'atoka',
-    'http://forecast.weather.gov/meteograms/Plotter.php?lat=32.8705&lon=-96.7566&wfo=FWD&zcode=TXZ119&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=2!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
+    'http://forecast.weather.gov/meteograms/Plotter.php?lat=34.186&lon=-96.14&wfo=OUN&zcode=OKZ048&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
+    'TX'
+  ),
+  array(
+    'LBJ National Grasslands',
+    33.366,
+    -97.583,
+    'http://www.cleardarksky.com/c/LBJGrssldTXcsk.gif',
+    'http://www.cleardarksky.com/c/LBJGrssldTXkey.html',
+    'lbjgl',
+    'http://forecast.weather.gov/meteograms/Plotter.php?lat=33.366&lon=-97.583&wfo=FWD&zcode=TXZ119&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
     'TX'
   ),
   array(
