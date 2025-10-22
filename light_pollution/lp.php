@@ -61,7 +61,7 @@
   $stylepos = 'top: 0px; left: 0px; width:' . $scale[$it][$rg]['w'] . 'px; height: ' . $scale[$it][$rg]['h'] . 'px;';
   echo '<div style="position:relative; ', $stylepos, '">';
   $ran = rand(1, 1000000);
-  echo '<img src="NorthAmerica2022B-TX.png">';
+  echo '<img src="NorthAmerica2024B-TX.png">';
   echo '<svg style="position:absolute; ', $stylepos, '" onload="init(evt)">';
   // plot path
   foreach ($paths as $path) {

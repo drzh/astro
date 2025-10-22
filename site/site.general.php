@@ -26,7 +26,7 @@ $pos = array(
     -97.700,
     'http://www.cleardarksky.com/c/MrdnSPTXcsk.gif',
     'http://www.cleardarksky.com/c/MrdnSPTXkey.html',
-    'lbjgl',
+    'mrdnsp',
     'http://forecast.weather.gov/meteograms/Plotter.php?lat=31.889&lon=-97.700&wfo=FWD&zcode=TXZ119&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
     'TX'
   ),
@@ -51,13 +51,13 @@ $pos = array(
     'TX'
   ),
   array(
-    "孔令华农场 (Onion Creek Ranch)",
+    "KLH Onion Creek Ranch",
     32.230,
     -96.767,
     "http://www.cleardarksky.com/c/WxhchTXcsk.gif",
     "http://www.cleardarksky.com/c/WxhchTXkey.html",
     "klh",
-    "",
+    'http://forecast.weather.gov/meteograms/Plotter.php?lat=32.230&lon=-96.767&wfo=FWD&zcode=TXZ119&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
     "TX"
   ),
   array(
