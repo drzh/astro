@@ -32,12 +32,12 @@ $pos = array(
   ),
   array(
     'LBJ National Grasslands',
-    33.366,
-    -97.583,
+    33.385,
+    -97.571,
     'http://www.cleardarksky.com/c/LBJGrssldTXcsk.gif',
     'http://www.cleardarksky.com/c/LBJGrssldTXkey.html',
     'lbjgl',
-    'http://forecast.weather.gov/meteograms/Plotter.php?lat=33.366&lon=-97.583&wfo=FWD&zcode=TXZ119&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
+    'http://forecast.weather.gov/meteograms/Plotter.php?lat=33.385&lon=-97.571&wfo=FWD&zcode=TXZ119&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
     'TX'
   ),
   array(
