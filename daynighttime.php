@@ -1,7 +1,7 @@
 <?php
 
 $tz = 'America/Chicago';
-$event = array('sun', 'civil', 'nautical', 'astronomical', 'moon');
+$event = array('sun', 'civil', 'nautical', 'astronomical', 'moon', 'moon_phase');
 $today = date('Ymd');
 $days = array(
   $today,
@@ -23,32 +23,32 @@ function datecolor($day1, $day2) {
   }
 }
 
-// Moon phase
-$moonphase = "<tr align='center'>";
-$moonphase .= "<td>moon phase</td>";
-$fname = 'data/moon.phase.2024_2035.CDT.format';
-#$fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
-foreach ($days as $day) {
-  $fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
-  $phase = "-";
-  while(! feof($fh)) {
-    $e = explode("\t", fgets($fh));
-    $e[1] = rtrim($e[1]);
-    if ($e[0] == $day) {
-      $phase = $e[1];
-      #if ($phase != '-') {
-        #$phase *= 100;
-      #}
-      break;
-    }
-    if (strcmp($e[0], $day) > 0) {
-      break;
-    }
-  }
-  fclose($fh);
-  $moonphase .= "<td colspan='2' bgcolor='" . datecolor($today, $day) . "'>" . $phase . "</td>";
-}
-$moonphase .= "</tr>";
+#// Moon phase
+#$moonphase = "<tr align='center'>";
+#$moonphase .= "<td>moon phase</td>";
+#$fname = 'data/moon.phase.2024_2035.CDT.format';
+##$fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
+#foreach ($days as $day) {
+  #$fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
+  #$phase = "-";
+  #while(! feof($fh)) {
+    #$e = explode("\t", fgets($fh));
+    #$e[1] = rtrim($e[1]);
+    #if ($e[0] == $day) {
+      #$phase = $e[1];
+      ##if ($phase != '-') {
+        ##$phase *= 100;
+      ##}
+      #break;
+    #}
+    #if (strcmp($e[0], $day) > 0) {
+      #break;
+    #}
+  #}
+  #fclose($fh);
+  #$moonphase .= "<td colspan='2' bgcolor='" . datecolor($today, $day) . "'>" . $phase . "</td>";
+#}
+#$moonphase .= "</tr>";
 #fclose($fh);
 
 foreach ($pos as $p) {
@@ -82,17 +82,27 @@ foreach ($pos as $p) {
         while(! feof($fh)) {
           $e = explode("\t", fgets($fh));
           $e[2] = rtrim($e[2]);
-	  if ($e[0] == $day) {
+	        if ($e[0] == $day) {
             if (strcmp($e[1], "-") != 0) {
-              $begin = date("H:i", strtotime($e[0] . $e[1] . " " . $tz));
+              # Check If $e[1] is four digits integer
+              if (strlen($e[1]) == 4 && ctype_digit($e[1])) {
+                $begin = date("H:i", strtotime($e[0] . $e[1] . " " . $tz));
+              } else {
+                $begin = $e[1];
+              }
             }
             if (strcmp($e[2], "-") != 0) {
-              $end = date("H:i", strtotime($e[0] . $e[2] . " " . $tz));
+              # Check If $e[2] is four digits integer
+              if (strlen($e[2]) == 4 && ctype_digit($e[2])) {
+                $end = date("H:i", strtotime($e[0] . $e[2] . " " . $tz));
+              } else {
+                $end = $e[2];
+              }
             }
             break;
           }
-	}
-	fclose($fh);
+	      }
+	      fclose($fh);
         echo "<td valign='top' bgcolor='", datecolor($today, $day), "'>", $begin, "</td>";
         echo "<td valign='top' bgcolor='", datecolor($today, $day), "'>", $end, "</td>";
         //echo "<td valign='top' bgcolor='", datecolor($day), "'>", strtotime($day), ', ', strtotime($today), ', ', (strtotime($day) - strtotime($today)) / 86400, "</td>";
