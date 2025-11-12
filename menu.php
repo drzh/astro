@@ -51,7 +51,6 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/planets.php'>Planets</a>
 | <a href='/table/table.php?tb=occultation.txt'>Occultation</a>
 | <a href='/table/table.php?tb=cobs.commet.list.observed.json.txt'>Comets</a>
-- <a href='/table/table.php?tb=C_2025_A6_Lemmon.rise_set.2025.CDT.table.txt'>A6</a>
 | <a href='/solar.php'>Solar</a>
 <br/ >
 

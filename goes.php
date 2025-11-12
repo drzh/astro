@@ -47,8 +47,9 @@ if ($st != '' && $ch != '') {
   }
   foreach ($chs as $c) {
     $fname = $st . '.' . $c . '.png';
+    $rand = rand(100, 999);
     echo $st, ' ', $c, '<br/>';
-    echo '<img src="goes/data/', $fname, '"><br/>';
+    echo '<img src="goes/data/', $fname, '?=', $rand, '"><br/>';
   }
 }
 

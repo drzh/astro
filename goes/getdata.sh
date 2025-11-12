@@ -18,7 +18,7 @@ url1='s3://noaa-goes16/ABI-L2-CMIPC/'
 #url2='s3://noaa-goes16/ABI-L2-CMIPF/'
 
 # chs=`echo 02 04 07 09 13 15`
-chs=`echo 02 15`
+chs=`echo 02 14`
 
 urlall=`echo $url1 $url2`
 
