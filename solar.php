@@ -24,3 +24,7 @@ foreach ($imgurl as $title => $url) {
 
 ?>
 </td></tr>
+</table>
+<?php include('tail.php'); ?>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<?php include("head.php"); ?>
+<body>
+<?php include('menu.php'); ?>
+<table>
+<tr style='vertical-align:top'><td>
+<h2>Aurora Forecast - 3 Days</h2>
+<pre>
+<?php include('sun/aurora.3day.txt'); ?>
+</pre>
+<?php
+$imgurl = [
+    'Aurora Forecast - Tonight' => ['https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png', 'https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png', 512, 512],
+    'Aurora Forecast - 30 mins' => ['https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg', 'https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg', 512, 512],
+    'LASCO C2' => ['https://soho.nascom.nasa.gov/data/realtime/c2/512/latest.jpg', 'https://soho.nascom.nasa.gov/data/realtime/c2/1024/latest.jpg', 512, 512],
+    'LASCO C3' => ['https://soho.nascom.nasa.gov/data/realtime/c3/512/latest.jpg', 'https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg', 512, 512],
+];
+
+$ran = rand(1,1000);
+
+foreach ($imgurl as $title => $url) {
+    echo "<h2>$title</h2>";
+    echo "<a href='$url[1]?=$ran' target='_blank'><img width='$url[2]' height='$url[3]' src='$url[0]?=$ran' alt='$title' /></a>";
+}
+
+?>
+</td></tr>
+</table>
+<?php include('tail.php'); ?>
+</body>
+</html>
