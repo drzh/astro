@@ -52,7 +52,7 @@ echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
 | <a href='/table/table.php?tb=occultation.txt'>Occultation</a>
 | <a href='/table/table.php?tb=cobs.commet.list.observed.json.txt'>Comets</a>
 | <a href='/aurora.php'>Aurora</a>
-| <a href='/solar.php'>Solar</a>
+| <a href='/solar.php'>Sun</a>
 <br/ >
 
 <a href='/satellite_ha.php?sat=All&mag=3&max=20'>Sate (Vis)</a>
