@@ -34,7 +34,8 @@
 <a href='https://7timer.info/' target='_blank'>7timer - 晴天钟</a><br/>
 <h3>Space Weather</h3>
 <a href='http://www.solarham.net/' target='_blank'>SolarHam</a><br/>
-<a href='http://spaceweather.com/' target='_blank'>Spaceweather</a><br/>
+<a href='http://spaceweather.com/' target='_blank'>Spaceweather.com</a><br/>
+<a href='https://www.spaceweather.gov/' target='_blank'>Spaceweather.gov</a><br/>
 <a href='https://www.swpc.noaa.gov/products/3-day-forecast'/' target='_blank'>NOAA Geomagnetic Activity 3-Day Forecast</a><br/>
 <a href='https://www.swpc.noaa.gov/products/aurora-30-minute-forecast' target='_blank'>NOAA Aurora 30 Minute Forecast</a><br/>
 <h3>Astronomy</h3>

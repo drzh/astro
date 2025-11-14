@@ -6,18 +6,12 @@
 <table>
 <tr style='vertical-align:top'><td>
 <?php
-$rsl = '256';
-$rsl_link = '1024';
-$imgurlbase1 = 'http://sdo.gsfc.nasa.gov/assets/img/latest/latest_';
 $imgurl = [
     'AIA 304' => ['sun/AIAsynoptic0304.full.png', 'sun/AIAsynoptic0304.full.png', 256, 256],
-    'HMI Continuum' => [$imgurlbase1 . $rsl . '_HMIIC.jpg', $imgurlbase1 . $rsl_link . '_HMIIC.jpg', 256, 256],
-    'AIA 304 &Aring / 50,000 K / Transition region / Chromosphere' => [$imgurlbase1 . $rsl . '_0304.jpg', $imgurlbase1 . $rsl_link . '_0304.jpg', 256, 256],
-    #'AIA 193 &Aring / 1 millon K / Corona / Flare plasma' => [$imgurlbase1 . $rsl . '_0193.jpg', $imgurlbase1 . $rsl_link . '_0193.jpg'],
-    #'AIA 131 &Aring / 10 millon K / Flaring region' => [$imgurlbase1 . $rsl . '_0131.jpg', $imgurlbase1 . $rsl_link . '_0131.jpg'],
-    'LASCO C2' => ['https://soho.nascom.nasa.gov/data/realtime/c2/1024/latest.jpg', 'https://soho.nascom.nasa.gov/data/realtime/c2/1024/latest.jpg', 256, 256],
-    'LASCO C3' => ['https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg', 'https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg', 256, 256],
-    'Aurora Forecast' => ['https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png', 'https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png', 256, 256],
+    'HMI Continuum' => ['https://soho.nascom.nasa.gov/data/realtime/hmi_igr/512/latest.jpg', 'https://soho.nascom.nasa.gov/data/realtime/hmi_igr/1024/latest.jpg', 256, 256],
+    'AIA 304 &Aring / 50,000 K / Transition region / Chromosphere' => ['https://soho.nascom.nasa.gov/data/realtime/eit_304/512/latest.jpg', 'https://soho.nascom.nasa.gov/data/realtime/eit_304/1024/latest.jpg', 256, 256],
+    'LASCO C2' => ['https://soho.nascom.nasa.gov/data/realtime/c2/512/latest.jpg', 'https://soho.nascom.nasa.gov/data/realtime/c2/1024/latest.jpg', 256, 256],
+    'LASCO C3' => ['https://soho.nascom.nasa.gov/data/realtime/c3/512/latest.jpg', 'https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg', 256, 256],
     'Solar Cycle Sunspot Number Progression' => ['https://helioforecast.space//static/sync/icme_solar_cycle/cycle25_prediction_focus.png', 'https://helioforecast.space//static/sync/icme_solar_cycle/cycle25_prediction_focus.png', 450, 225],
 ];
 
