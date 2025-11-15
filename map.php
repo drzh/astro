@@ -7,7 +7,9 @@
 <tr style='vertical-align:top'><td>
 <?php
 $imgurl = [
-    'World Magnetic Model - Epoch 2025.0 Main Field Inclination (I)' => ['map/World_Magnetic_Model_Epoch_2025.0_Main_Field_Inclination.png', 'map/World_Magnetic_Model_Epoch_2025.0_Main_Field_Inclination.png', 518, 432]
+    'World Magnetic Model - Epoch 2020.0 Geomagnetic Coordinates' => ['map/Geomagnetic_Coordinates.jpg', 'map/Geomagnetic_Coordinates.jpg', 777, 648],
+    'World Magnetic Model - Epoch 2025.0 Main Field Inclination (I)' => ['https://www.ncei.noaa.gov/sites/g/files/anmtlf171/files/inline-images/I.jpg', 'https://www.ncei.noaa.gov/sites/g/files/anmtlf171/files/inline-images/I.jpg', 691, 576],
+    'World Magnetic Model - Epoch 2025.0 Main Field Declination (D)' => ['https://www.ncei.noaa.gov/sites/g/files/anmtlf171/files/inline-images/D.jpg', 'https://www.ncei.noaa.gov/sites/g/files/anmtlf171/files/inline-images/D.jpg', 691, 576],
 ];
 
 $ran = rand(1,1000);
