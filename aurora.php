@@ -3,16 +3,19 @@
 <?php include("head.php"); ?>
 <body>
 <?php include('menu.php'); ?>
+<?php include('libtable.php'); ?>
 <table>
 <tr style='vertical-align:top'><td>
 <h2>Aurora Forecast - 3 Days</h2>
-<pre>
-<?php include('sun/aurora.3day.txt'); ?>
-</pre>
 <?php
+$filename = 'sun/aurora.3day.tsv';
+display_table_from_tsv($filename);
+echo "<br/>";
+
 $imgurl = [
     'Aurora Forecast - Tonight' => ['https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png', 'https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png', 512, 512],
     'Aurora Forecast - 30 mins' => ['https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg', 'https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg', 512, 512],
+    'GOES19 CCOR-1' => ['https://services.swpc.noaa.gov/images/animations/ccor1/latest.jpg', 'https://services.swpc.noaa.gov/images/animations/ccor1/latest.jpg', 512, 512],
     'LASCO C2' => ['https://soho.nascom.nasa.gov/data/realtime/c2/512/latest.jpg', 'https://soho.nascom.nasa.gov/data/realtime/c2/1024/latest.jpg', 512, 512],
     'LASCO C3' => ['https://soho.nascom.nasa.gov/data/realtime/c3/512/latest.jpg', 'https://soho.nascom.nasa.gov/data/realtime/c3/1024/latest.jpg', 512, 512],
 ];

@@ -16,7 +16,7 @@ $ran = rand(1,1000);
 
 foreach ($imgurl as $title => $url) {
     echo "<h2>$title</h2>";
-    echo "<a href='$url[1]?=$ran' target='_blank'><img width='$url[2]' height='$url[3]' src='$url[0]?=$ran' alt='$title' /></a>";
+    echo "<a href='$url[1]' target='_blank'><img width='$url[2]' height='$url[3]' src='$url[0]' alt='$title' /></a>";
 }
 
 ?>
