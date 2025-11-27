@@ -48,7 +48,7 @@ if fsites != '-':
     for fsite in fsites.split(','):
         with open(fsite) as f:
             for line in f:
-                name, lon, lat = line.strip('\n').split('\t')
+                name, lat, lon = line.strip('\n').split('\t')
                 lon, lat = bmap(float(lon), float(lat))
                 bmap.plot(lon, lat, '+', markersize=2, color='r')
 
@@ -59,7 +59,7 @@ if fpaths != '-':
     for fpath in fpaths.split(','):
         with open(fpath) as f:
             for line in f:
-                name, lon, lat = line.strip().split('\t')
+                name, lat, lon = line.strip().split('\t')
                 lon, lat = bmap(float(lon), float(lat))
                 if name not in lons:
                     lons[name] = []

@@ -58,7 +58,7 @@ sub process {
     foreach my $s (@site) {
 	    #if ($arr =~ /'(.+?)',(\s*)(\S+?),(\s*)(\S+?),/) {
 	    #my ($site, $lat, $long) = ($1, $3, $5);
-      my ($site, $long, $lat) = @{$s};
+      my ($site, $lat, $long) = @{$s};
       print '/home/celaeno/usr/bin/wgrib2 ', $filed, ' -lon ', $long, ' ', $lat, ' | perl -npe \'s#.*,val=(\d+).*#$1#\' > tmp.val', "\n";
       print 'paste tmp.time tmp.val | awk \'{print "', $site, '\t"$0}\' >> ', $fileotmp, "\n";
 	#}

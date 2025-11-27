@@ -66,8 +66,8 @@ for f in `echo $fs`; do
     # For each site in the site.pos (place, long, lat seperated by '\t') file, extract the 'TCDC' data from the grib2 file
     for s in `cat site.pos | perl -npe 's#\t#|#g; s# #_#g'`; do
         place=`echo $s | cut -f1 -d'|' | perl -npe 's#_# #g'`
-        lon=`echo $s | cut -f2 -d'|'`
-        lat=`echo $s | cut -f3 -d'|'`
+        lat=`echo $s | cut -f2 -d'|'`
+        lon=`echo $s | cut -f3 -d'|'`
         echo -ne "$place\t$newtime\t" >> $outfile_tmp
         ${wgrib2} -s data.60/$f | grep ':TCDC:' | ${wgrib2} -i data.60/$f -lon ${lon} ${lat} | perl -npe 's#.*,val=(\d+).*#$1#' >> $outfile_tmp
     done
