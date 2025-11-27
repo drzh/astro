@@ -1,9 +1,9 @@
 <?php
 # Read the tsv file from the variable
-function display_table_from_tsv($para_tb) {
-    if (isset($para_tb)) {
+function display_table_from_tsv($tb = '', $display_date = 0) {
+    if (isset($tb)) {
         # Remove the path from the file name to avoid security issue.
-        $fh = fopen($para_tb, "r") or die("Cannot open file!\n");
+        $fh = fopen($tb, "r") or die("Cannot open file!\n");
         echo "<table class='table1'>";
         $i = 1;
         while (!feof($fh)) {
@@ -20,6 +20,12 @@ function display_table_from_tsv($para_tb) {
             $i = $i + 1;
         }
         echo "</table>\n";
+        fclose($fh);
+        
+        if ($display_date == 1) {
+            $lastUpdated = filemtime($tb);
+            echo "<small class='smalltext1'>Last Updated: " . date("Y-m-d H:i:s", $lastUpdated) . "</small>\n";
+        }
     }
 }
 

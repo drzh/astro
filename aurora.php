@@ -6,10 +6,10 @@
 <?php include('libtable.php'); ?>
 <table>
 <tr style='vertical-align:top'><td>
-<h2>Aurora Forecast - 3 Days</h2>
 <?php
+echo "<h2>Aurora Forecast - 3 Days</h2>";
 $filename = 'sun/aurora.3day.tsv';
-display_table_from_tsv($filename);
+display_table_from_tsv($filename, 1);
 echo "<br/>";
 
 $imgurl = [
@@ -27,6 +27,12 @@ foreach ($imgurl as $title => $url) {
     echo "<h2>$title</h2>";
     echo "<a href='$url[1]?=$ran' target='_blank'><img width='$url[2]' height='$url[3]' src='$url[0]?=$ran' alt='$title' /></a>";
 }
+
+echo "<br/>";
+echo "<h2>Geomagnetic Latitude</h2>";
+$filename = 'sun/site.geomag.pos.lat.tsv';
+display_table_from_tsv($filename, 1);
+echo "<br/>";
 
 ?>
 </td></tr>

@@ -189,6 +189,12 @@ pre {
     fill: #000000;
 }
 
+.smalltext1 {
+    font-size: 12px;
+    # Add some margin to separate from other elements
+    margin-top: 15px;
+}
+
 .table1 {
     border-collapse: collapse;
     border: 1px solid;
