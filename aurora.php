@@ -13,6 +13,7 @@ display_table_from_tsv($filename);
 echo "<br/>";
 
 $imgurl = [
+    'Aurora Forecast - 3 Days' => ['https://spaceweather.gfz.de/fileadmin/SW-Monitor/kp_swift_ensemble_LAST.png', 'https://spaceweather.gfz.de/fileadmin/SW-Monitor/kp_swift_ensemble_LAST.png', 660, 352],
     'Aurora Forecast - Tonight' => ['https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png', 'https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png', 512, 512],
     'Aurora Forecast - 30 mins' => ['https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg', 'https://services.swpc.noaa.gov/images/animations/ovation/north/latest.jpg', 512, 512],
     'GOES19 CCOR-1' => ['https://services.swpc.noaa.gov/images/animations/ccor1/latest.jpg', 'https://services.swpc.noaa.gov/images/animations/ccor1/latest.jpg', 512, 512],

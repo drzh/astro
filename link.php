@@ -36,8 +36,14 @@
 <a href='http://www.solarham.net/' target='_blank'>SolarHam</a><br/>
 <a href='http://spaceweather.com/' target='_blank'>Spaceweather.com</a><br/>
 <a href='https://www.spaceweather.gov/' target='_blank'>Spaceweather.gov</a><br/>
-<a href='https://www.swpc.noaa.gov/products/3-day-forecast'/' target='_blank'>NOAA Geomagnetic Activity 3-Day Forecast</a><br/>
+<a href='https://www.swpc.noaa.gov/products/3-day-forecast/' target='_blank'>NOAA Geomagnetic Activity 3-Day Forecast</a><br/>
 <a href='https://www.swpc.noaa.gov/products/aurora-30-minute-forecast' target='_blank'>NOAA Aurora 30 Minute Forecast</a><br/>
+<a href='https://www.spaceweather.gov/communities/space-weather-enthusiasts-dashboard' target='_blank'>NOAA Space Weather Enthusiasts Dashboard</a><br/>
+<h3>Astronomy</h3>
+<a href='http://calsky.com/' target='_blank'>CalSKY</a><br/>
+<a href='http://www.heavens-above.com/' target='_blank'>Heavens-Above</a><br/>
+<a href='http://www.tonightssky.com' target='_blank'>Tonight's Sky</a><br/>
+<a href='https://telescopius.com/' target='_blank'>Telescopius</a><br/>
 <h3>Astronomy</h3>
 <a href='http://calsky.com/' target='_blank'>CalSKY</a><br/>
 <a href='http://www.heavens-above.com/' target='_blank'>Heavens-Above</a><br/>

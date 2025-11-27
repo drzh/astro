@@ -18,7 +18,7 @@ $pos = array(
     'http://www.cleardarksky.com/c/AtokaOKkey.html',
     'atoka',
     'http://forecast.weather.gov/meteograms/Plotter.php?lat=34.186&lon=-96.14&wfo=OUN&zcode=OKZ048&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
-    'TX'
+    'OK'
   ),
   array(
     'Meridian State Park',
@@ -49,6 +49,16 @@ $pos = array(
     'hagerman',
     'http://forecast.weather.gov/meteograms/Plotter.php?lat=33.739&lon=-96.752&wfo=FWD&zcode=TXZ119&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
     'TX'
+  ),
+  array(
+    'Juniper Point Recreation Area, Oklahoma',
+    35.043,
+    -95.666,
+    '',
+    '',
+    'juniper',
+    'http://forecast.weather.gov/meteograms/Plotter.php?lat=35.043&lon=-95.666&wfo=TSA&zcode=OKZ073&gset=18&gdiff=3&unit=0&tinfo=CY6&ahour=0&pcmd=00000111000000000000000000000000000000000000000000000000000&lg=en&indu=1!1!1!&dd=&bw=&hrspan=48&pqpfhr=6&psnwhr=6',
+    'OK'
   ),
   array(
     "KLH Onion Creek Ranch",
