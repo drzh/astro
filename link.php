@@ -36,6 +36,8 @@
 <a href='http://www.solarham.net/' target='_blank'>SolarHam</a><br/>
 <a href='http://spaceweather.com/' target='_blank'>Spaceweather.com</a><br/>
 <a href='https://www.spaceweather.gov/' target='_blank'>Spaceweather.gov</a><br/>
+<a href='https://farside.nso.edu/' target='_blank'>CONG Farside Images of The Sun</a><br/>
+<a href='http://jsoc.stanford.edu/data/farside/' target='_blank'>SDO Farside Images of The Sun</a><br/>
 <a href='https://www.swpc.noaa.gov/products/3-day-forecast/' target='_blank'>NOAA Geomagnetic Activity 3-Day Forecast</a><br/>
 <a href='https://www.swpc.noaa.gov/products/aurora-30-minute-forecast' target='_blank'>NOAA Aurora 30 Minute Forecast</a><br/>
 <a href='https://www.spaceweather.gov/communities/space-weather-enthusiasts-dashboard' target='_blank'>NOAA Space Weather Enthusiasts Dashboard</a><br/>
