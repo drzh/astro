@@ -4,6 +4,7 @@
 <body>
 <?php
 require 'menu.php';
+include('libtable.php');
 
 $maxurl = 20;
 $eleurl = 15;
