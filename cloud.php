@@ -31,6 +31,9 @@
   if ($rg == '') {
     $rg = 'TX';
   }
+  if ($ch == '') {
+    $ch = 'GEOCOLOR';
+  }
   if ($it == '') {
     $it = 'JPG';
   }
