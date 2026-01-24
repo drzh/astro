@@ -542,7 +542,7 @@ CUTE1.7+APDII;32785;1267.600 ;437.475 ;;9600bps GMSK;JQ1YTC;inactive
 CU-Alpha;66908;;437.400 ;;LoRa;;unknown
 CXBN;38762;;437.525 ;;9600bps GFSK;;inactive
 CXBN-2;42704;;437.075 ;;9600bps FSK;;re-entered
-CyBEEsat;;;137.500 ;;1k2_GMSK;;to be launched
+CyBEEsat;;;137.500 ;;1k2_GMSK;;unknown
 CYCLOPS;53373;;436.050 ;;2400bps GMSK_USP;RS29S;re-entered
 CySat-1;61501;;436.375 ;;9600bps FSK;;inactive
 D3;53769;;437.080/2432.000;;1k2AFSK 9k6GMSK;;unknown
@@ -755,7 +755,7 @@ FO-118;54684;145.820 ;435.540 ;;VHF/UHF SSB bandwidth 30kHz;;active
 FO-118;54684;145.925 ;435.600 ;;VHF/UHF FM bandwidth 30kHz;;active
 FO-118;54684;;;435.570 ;UHF_CW;BJ1SO;active
 FO-118;54684;;435.650 ;;4k8 GMSK image data;CAS5A;active
-FRAMSAT-1;;;435.141 ;;9k6_FSK;;to be launched
+FRAMSAT-1;;;435.141 ;;9k6_FSK;;unknown
 Fram2;63427;;437.550 ;;FM SSTV;;re-entered
 FSI-SAT;;;437.175 ;437.175 ;1k2AFSK 9k6GMSK SSTV CW;;failure
 FSI-SAT2;;;437.175 ;437.175 ;1k2AFSK 9k6GMSK SSTV CW;;to be launched
@@ -1519,7 +1519,7 @@ Platform-1;52770;;400.360 ;;2k4/4k8*/9k6 GFSK;SS2141;re-entered
 Platform-2;55067;;401.360 ;;4800bps GFSK;;re-entered
 Platform-3;56183;;401.360 ;;4800bps GMSK;;re-entered
 Platform-5;58339;;401.360/2277.500;;4800bps GMSK;PL0005;re-entered
-Platform-6;;;401.360 ;;4k8_GMSK;;to be launched
+Platform-6;;;401.360 ;;4k8_GMSK;;unknown
 Pleiades-Orpheus;;;437.400 ;;LoRa;;unknown
 Pocket-PUCP;;;437.200 ;437.200 ;1200bps AFSK CW;;inactive
 POEM-4;62461;145.825 ;145.870 ;;1k2AFSK FM APRS SSTV;;re-entered
@@ -1756,7 +1756,7 @@ Shaonian-Xing;43199;;;436.370 ;9600bps BPSK;MXSAT;active
 Shaggy;64566;;401.100/402.790/2200.500;;4800bps GMSK FM;HUBBLE4;inactive
 SharjahSat-1;55104;;437.325/2405.000;;256/1k2/9k6* GMSK;A60UOS;active
 SHERPA-AC1;52763;;;400.500/400.481;FM CW;;inactive
-SHILDS-1;43850;;400.250 ;;9600bps GFSK;SHIELD;active
+SHIELDS-1;43850;;400.250 ;;9600bps GFSK;SHIELD;active
 ShindaiSat;39572;;437.305 ;437.485 ;1200bps AFSK CW;JR0ZST;re-entered
 SHIN'EN2;40320;145.940-145.960;435.280-435.260;437.385/437.505;SSB WSJT/CW;JG6YIG;deep space
 SibSU;53382;;435.380 ;;2k4/9k6*/19k2 GMSK_USP;RS8S;re-entered
@@ -1888,6 +1888,7 @@ SPACEANT-D;58290;;437.425 ;;1200bps GFSK;;inactive
 SpaceCube;42717;145.860 ;436.880 ;;1200bps AFSK FM;ON05FR;re-entered
 Spacegus;56187;;402.790 ;;;;unknown
 SPACEHAUC-1;49277;;437.500 ;;9600bps FSK;;re-entered
+SpaceTeamSat1;;;437.395 ;;1k2_GMSK;;unknown
 SpaceTuna-1;54537;;;;Blue LED;;unknown
 SPACEVAN;58295;;2271.750/2288.500;;FM;;inactive
 SPADEX-A;62459;;436.500 ;;9600bps BPSK;;unknown
@@ -2118,7 +2119,7 @@ TriSat;46280;145.900 ;436.500 ;435.6125 ;9600bps GMSK CCSDS;;re-entered
 TriSat-R;53108;;435.613 ;;1000bps GFSK;;inactive
 TriSat-1;;;;;;;unknown
 TriSat-4;;;;;;;unknown
-TriSat-S;;;2280.550 ;;FM;;to be launched
+TriSat-S;;;2280.550 ;;FM;;unknown
 Triton-1;39427;435.xxx;145.818/145.823*;2408.000 ;1200bps RC-BPSK CW*;TRIV0 TRIV1;inactive
 Triton;58017;;;400.900 ;CW;;inactive
 TRSI-1;44831;;437.075 ;437.075;FSK CW;;re-entered
