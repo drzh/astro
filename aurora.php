@@ -9,7 +9,7 @@
 <?php
 
 $imgurl = [
-    'ACE Real-Time Solar Wind' => ['img', 'https://services.swpc.noaa.gov/images/ace-mag-swepam-6-hour.gif', 'https://www.swpc.noaa.gov/products/real-time-solar-wind', 640, 512],
+    'SWPC Real-Time Solar Wind' => ['img', 'https://services.swpc.noaa.gov/images/geospace/geospace_1_day.png', 'https://www.swpc.noaa.gov/products/real-time-solar-wind', 640, 450],
     'NOAA Aurora Forecast - 3 Days' => ['table', 'sun/aurora.3day.tsv', '', 0, 0],
     'GFZ Aurora Forecast - 3 Days' => ['img', 'https://spaceweather.gfz.de/fileadmin/SW-Monitor/kp_swift_ensemble_LAST.png', 'https://spaceweather.gfz.de/fileadmin/SW-Monitor/kp_swift_ensemble_LAST.png', 660, 352],
     'Aurora Forecast - Tonight' => ['img', 'https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png', 'https://services.swpc.noaa.gov/experimental/images/aurora_dashboard/tonights_static_viewline_forecast.png', 512, 512],
