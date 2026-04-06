@@ -1,12 +1,4 @@
 <?php
-function nam_overlay_nav_item($href, $label, $active)
-{
-    if ($active) {
-        return '<span class="citem">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</span>';
-    }
-
-    return '<a class="menu-state-link" href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</a>';
-}
 
 function nam_overlay_load_rows($fname)
 {
@@ -128,7 +120,7 @@ function nam_render_overlay_page($config)
     foreach ($ranges as $range) {
         $href = nam_overlay_query($page, $range['bg'], $range['ed'], $pa);
         $active = ($begin === $range['bg'] && $end === $range['ed']);
-        echo nam_overlay_nav_item($href, $range['label'], $active);
+        echo astro_nav_item($href, $range['label'], $active);
     }
     echo '</div>';
     echo '</div>';

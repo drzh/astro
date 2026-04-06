@@ -4,7 +4,7 @@
 <body>
 <?php
 require 'menu.php';
-require 'libplot.php';
+require_once __DIR__ . '/includes/plot.php';
 
 $param = array(
   'marginleft' => 50,

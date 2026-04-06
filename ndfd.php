@@ -46,15 +46,6 @@ $stateurl = array(
   'TX' => 'southplains'
 );
 
-function ndfd_nav_item($href, $label, $active)
-{
-  if ($active) {
-    return '<span class="citem">' . $label . '</span>';
-  }
-
-  return '<a class="menu-state-link" href="' . $href . '">' . $label . '</a>';
-}
-
 echo '<section class="panel">';
 echo '<div class="menu-stack">';
 foreach (array_keys($forecast) as $fc) {
@@ -62,7 +53,7 @@ foreach (array_keys($forecast) as $fc) {
   if ($begin >= 0) {
     $href .= '&st=' . urlencode($state) . '&bg=' . $begin . '&ed=' . $end;
   }
-  echo ndfd_nav_item($href, htmlspecialchars($forecast[$fc][0], ENT_QUOTES, 'UTF-8'), $forc == $fc);
+  echo astro_nav_item($href, $forecast[$fc][0], $forc == $fc);
 }
 echo '</div>';
 
@@ -73,7 +64,7 @@ foreach (array_keys($stateurl) as $st) {
   for ($i = 0; $i < 165; $i += 24) {
     $label = (string) ($i / 24);
     $href = 'ndfd.php?fc=' . urlencode($forc) . '&st=' . urlencode($st) . '&bg=' . $i . '&ed=' . ($i + 23);
-    echo ndfd_nav_item($href, htmlspecialchars($label, ENT_QUOTES, 'UTF-8'), $state == $st && $begin == $i && $end == $i + 23);
+    echo astro_nav_item($href, $label, $state == $st && $begin == $i && $end == $i + 23);
   }
   echo '</div>';
   echo '</div>';

@@ -5,7 +5,7 @@
 <?php
 require 'menu.php';
 require 'planets_menu.php';
-include_once 'libtable.php';
+require_once __DIR__ . '/includes/table.php';
 
 $filepattern = array(array('planet/all/*.multi_info.*.format', 'Planets'));
 $today = date('Ymd');

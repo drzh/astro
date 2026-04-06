@@ -369,23 +369,23 @@ a:focus-visible {
 }
 
 .page-content > * + * {
-    margin-top: 1rem;
+    margin-top: 0.24rem;
 }
 
 .hero-panel {
     display: grid;
-    gap: 0.72rem;
+    gap: 0.24rem;
 }
 
 .chart-stack {
     display: grid;
-    gap: 0.55rem;
+    gap: 0.24rem;
 }
 
 .weather-stack {
     display: flex;
     flex-direction: column;
-    gap: 0.72rem;
+    gap: 0.24rem;
 }
 
 .weather-card__title {
@@ -401,19 +401,19 @@ a:focus-visible {
 .noaa1 {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.72rem;
+    gap: 0.24rem;
 }
 
 .media-panel {
     min-width: 0;
-    padding: 0.24rem;
-    border: 1px solid rgba(137, 171, 188, 0.18);
+    padding: 0;
+    border: 0;
     border-radius: var(--radius-sm);
     background: var(--surface-2);
 }
 
 .media-panel--tight {
-    padding: 0.08rem;
+    padding: 0;
 }
 
 .media-panel img {
@@ -505,21 +505,21 @@ a:focus-visible {
 }
 
 .table1 {
-    width: 100%;
+    width: auto;
     min-width: max-content;
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    border: 0;
+    border-radius: 0;
     overflow: hidden;
     background: var(--surface-2);
 }
 
 .td0,
 .td1 {
-    padding: 0.22rem 0.26rem;
+    padding: 0;
     text-align: center;
-    border: 1px solid rgba(137, 171, 188, 0.14);
+    border: 0;
 }
 
 .td0 {
@@ -770,7 +770,7 @@ a:focus-visible {
 
 /* Compact header and sortable table overrides */
 .site-shell {
-    padding: 0.24rem 0 0.8rem;
+    padding: 0.24rem 0 0.24rem;
 }
 
 .site-header {
@@ -796,13 +796,17 @@ a:focus-visible {
 }
 
 .site-main {
-    gap: 0.95rem;
+    gap: 0.24rem;
     margin-top: 0.65rem;
 }
 
 .page-content,
 .panel {
-    padding: 0.28rem;
+    padding: 0.24rem;
+}
+
+.panel {
+    border-radius: 0;
 }
 
 .menu-row {
@@ -1031,7 +1035,7 @@ a:focus-visible {
     position: sticky;
     top: 0;
     background: var(--table-head);
-    border: 1px solid rgba(137, 171, 188, 0.2);
+    border: 0;
     padding: 0;
     text-align: left;
     z-index: 1;
@@ -1047,12 +1051,12 @@ a:focus-visible {
 }
 
 .legacy-html-panel table {
-    width: 100%;
+    width: auto;
     min-width: max-content;
     border-collapse: separate !important;
     border-spacing: 0 !important;
-    border: 1px solid var(--border) !important;
-    border-radius: var(--radius-sm);
+    border: 0 !important;
+    border-radius: 0;
     overflow: hidden;
     background: var(--surface-2) !important;
     color: var(--text) !important;
@@ -1060,8 +1064,8 @@ a:focus-visible {
 
 .legacy-html-panel th,
 .legacy-html-panel td {
-    padding: 0.22rem 0.26rem !important;
-    border: 1px solid rgba(137, 171, 188, 0.14) !important;
+    padding: 0 !important;
+    border: 0 !important;
     color: var(--text) !important;
     background: var(--table-row-a) !important;
     text-align: center;
@@ -1097,7 +1101,7 @@ a:focus-visible {
     justify-content: space-between;
     gap: 0.38rem;
     width: 100%;
-    padding: 0.22rem 0.26rem;
+    padding: 0;
     border: 0;
     background: transparent;
     color: var(--heading);
@@ -1115,7 +1119,7 @@ a:focus-visible {
 
 .table-head-cell {
     display: block;
-    padding: 0.22rem 0.26rem;
+    padding: 0;
     color: var(--heading);
     font-weight: 700;
     text-align: center;
@@ -1177,12 +1181,12 @@ th[aria-sort="descending"] .sort-indicator::before {
     .td1,
     .legacy-html-panel th,
     .legacy-html-panel td {
-        padding: 0.14rem 0.18rem !important;
+        padding: 0 !important;
     }
 
     .sort-button,
     .table-head-cell {
-        padding: 0.14rem 0.18rem;
+        padding: 0;
     }
 
     .sort-button {
@@ -1196,7 +1200,7 @@ th[aria-sort="descending"] .sort-indicator::before {
 
 /* Site page compaction */
 .weather-card--compact {
-    padding: 0.28rem;
+    padding: 0.24rem;
 }
 
 .weather-card__header--compact {
@@ -1261,4 +1265,164 @@ th[aria-sort="descending"] .sort-indicator::before {
     .weather-card__meta--compact {
         white-space: normal;
     }
+}
+
+/* Global sharp-corner and compact table overrides */
+:root {
+    --radius: 0;
+    --radius-sm: 0;
+}
+
+.site-header,
+.site-main {
+    border: 0 !important;
+}
+
+.page-section,
+.panel {
+    border: 0 !important;
+    padding: 4px !important;
+}
+
+.panel {
+    padding: 2px 0 !important;
+}
+
+.page-content,
+.site-header,
+.resource-section,
+.weather-card--compact {
+    padding: 4px !important;
+}
+
+.site-header,
+.page-section,
+.panel,
+.site-status,
+.menu-link,
+.menu-state-link,
+.citem,
+.menu-disabled,
+.del,
+.media-panel,
+.media-panel img,
+.cloud-composite,
+.table1,
+.legacy-html-panel table,
+.tooltip,
+.staton,
+.staton:hover,
+.statoff,
+.statoff:hover,
+.page-toolbar__label,
+.filter-select,
+.filter-submit,
+.resource-section,
+.weather-card__badge,
+pre {
+    border-radius: 0 !important;
+}
+
+figure,
+figcaption,
+.table-wrap,
+.legacy-html-panel,
+.image-scroll,
+.radar,
+.cloudimg,
+.cloudimg2,
+.skycoverimg,
+.media-panel,
+.responsive-stage-frame {
+    margin-left: 0;
+    margin-right: auto;
+    text-align: left;
+}
+
+.media-panel--compact-graphic {
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.media-panel .media-panel__image--intrinsic,
+.media-panel .media-panel__image--scaled,
+.responsive-stage-frame,
+figure img,
+figure svg {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.table1,
+.legacy-html-panel table {
+    width: auto !important;
+    border: 1px solid var(--border) !important;
+    margin-right: 1px;
+}
+
+.table1 th,
+.table1 td,
+.legacy-html-panel th,
+.legacy-html-panel td {
+    padding: 3px !important;
+    text-align: left;
+    border-right: 1px solid var(--border) !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.td0,
+.td1,
+.table-head-cell {
+    text-align: left;
+}
+
+.table1 tr > *:last-child,
+.legacy-html-panel tr > *:last-child {
+    border-right: 0 !important;
+}
+
+.table1 tbody tr:last-child td,
+.legacy-html-panel tbody tr:last-child td {
+    border-bottom: 0 !important;
+}
+
+.site-shell {
+    width: min(100%, var(--content-max)) !important;
+}
+
+.site-main {
+    margin-top: 2px !important;
+}
+
+.site-shell {
+    padding-top: 0 !important;
+}
+
+.menu-row {
+    gap: 0.12rem !important;
+    padding: 0 !important;
+    line-height: 1.1;
+}
+
+.menu-row + .menu-row {
+    margin-top: 0.08rem !important;
+    padding-top: 0.08rem !important;
+}
+
+.menu-divider {
+    font-size: 0.72rem;
+}
+
+.menu-link,
+.menu-state-link,
+.citem,
+.menu-disabled,
+.del {
+    padding: 0.02rem 0.12rem !important;
+    font-size: 0.84rem;
+}
+
+.table-wrap,
+.legacy-html-panel {
+    padding-right: 1px;
 }

@@ -4,7 +4,7 @@
 <body>
 <?php
 require '../menu.php';
-include_once '../libtable.php';
+require_once __DIR__ . '/../includes/table.php';
 
 $toggle = [
   'GOES' => 'tggoes',

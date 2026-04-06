@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php include("../head.php") ?>
-<?php include("../libplot.php") ?>
+<?php require_once __DIR__ . '/../includes/plot.php'; ?>
 
 <body>
   <script src="../cloud.js">

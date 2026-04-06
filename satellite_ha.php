@@ -4,21 +4,7 @@
 <body>
 <?php
 require 'menu.php';
-include('libtable.php');
-
-function satellite_ha_select_option($value, $label, $selected)
-{
-  return '<option value="' . htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8') . '"' . ($selected ? ' selected' : '') . '>' . htmlspecialchars((string) $label, ENT_QUOTES, 'UTF-8') . '</option>';
-}
-
-function satellite_ha_numeric_options($values, $current)
-{
-  if (!in_array($current, $values, true)) {
-    $values[] = $current;
-  }
-  sort($values, SORT_NUMERIC);
-  return $values;
-}
+require_once __DIR__ . '/includes/table.php';
 
 $max = 20;
 $sat = '';
@@ -51,8 +37,8 @@ foreach ($files as $f) {
 }
 sort($satellite_lists, SORT_NATURAL);
 
-$mag_options = satellite_ha_numeric_options(array(1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0), (float) $mag);
-$max_options = satellite_ha_numeric_options(array(10, 20, 30, 40, 50, 75, 100), $max);
+$mag_options = astro_numeric_options(array(1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0), (float) $mag);
+$max_options = astro_numeric_options(array(10, 20, 30, 40, 50, 75, 100), $max);
 
 if ($sat != '') {
   $fname = 'satellite/ha/' . $sat . '.tsv';
@@ -121,9 +107,9 @@ echo '<form class="filter-form filter-form--compact" method="get" action="satell
 echo '<div class="filter-field">';
 echo '<label class="filter-field__label" for="satellite-ha-name">Visible Pass List</label>';
 echo '<select class="filter-select" id="satellite-ha-name" name="sat" onchange="this.form.submit()">';
-echo satellite_ha_select_option('', 'Choose list', $sat === '');
+echo astro_select_option('', 'Choose list', $sat === '');
 foreach ($satellite_lists as $name) {
-  echo satellite_ha_select_option($name, $name, $sat === $name);
+  echo astro_select_option($name, $name, $sat === $name);
 }
 echo '</select>';
 echo '</div>';
@@ -131,7 +117,7 @@ echo '<div class="filter-field">';
 echo '<label class="filter-field__label" for="satellite-ha-mag">Max Magnitude</label>';
 echo '<select class="filter-select" id="satellite-ha-mag" name="mag" onchange="this.form.submit()">';
 foreach ($mag_options as $option) {
-  echo satellite_ha_select_option(number_format((float) $option, 1, '.', ''), number_format((float) $option, 1, '.', ''), (float) $mag === (float) $option);
+  echo astro_select_option(number_format((float) $option, 1, '.', ''), number_format((float) $option, 1, '.', ''), (float) $mag === (float) $option);
 }
 echo '</select>';
 echo '</div>';
@@ -139,7 +125,7 @@ echo '<div class="filter-field">';
 echo '<label class="filter-field__label" for="satellite-ha-max">Rows</label>';
 echo '<select class="filter-select" id="satellite-ha-max" name="max" onchange="this.form.submit()">';
 foreach ($max_options as $option) {
-  echo satellite_ha_select_option($option, $option, $max === (int) $option);
+  echo astro_select_option($option, $option, $max === (int) $option);
 }
 echo '</select>';
 echo '</div>';

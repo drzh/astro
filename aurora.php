@@ -3,7 +3,7 @@
 <?php include('head.php'); ?>
 <body>
 <?php include('menu.php'); ?>
-<?php include('libtable.php'); ?>
+<?php require_once __DIR__ . '/includes/table.php'; ?>
 <?php
 $imgurl = [
     'SWPC Real-Time Solar Wind' => ['img', 'https://services.swpc.noaa.gov/images/geospace/geospace_1_day.png', 'https://www.swpc.noaa.gov/products/real-time-solar-wind', 640, 450],

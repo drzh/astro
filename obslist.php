@@ -4,7 +4,7 @@
 <body>
 <?php
 require 'menu.php';
-include('libtable.php');
+require_once __DIR__ . '/includes/table.php';
 
 $st = '';
 if (isset($_GET['st'])) {

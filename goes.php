@@ -5,15 +5,6 @@
 <?php
 require 'menu.php';
 
-function goes_nav_item($href, $label, $active)
-{
-  if ($active) {
-    return '<span class="citem">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</span>';
-  }
-
-  return '<a class="menu-state-link" href="' . $href . '">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</a>';
-}
-
 $st = '';
 $ch = '';
 $tg = '';
@@ -46,9 +37,9 @@ foreach (array_keys($state) as $s) {
   echo '<div class="page-toolbar">';
   echo '<span class="page-toolbar__label">', htmlspecialchars($s, ENT_QUOTES, 'UTF-8'), '</span>';
   echo '<div class="chip-row">';
-  echo goes_nav_item('goes.php?st=' . urlencode($s) . '&ch=All', 'All', $st == $s && $ch == 'All');
+  echo astro_nav_item('goes.php?st=' . urlencode($s) . '&ch=All', 'All', $st == $s && $ch == 'All');
   foreach (array_values($state[$s]) as $v) {
-    echo goes_nav_item('goes.php?st=' . urlencode($s) . '&ch=' . urlencode($v), $v, $st == $s && $ch == $v);
+    echo astro_nav_item('goes.php?st=' . urlencode($s) . '&ch=' . urlencode($v), $v, $st == $s && $ch == $v);
   }
   echo '</div>';
   echo '</div>';

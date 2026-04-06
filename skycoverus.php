@@ -5,15 +5,6 @@
 <?php
 require 'menu.php';
 
-function skycover_nav_item($href, $label, $active)
-{
-  if ($active) {
-    return '<span class="citem">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</span>';
-  }
-
-  return '<a class="menu-state-link" href="' . $href . '">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</a>';
-}
-
 $para_st = '';
 if (isset($_GET['st'])) {
   $para_st = $_GET['st'];
@@ -45,7 +36,7 @@ foreach (array_keys($state) as $s) {
     $daytag = date('D, n/j', $time);
     $day = date('n/j', $time);
     if ($daypre != $day) {
-      echo skycover_nav_item('skycoverus.php?st=' . urlencode($s) . '&day=' . urlencode($day), $daytag, $s == $para_st && $day == $para_day);
+      echo astro_nav_item('skycoverus.php?st=' . urlencode($s) . '&day=' . urlencode($day), $daytag, $s == $para_st && $day == $para_day);
       $daypre = $day;
     }
   }

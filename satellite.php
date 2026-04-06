@@ -4,21 +4,7 @@
 <body>
 <?php
 require 'menu.php';
-include('libtable.php');
-
-function satellite_select_option($value, $label, $selected)
-{
-  return '<option value="' . htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8') . '"' . ($selected ? ' selected' : '') . '>' . htmlspecialchars((string) $label, ENT_QUOTES, 'UTF-8') . '</option>';
-}
-
-function satellite_numeric_options($values, $current)
-{
-  if (!in_array($current, $values, true)) {
-    $values[] = $current;
-  }
-  sort($values, SORT_NUMERIC);
-  return $values;
-}
+require_once __DIR__ . '/includes/table.php';
 
 $max = 20;
 $ele = 15;
@@ -71,8 +57,8 @@ foreach ($files as $f) {
 }
 sort($other_satellites, SORT_NATURAL);
 
-$elevation_options = satellite_numeric_options(array(5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 90), $ele);
-$max_options = satellite_numeric_options(array(10, 20, 30, 40, 50, 75, 100), $max);
+$elevation_options = astro_numeric_options(array(5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 90), $ele);
+$max_options = astro_numeric_options(array(10, 20, 30, 40, 50, 75, 100), $max);
 
 if ($sat != '') {
   $fname = 'satellite/data/sat.' . $sat . '.table.tsv';
@@ -142,18 +128,18 @@ echo '<form class="filter-form filter-form--compact" method="get" action="satell
 echo '<div class="filter-field">';
 echo '<label class="filter-field__label" for="satellite-name">Satellite</label>';
 echo '<select class="filter-select" id="satellite-name" name="sat" onchange="this.form.submit()">';
-echo satellite_select_option('', 'Choose satellite', $sat === '');
+echo astro_select_option('', 'Choose satellite', $sat === '');
 if (!empty($priority_satellites)) {
   echo '<optgroup label="Priority">';
   foreach ($priority_satellites as $name) {
-    echo satellite_select_option($name, $name, $sat === $name);
+    echo astro_select_option($name, $name, $sat === $name);
   }
   echo '</optgroup>';
 }
 if (!empty($other_satellites)) {
   echo '<optgroup label="All Satellites">';
   foreach ($other_satellites as $name) {
-    echo satellite_select_option($name, $name, $sat === $name);
+    echo astro_select_option($name, $name, $sat === $name);
   }
   echo '</optgroup>';
 }
@@ -163,7 +149,7 @@ echo '<div class="filter-field">';
 echo '<label class="filter-field__label" for="satellite-ele">Min Elevation</label>';
 echo '<select class="filter-select" id="satellite-ele" name="ele" onchange="this.form.submit()">';
 foreach ($elevation_options as $option) {
-  echo satellite_select_option($option, $option . ' deg', $ele === (int) $option);
+  echo astro_select_option($option, $option . ' deg', $ele === (int) $option);
 }
 echo '</select>';
 echo '</div>';
@@ -171,7 +157,7 @@ echo '<div class="filter-field">';
 echo '<label class="filter-field__label" for="satellite-max">Rows</label>';
 echo '<select class="filter-select" id="satellite-max" name="max" onchange="this.form.submit()">';
 foreach ($max_options as $option) {
-  echo satellite_select_option($option, $option, $max === (int) $option);
+  echo astro_select_option($option, $option, $max === (int) $option);
 }
 echo '</select>';
 echo '</div>';

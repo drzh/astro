@@ -1,16 +1,11 @@
 <!DOCTYPE html>
 <html>
 <?php include('head.php') ?>
-<?php include('libplot.php') ?>
+<?php require_once __DIR__ . '/includes/plot.php'; ?>
 <body>
 <script src="cloud.js"></script>
 <?php
 require 'menu.php';
-
-function cloud_select_option($value, $label, $selected)
-{
-  return '<option value="' . htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8') . '"' . ($selected ? ' selected' : '') . '>' . htmlspecialchars((string) $label, ENT_QUOTES, 'UTF-8') . '</option>';
-}
 
 $rg = '';
 $ch = '';
@@ -98,7 +93,7 @@ echo '<div class="filter-field">';
 echo '<label class="filter-field__label" for="cloud-region">Region</label>';
 echo '<select class="filter-select" id="cloud-region" name="rg" onchange="this.form.submit()">';
 foreach ($region as $r) {
-  echo cloud_select_option($r, $r, $rg == $r);
+  echo astro_select_option($r, $r, $rg == $r);
 }
 echo '</select>';
 echo '</div>';
@@ -107,7 +102,7 @@ echo '<label class="filter-field__label" for="cloud-channel">Channel</label>';
 echo '<select class="filter-select" id="cloud-channel" name="ch" onchange="this.form.submit()">';
 foreach (array('All' => 'All') + $channeltype as $c => $n) {
   $label = ($c === 'All') ? 'All' : ($c . ' - ' . $n);
-  echo cloud_select_option($c, $label, $ch == $c);
+  echo astro_select_option($c, $label, $ch == $c);
 }
 echo '</select>';
 echo '</div>';
@@ -115,7 +110,7 @@ echo '<div class="filter-field">';
 echo '<label class="filter-field__label" for="cloud-image">Image</label>';
 echo '<select class="filter-select" id="cloud-image" name="it" onchange="this.form.submit()">';
 foreach ($imgtype as $i => $n) {
-  echo cloud_select_option($i, $i, $it == $i);
+  echo astro_select_option($i, $i, $it == $i);
 }
 echo '</select>';
 echo '</div>';

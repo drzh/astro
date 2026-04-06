@@ -5,7 +5,7 @@ include("../head.php") ?>
 <body>
     <?php
     include('../menu.php');
-    include('../libtable.php');
+    require_once __DIR__ . '/../includes/table.php';
 
     if (isset($_GET['tb'])) {
         $tb = $_GET['tb'];
