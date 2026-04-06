@@ -1426,3 +1426,30 @@ figure svg {
 .legacy-html-panel {
     padding-right: 1px;
 }
+
+.daynight-table th.daynight-band-a,
+.daynight-table td.daynight-band-a {
+    background-color: var(--table-row-a) !important;
+}
+
+.daynight-table th.daynight-band-b,
+.daynight-table td.daynight-band-b {
+    background-color: var(--table-row-b) !important;
+}
+
+.daynight-table th.daynight-event-head,
+.daynight-table td.daynight-event-cell {
+    background-color: var(--table-head) !important;
+}
+
+.daynight-table tbody tr:hover td.daynight-band-a {
+    background-color: var(--table-row-a) !important;
+}
+
+.daynight-table tbody tr:hover td.daynight-band-b {
+    background-color: var(--table-row-b) !important;
+}
+
+.daynight-table tbody tr:hover td.daynight-event-cell {
+    background-color: var(--table-head) !important;
+}

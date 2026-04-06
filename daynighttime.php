@@ -61,6 +61,11 @@ function load_daynight_values($fname, $days, $tz)
 
 function daynight_header_cell($label, $colspan = 1, $rowspan = 1)
 {
+    $extra_class = '';
+    if (func_num_args() > 3) {
+        $extra_class = (string) func_get_arg(3);
+    }
+
     $attr = '';
     if ($colspan > 1) {
         $attr .= ' colspan="' . (int) $colspan . '"';
@@ -68,8 +73,16 @@ function daynight_header_cell($label, $colspan = 1, $rowspan = 1)
     if ($rowspan > 1) {
         $attr .= ' rowspan="' . (int) $rowspan . '"';
     }
+    if ($extra_class !== '') {
+        $attr .= ' class="' . htmlspecialchars($extra_class, ENT_QUOTES, 'UTF-8') . '"';
+    }
 
     return '<th' . $attr . '><span class="table-head-cell">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</span></th>';
+}
+
+function daynight_band_class($day_index)
+{
+    return ($day_index % 2 === 0) ? 'daynight-band-a' : 'daynight-band-b';
 }
 
 echo '<div class="weather-stack">';
@@ -103,24 +116,24 @@ foreach ($pos as $p) {
     }
 
     echo '<div class="table-wrap">';
-    echo '<table class="table1">';
+    echo '<table class="table1 daynight-table">';
     echo '<thead>';
     echo '<tr>';
-    echo daynight_header_cell('Event', 1, 2);
-    foreach ($days as $day) {
-        echo daynight_header_cell(date('D, n/j', strtotime($day)), 2, 1);
+    echo daynight_header_cell('Event', 1, 2, 'daynight-event-head');
+    foreach ($days as $day_index => $day) {
+        echo daynight_header_cell(date('D, n/j', strtotime($day)), 2, 1, daynight_band_class($day_index));
     }
     echo '</tr>';
     echo '<tr>';
-    foreach ($days as $day) {
-        echo daynight_header_cell('Begin');
-        echo daynight_header_cell('End');
+    foreach ($days as $day_index => $day) {
+        $band_class = daynight_band_class($day_index);
+        echo daynight_header_cell('Begin', 1, 1, $band_class);
+        echo daynight_header_cell('End', 1, 1, $band_class);
     }
     echo '</tr>';
     echo '</thead>';
     echo '<tbody>';
 
-    $row_index = 0;
     foreach ($events as $event_name) {
         $fname = 'data/' . $slug . '.' . $event_name . '.2024_2035.CDT.format';
         if (!file_exists($fname)) {
@@ -129,17 +142,16 @@ foreach ($pos as $p) {
 
         $label = ucwords(str_replace('_', ' ', $event_name));
         $values = load_daynight_values($fname, $days, $tz);
-        $cell_class = ($row_index % 2 === 0) ? 'td1' : 'td0';
         echo '<tr>';
-        echo '<td class="', $cell_class, '">', htmlspecialchars($label, ENT_QUOTES, 'UTF-8'), '</td>';
-        foreach ($days as $day) {
+        echo '<td class="daynight-event-cell">', htmlspecialchars($label, ENT_QUOTES, 'UTF-8'), '</td>';
+        foreach ($days as $day_index => $day) {
+            $band_class = daynight_band_class($day_index);
             $begin = $values[$day]['begin'];
             $end = $values[$day]['end'];
-            echo '<td class="', $cell_class, '">', htmlspecialchars($begin, ENT_QUOTES, 'UTF-8'), '</td>';
-            echo '<td class="', $cell_class, '">', htmlspecialchars($end, ENT_QUOTES, 'UTF-8'), '</td>';
+            echo '<td class="', $band_class, '">', htmlspecialchars($begin, ENT_QUOTES, 'UTF-8'), '</td>';
+            echo '<td class="', $band_class, '">', htmlspecialchars($end, ENT_QUOTES, 'UTF-8'), '</td>';
         }
         echo '</tr>';
-        $row_index++;
     }
 
     echo '</tbody>';

@@ -4,6 +4,7 @@
 
 use strict;
 use warnings;
+use JSON::PP;
 
 my @cmddl = ('curl https://tgftp.nws.noaa.gov/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.conus/VP.001-003/ds.sky.bin > ds.sky.bin.1',
             'curl https://tgftp.nws.noaa.gov/SL.us008001/ST.opnl/DF.gr2/DC.ndfd/AR.conus/VP.004-007/ds.sky.bin > ds.sky.bin.2',
@@ -19,17 +20,17 @@ foreach my $c (@cmddl) {
 }
 
 my @fileds = ('ds.sky.bin.1', 'ds.sky.bin.2');
-my $files = '../site/site.php';
+my $files = '../site/site.json';
 my $fileo = 'all.skycover.3day.UTC.format';
 process(\@fileds, $files, $fileo);
 
 @fileds = ('ds.rhm.bin.1', 'ds.rhm.bin.2');
-$files = '../site/site.php';
+$files = '../site/site.json';
 $fileo = 'all.rhm.3day.UTC.format';
 process(\@fileds, $files, $fileo);
 
 @fileds = ('ds.temp.bin.1', 'ds.temp.bin.2');
-$files = '../site/site.php';
+$files = '../site/site.json';
 $fileo = 'all.temp.3day.UTC.format';
 process(\@fileds, $files, $fileo);
 
@@ -41,25 +42,20 @@ sub process {
     unlink $fileo;
   }
 
-  local $/;
   open FILE, "<$files"
     || die "Cannot open $files: $!\n";
-  my $all = <FILE>;
+  local $/;
+  my $json = <FILE>;
   close FILE;
 
-  my @sites;
-  my @lons;
-  my @lats;
-  my $loncmd = '';
+  my $site_data = decode_json($json);
+  my @sites = map { $_->{name} } @{$site_data};
+  my @lons = map { $_->{longitude} } @{$site_data};
+  my @lats = map { $_->{latitude} } @{$site_data};
 
-  foreach my $arr ($all =~ /(array\([^\(]+?\))/gs) {
-    if ($arr =~ /'(.+?)',(\s*)(\S+?),(\s*)(\S+?),/) {
-      my ($site, $lat, $lon) = ($1, $3, $5);
-      push @sites, $site;
-      push @lons, $lon;
-      push @lats, $lat;
-      $loncmd .= ' -lon ' . $lon . ' ' . $lat;
-    }
+  my $loncmd = '';
+  foreach my $index (0 .. $#sites) {
+    $loncmd .= ' -lon ' . $lons[$index] . ' ' . $lats[$index];
   }
 
   foreach my $filed (@{$fileds}) {

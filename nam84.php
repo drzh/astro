@@ -9,7 +9,7 @@
     $f2 = '';
     $f3 = '';
 
-    require_once __DIR__ . '/includes/sites.php';
+    require_once __DIR__ . '/includes/site.php';
     $pos = astro_load_site_data();
     require 'menu.php';
     include 'plot_weather.php';

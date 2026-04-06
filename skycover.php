@@ -9,7 +9,7 @@
     $f2 = $datadir . '/all.rhm.3day.UTC.format';
     $f3 = $datadir . '/all.temp.3day.UTC.format';
 
-    require_once __DIR__ . '/includes/sites.php';
+    require_once __DIR__ . '/includes/site.php';
     $pos = astro_load_site_data();
     require 'menu.php';
     include 'plot_weather.php';
