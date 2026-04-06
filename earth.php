@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php include('head.php') ?>
+<?php include 'head.php'; ?>
 <body>
 <?php
 require 'menu.php';
@@ -10,7 +10,7 @@ echo "<figure class='media-panel'><span class='media-panel__label'>Earth Rise</s
 echo "<figure class='media-panel'><span class='media-panel__label'>Earth Set</span><img src='http://api.usno.navy.mil/imagery/earth.png?view=set&ID=AA-URL' alt='Earth set view'></figure>";
 echo "</div>";
 
-include('tail.php');
+include 'tail.php';
 ?>
 </body>
 </html>

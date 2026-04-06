@@ -1,9 +1,8 @@
 <?php
 # Read in a json file from URL parameter 'json' and display it as a table.
 
-include("../head.php");
-include('../menu.php');
-
+include "../head.php";
+include '../menu.php';
 if (isset($_GET['json'])) {
     $json = $_GET['json'];
     $json = basename($json);
@@ -16,5 +15,5 @@ if (isset($_GET['json'])) {
     echo "</pre>";
 }
 
-include('../tail.php');
+include '../tail.php';
 ?>

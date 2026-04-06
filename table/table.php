@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
-<?php
-include("../head.php") ?>
+<?php include "../head.php"; ?>
 <body>
     <?php
-    include('../menu.php');
+    include '../menu.php';
     require_once __DIR__ . '/../includes/table.php';
 
     if (isset($_GET['tb'])) {
@@ -14,7 +13,7 @@ include("../head.php") ?>
         display_table_from_tsv($tb, 1);
     }
 
-    include('../tail.php');
+    include '../tail.php';
     ?>
 </body>
 

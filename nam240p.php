@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<?php include("head.php") ?>
+<?php include "head.php"; ?>
 <?php require_once __DIR__ . '/includes/plot.php'; ?>
-<?php include("nam_overlay_page.php") ?>
+<?php include "nam_overlay_page.php"; ?>
 <body>
 <script src="cloud.js"></script>
 <?php
@@ -34,7 +34,7 @@ nam_render_overlay_page(array(
     },
 ));
 
-include('tail.php');
+include 'tail.php';
 ?>
 </body>
 </html>

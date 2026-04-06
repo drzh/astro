@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<?php include('head.php'); ?>
+<?php include 'head.php'; ?>
 <body>
-<?php include('menu.php'); ?>
+<?php include 'menu.php'; ?>
 <?php
 $fi = 'sun/AIAsynoptic0304.full.txt';
 $intensity_max = null;
@@ -44,6 +44,6 @@ foreach ($imgurl as $title => $url) {
 }
 echo '</div>';
 ?>
-<?php include('tail.php'); ?>
+<?php include 'tail.php'; ?>
 </body>
 </html>

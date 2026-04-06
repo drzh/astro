@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php include("head.php") ?>
+<?php include "head.php"; ?>
 <body>
 <?php
 require 'menu.php';
@@ -17,8 +17,6 @@ require 'menu.php';
     <img src="radar/data/Dallas.png" alt="Dallas NEXRAD image">
   </figure>
 </section>
-<?php
-include('tail.php');
-?>
+<?php include 'tail.php'; ?>
 </body>
 </html>

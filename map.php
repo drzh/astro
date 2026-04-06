@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<?php include('head.php'); ?>
+<?php include 'head.php'; ?>
 <body>
-<?php include('menu.php'); ?>
+<?php include 'menu.php'; ?>
 <?php
 $imgurl = [
     'World Magnetic Model - Epoch 2020.0 Geomagnetic Coordinates' => ['map/Geomagnetic_Coordinates.jpg', 'map/Geomagnetic_Coordinates.jpg', 777, 648],
@@ -19,6 +19,6 @@ foreach ($imgurl as $title => $url) {
     echo '</section>';
 }
 ?>
-<?php include('tail.php'); ?>
+<?php include 'tail.php'; ?>
 </body>
 </html>

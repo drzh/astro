@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php include("head.php") ?>
+<?php include "head.php"; ?>
 <body>
 <?php
 require 'menu.php';
@@ -23,6 +23,6 @@ $ran = rand(1, 1000000);
     <img src="https://radar.weather.gov/ridge/standard/CONUS_0.gif?=<?php echo $ran; ?>" alt="CONUS radar" loading="lazy" decoding="async">
   </figure>
 </section>
-<?php include('tail.php'); ?>
+<?php include 'tail.php'; ?>
 </body>
 </html>

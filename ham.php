@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<?php include('head.php'); ?>
+<?php include 'head.php'; ?>
 <body>
-<?php include('menu.php'); ?>
+<?php include 'menu.php'; ?>
 <?php
 $ran = rand(1, 1000000);
 ?>
@@ -90,6 +90,6 @@ $ran = rand(1, 1000000);
     </div>
   </div>
 </section>
-<?php include('tail.php'); ?>
+<?php include 'tail.php'; ?>
 </body>
 </html>

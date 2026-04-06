@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<?php include('head.php') ?>
+<?php include 'head.php'; ?>
 <body>
-<?php include('menu.php'); ?>
+<?php include 'menu.php'; ?>
 <section class="panel">
   <p id="contact-link" class="weather-card__meta"></p>
 </section>
@@ -12,6 +12,6 @@
   var comb = user + '@' + host;
   document.getElementById('contact-link').innerHTML = "Contact me: <a href='mailto:" + comb + "'>" + comb + "</a>";
 </script>
-<?php include('tail.php'); ?>
+<?php include 'tail.php'; ?>
 </body>
 </html>

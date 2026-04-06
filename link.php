@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<?php include("head.php"); ?>
+<?php include "head.php"; ?>
 <body>
-<?php include('menu.php'); ?>
+<?php include 'menu.php'; ?>
 <div class="resource-grid">
   <section class="panel resource-section">
     <h3>Weather</h3>
@@ -192,6 +192,6 @@
     </div>
   </section>
 </div>
-<?php include('tail.php'); ?>
+<?php include 'tail.php'; ?>
 </body>
 </html>

@@ -5,16 +5,16 @@
 <a href='coupon.php'>New input</a><br/><br/>
 <?php
 if (isset($_GET['gcinput'])) {
-  $gcinput = $_GET['gcinput'];
-  $cmd = "echo '$gcinput' | ./generate_coupon.sh ";
-  $imgdata = shell_exec($cmd);
+    $gcinput = $_GET['gcinput'];
+    $cmd = "echo '$gcinput' | ./generate_coupon.sh ";
+    $imgdata = shell_exec($cmd);
 
-  $imgs = explode("\n", trim($imgdata));
-  foreach ($imgs as $img) {
-    if ($img != '') {
-      echo '<img src="data:image/png;base64, ', $img, '">', '<br/><br/>';
+    $imgs = explode("\n", trim($imgdata));
+    foreach ($imgs as $img) {
+        if ($img != '') {
+            echo '<img src="data:image/png;base64, ', $img, '">', '<br/><br/>';
+        }
     }
-  }
 }
 else {
 ?>
@@ -28,4 +28,4 @@ else {
 ?>
 </center>
 </body>
-</html> 
+</html>

@@ -5,22 +5,22 @@
 <a href='index.php'>New input</a><br/><br/>
 <?php
 if (isset($_GET['gcinput'])) {
-  $gcinput = $_GET['gcinput'];
+    $gcinput = $_GET['gcinput'];
 
-  // $fp = fopen("img/tmp.input", "w");
-  // fwrite($fp, $gcinput);
-  // fclose($fp);
-  // $imgdata = shell_exec("cat img/tmp.input | ./generate_gc.sh ");
+    // $fp = fopen("img/tmp.input", "w");
+    // fwrite($fp, $gcinput);
+    // fclose($fp);
+    // $imgdata = shell_exec("cat img/tmp.input | ./generate_gc.sh ");
 
-  $cmd = "echo '$gcinput' | ./generate_gc.sh ";
-  $imgdata = shell_exec($cmd);
+    $cmd = "echo '$gcinput' | ./generate_gc.sh ";
+    $imgdata = shell_exec($cmd);
 
-  $imgs = explode("\n", trim($imgdata));
-  foreach ($imgs as $img) {
-    if ($img != '') {
-      echo '<img src="data:image/png;base64, ', $img, '">', '<br/><br/>';
+    $imgs = explode("\n", trim($imgdata));
+    foreach ($imgs as $img) {
+        if ($img != '') {
+            echo '<img src="data:image/png;base64, ', $img, '">', '<br/><br/>';
+        }
     }
-  }
 }
 else {
 ?>
@@ -34,4 +34,4 @@ else {
 ?>
 </center>
 </body>
-</html> 
+</html>

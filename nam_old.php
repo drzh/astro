@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<?php include("head.php") ?>
+<?php include "head.php"; ?>
 <body>
 <?php
 require 'menu.php';
@@ -52,7 +52,7 @@ if ($begin > 0) {
     echo '</div>';
 }
 
-include('tail.php');
+include 'tail.php';
 ?>
 </body>
 </html>

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<?php include('head.php'); ?>
+<?php include 'head.php'; ?>
 <body>
-<?php include('menu.php'); ?>
+<?php include 'menu.php'; ?>
 <?php require_once __DIR__ . '/includes/table.php'; ?>
 <?php
 $imgurl = [
@@ -34,6 +34,6 @@ foreach ($imgurl as $title => $url) {
 }
 echo '</div>';
 ?>
-<?php include('tail.php'); ?>
+<?php include 'tail.php'; ?>
 </body>
 </html>
