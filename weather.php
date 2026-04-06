@@ -5,7 +5,7 @@ if (isset($_GET['st']) && $_GET['st'] !== '') {
 }
 
 $pagewt = 'index.php';
-$states = array_values(array_unique(array_filter(array_column($pos, 7), function ($value) {
+$states = array_values(array_unique(array_filter(array_column($pos, 'state'), function ($value) {
     return $value !== 'any' && $value !== '';
 })));
 sort($states);
@@ -24,58 +24,66 @@ echo '</section>';
 
 echo '<div class="weather-stack">';
 foreach ($pos as $p) {
-    if ($state !== 'all' && $p[7] !== 'any' && $p[7] !== $state) {
+    $siteName = $p['name'];
+    $latitude = $p['latitude'];
+    $longitude = $p['longitude'];
+    $clearDarkSkyImage = $p['clear_dark_sky_image'];
+    $siteLink = $p['clear_dark_sky_link'];
+    $meteogramUrl = $p['meteogram_url'];
+    $siteState = $p['state'];
+
+    if ($state !== 'all' && $siteState !== 'any' && $siteState !== $state) {
         continue;
     }
 
     $ran = rand(1, 1000000);
     $coord_link = '';
-    if ($p[2] <= 360 && $p[1] <= 90) {
-        $coord_link = 'https://maps.google.com/maps?q=' . $p[1] . ',' . $p[2];
+    if ($longitude <= 360 && $latitude <= 90) {
+        $coord_link = 'https://maps.google.com/maps?q=' . $latitude . ',' . $longitude;
     }
 
     echo '<section class="weather-card weather-card--compact panel">';
     echo '<div class="weather-card__header weather-card__header--compact">';
-    echo '<h2 class="weather-card__title weather-card__title--compact"><a href="', htmlspecialchars($p[4], ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($p[0], ENT_QUOTES, 'UTF-8'), '</a></h2>';
+    echo '<h2 class="weather-card__title weather-card__title--compact"><a href="', htmlspecialchars($siteLink, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '</a></h2>';
     echo '<div class="weather-card__meta weather-card__meta--compact">';
-    if ($p[7] !== '') {
-        echo '<span class="weather-card__badge">', htmlspecialchars($p[7], ENT_QUOTES, 'UTF-8'), '</span>';
+    if ($siteState !== '') {
+        echo '<span class="weather-card__badge">', htmlspecialchars($siteState, ENT_QUOTES, 'UTF-8'), '</span>';
     }
     if ($coord_link !== '') {
-        if ($p[7] !== '') {
+        if ($siteState !== '') {
             echo '<span class="weather-card__dot" aria-hidden="true">&bull;</span>';
         }
-        echo '<a href="', htmlspecialchars($coord_link, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($p[1] . ', ' . $p[2], ENT_QUOTES, 'UTF-8'), '</a>';
+        echo '<a href="', htmlspecialchars($coord_link, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($latitude . ', ' . $longitude, ENT_QUOTES, 'UTF-8'), '</a>';
     }
     echo '</div>';
     echo '</div>';
 
     echo '<div class="weather-card__grid">';
-    if ($p[3] !== '') {
+    if ($clearDarkSkyImage !== '') {
         echo '<figure class="media-panel">';
         echo '<span class="media-panel__label">Clear Dark Sky</span>';
-        echo '<img src="', htmlspecialchars($p[3], ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Clear Dark Sky chart for ', htmlspecialchars($p[0], ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '<img src="', htmlspecialchars($clearDarkSkyImage, ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Clear Dark Sky chart for ', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
         echo '</figure>';
     }
 
     if ($coord_link !== '') {
         echo '<figure class="media-panel">';
         echo '<span class="media-panel__label">7Timer Astro Forecast</span>';
-        echo '<img src="https://www.7timer.info/bin/astro.php?lon=', htmlspecialchars($p[2], ENT_QUOTES, 'UTF-8'), '&lat=', htmlspecialchars($p[1], ENT_QUOTES, 'UTF-8'), '&lang=en&ac=0&unit=metric&output=internal&tzshift=0&v=', $ran, '" alt="7Timer astro forecast for ', htmlspecialchars($p[0], ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '<img src="https://www.7timer.info/bin/astro.php?lon=', htmlspecialchars($longitude, ENT_QUOTES, 'UTF-8'), '&lat=', htmlspecialchars($latitude, ENT_QUOTES, 'UTF-8'), '&lang=en&ac=0&unit=metric&output=internal&tzshift=0&v=', $ran, '" alt="7Timer astro forecast for ', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
         echo '</figure>';
     }
     echo '</div>';
 
-    if ($p[6] !== '') {
-        $ahour = preg_replace('/ahour=0/', 'ahour=48', $p[6]);
+    if ($meteogramUrl !== '') {
+        $ahour = preg_replace('/ahour=0/', 'ahour=48', $meteogramUrl);
         echo '<div class="media-grid-two">';
         echo '<figure class="media-panel">';
         echo '<span class="media-panel__label">NOAA Meteogram 0-48h</span>';
-        echo '<img src="', htmlspecialchars($p[6], ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="NOAA meteogram for ', htmlspecialchars($p[0], ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '<img src="', htmlspecialchars($meteogramUrl, ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="NOAA meteogram for ', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
         echo '</figure>';
         echo '<figure class="media-panel">';
         echo '<span class="media-panel__label">NOAA Meteogram 48-96h</span>';
-        echo '<img src="', htmlspecialchars($ahour, ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Extended NOAA meteogram for ', htmlspecialchars($p[0], ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '<img src="', htmlspecialchars($ahour, ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Extended NOAA meteogram for ', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
         echo '</figure>';
         echo '</div>';
     }

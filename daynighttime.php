@@ -74,18 +74,25 @@ function daynight_header_cell($label, $colspan = 1, $rowspan = 1)
 
 echo '<div class="weather-stack">';
 foreach ($pos as $p) {
-    $coord_link = 'https://maps.google.com/maps?q=' . $p[1] . ',' . $p[2];
-    $has_data = count(glob('data/' . $p[5] . '.*')) > 0;
+    $siteName = $p['name'];
+    $latitude = $p['latitude'];
+    $longitude = $p['longitude'];
+    $siteLink = $p['clear_dark_sky_link'];
+    $slug = $p['slug'];
+    $siteState = $p['state'];
+
+    $coord_link = 'https://maps.google.com/maps?q=' . $latitude . ',' . $longitude;
+    $has_data = count(glob('data/' . $slug . '.*')) > 0;
 
     echo '<section class="panel">';
     echo '<div class="weather-card__header weather-card__header--compact">';
-    echo '<h2 class="weather-card__title weather-card__title--compact"><a href="', htmlspecialchars($p[4], ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($p[0], ENT_QUOTES, 'UTF-8'), '</a></h2>';
+    echo '<h2 class="weather-card__title weather-card__title--compact"><a href="', htmlspecialchars($siteLink, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '</a></h2>';
     echo '<div class="weather-card__meta weather-card__meta--compact">';
-    if (!empty($p[7])) {
-        echo '<span class="weather-card__badge">', htmlspecialchars($p[7], ENT_QUOTES, 'UTF-8'), '</span>';
+    if (!empty($siteState)) {
+        echo '<span class="weather-card__badge">', htmlspecialchars($siteState, ENT_QUOTES, 'UTF-8'), '</span>';
         echo '<span class="weather-card__dot" aria-hidden="true">&bull;</span>';
     }
-    echo '<a href="', htmlspecialchars($coord_link, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($p[1] . ', ' . $p[2], ENT_QUOTES, 'UTF-8'), '</a>';
+    echo '<a href="', htmlspecialchars($coord_link, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($latitude . ', ' . $longitude, ENT_QUOTES, 'UTF-8'), '</a>';
     echo '</div>';
     echo '</div>';
 
@@ -115,7 +122,7 @@ foreach ($pos as $p) {
 
     $row_index = 0;
     foreach ($events as $event_name) {
-        $fname = 'data/' . $p[5] . '.' . $event_name . '.2024_2035.CDT.format';
+        $fname = 'data/' . $slug . '.' . $event_name . '.2024_2035.CDT.format';
         if (!file_exists($fname)) {
             continue;
         }

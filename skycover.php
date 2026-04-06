@@ -1,19 +1,20 @@
 <!DOCTYPE html>
 <html>
-<?php include "head.php"; ?>
+<?php include 'head.php'; ?>
 
 <body>
-  <?php
+<?php
     $datadir = '/home/celaeno/web/astro/skycover';
     $f1 = $datadir . '/all.skycover.3day.UTC.format';
     $f2 = $datadir . '/all.rhm.3day.UTC.format';
     $f3 = $datadir . '/all.temp.3day.UTC.format';
 
-    require 'site/site.php';
+    require_once __DIR__ . '/includes/sites.php';
+    $pos = astro_load_site_data();
     require 'menu.php';
     include 'plot_weather.php';
     include 'tail.php';
-    ?>
+?>
 </body>
 
 </html>

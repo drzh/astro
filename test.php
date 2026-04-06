@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html>
-<?php include "head.php"; ?>
+<?php include 'head.php'; ?>
 <body>
 <script src="cloud.js">
 </script>
 <?php
-require 'site/site.php';
+require_once __DIR__ . '/includes/sites.php';
+
+$pos = astro_load_site_data();
+
 require 'menu.php';
 
 $pa = '';

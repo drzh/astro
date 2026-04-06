@@ -77,11 +77,15 @@
     }
 
     foreach ($pos as $p) {
-        $coord_link = 'https://maps.google.com/maps?q=' . $p[1] . ',' . $p[2];
+        $siteName = $p['name'];
+        $latitude = $p['latitude'];
+        $longitude = $p['longitude'];
+        $siteLink = $p['clear_dark_sky_link'];
+        $coord_link = 'https://maps.google.com/maps?q=' . $latitude . ',' . $longitude;
         echo '<section class="panel">';
         echo '<div class="weather-card__header weather-card__header--compact">';
-        echo '<h2 class="weather-card__title weather-card__title--compact"><a href="', htmlspecialchars($p[4], ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($p[0], ENT_QUOTES, 'UTF-8'), '</a></h2>';
-        echo '<div class="weather-card__meta weather-card__meta--compact"><a href="', htmlspecialchars($coord_link, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($p[1] . ', ' . $p[2], ENT_QUOTES, 'UTF-8'), '</a></div>';
+        echo '<h2 class="weather-card__title weather-card__title--compact"><a href="', htmlspecialchars($siteLink, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '</a></h2>';
+        echo '<div class="weather-card__meta weather-card__meta--compact"><a href="', htmlspecialchars($coord_link, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($latitude . ', ' . $longitude, ENT_QUOTES, 'UTF-8'), '</a></div>';
         echo '</div>';
         echo '<figure class="media-panel image-scroll"';
         if ($plot_scroll_group !== '') {
@@ -105,7 +109,7 @@
         $plotrec1 = '';
         while (!feof($fh)) {
             $e = explode("\t", trim((string) fgets($fh)));
-            if (count($e) == 3 && $e[0] == $p[0]) {
+            if (count($e) == 3 && $e[0] == $siteName) {
                 $time = strtotime($e[1] . ' ' . $tz);
                 $day = date('Ymd', strtotime($e[1] . ' ' . $tz));
                 $hour = date('H', strtotime($e[1] . ' ' . $tz));
@@ -170,7 +174,7 @@
             if ($fh) {
                 while (!feof($fh)) {
                     $e = explode("\t", trim((string) fgets($fh)));
-                    if (count($e) == 3 && $e[0] == $p[0]) {
+                    if (count($e) == 3 && $e[0] == $siteName) {
                         $time = strtotime($e[1] . ' ' . $tz);
                         if ($time > $timemax) {
                             break;
@@ -194,7 +198,7 @@
             if ($fh) {
                 while (!feof($fh)) {
                     $e = explode("\t", trim((string) fgets($fh)));
-                    if (count($e) == 3 && $e[0] == $p[0]) {
+                    if (count($e) == 3 && $e[0] == $siteName) {
                         $time = strtotime($e[1] . ' ' . $tz);
                         if ($time > $timemax) {
                             break;
