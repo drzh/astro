@@ -1,15 +1,15 @@
+<!DOCTYPE html>
 <html>
-<?php include("head.php") ?>
+<?php include('head.php') ?>
 <body>
 <?php
 require 'menu.php';
 require 'planets_menu.php';
 
-$filepattern = array(array('planet/rise_set/*.rise_set.*.format',
-                           'Planet Rise and Set'),
-);
+$filepattern = array(array('planet/rise_set/*.rise_set.*.format', 'Planet Rise and Set'));
 
 require 'planets_event.php';
+include('tail.php');
 ?>
 </body>
 </html>

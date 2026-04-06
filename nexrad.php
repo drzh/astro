@@ -1,13 +1,22 @@
+<!DOCTYPE html>
 <html>
 <?php include("head.php") ?>
 <body>
 <?php
 require 'menu.php';
 ?>
-<h2>DFW</h2>
-<img src="radar/data/DFW.png"><br/><br/>
-<h2>Dallas</h2>
-<img src="radar/data/Dallas.png"><br/>
+<section class="panel">
+  <h2 class="panel-title">DFW</h2>
+  <figure class="media-panel">
+    <img src="radar/data/DFW.png" alt="DFW NEXRAD image">
+  </figure>
+</section>
+<section class="panel">
+  <h2 class="panel-title">Dallas</h2>
+  <figure class="media-panel">
+    <img src="radar/data/Dallas.png" alt="Dallas NEXRAD image">
+  </figure>
+</section>
 <?php
 include('tail.php');
 ?>

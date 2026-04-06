@@ -1,8 +1,10 @@
+<!DOCTYPE html>
 <html>
 <?php include("../head.php") ?>
 <body>
 <?php
 require '../menu.php';
+include_once '../libtable.php';
 
 $toggle = [
   'GOES' => 'tggoes',
@@ -14,36 +16,42 @@ $toggle = [
   'NAM-84' => 'tgnam84',
 ];
 
-echo '<table width=200 border=1>';
+$headers = array('Feature', 'Status');
+$rows = array();
+$sort_values = array();
 
 foreach ($toggle as $k => $v) {
-  $tgf = '' . $v . '.off';
-  # Change status
+  $tgf = $v . '.off';
+
   if (isset($_GET[$v])) {
     $st = $_GET[$v];
     if ($st == 'on' && file_exists($tgf)) {
       unlink($tgf);
     }
-    if ($st == 'off' && (! file_exists($tgf))) {
+    if ($st == 'off' && (!file_exists($tgf))) {
       fopen($tgf, 'w') or die("Unable to open file: $tgf !");
     }
   }
 
-  # Status table
-  echo '<tr align="center">', "\n";
-  echo '<td>', $k, '</td>';
-  echo '<td>';
   if (file_exists($tgf)) {
-    echo '<a class="statoff" href="index.php?', $v, '=on">Off</a>';
+    $status_cell = '<a class="statoff" href="index.php?' . urlencode($v) . '=on">Off</a>';
+    $status_sort = 'Off';
+  } else {
+    $status_cell = '<a class="staton" href="index.php?' . urlencode($v) . '=off">On</a>';
+    $status_sort = 'On';
   }
-  else {
-    echo '<a class="staton" href="index.php?', $v, '=off">On</a>';
-  }
-  echo '</td>';
-  echo '</tr>';
+
+  $rows[] = array(
+    htmlspecialchars($k, ENT_QUOTES, 'UTF-8'),
+    $status_cell,
+  );
+  $sort_values[] = array($k, $status_sort);
 }
 
-echo '</table>';
+echo '<section class="panel">';
+echo '<div class="chip-row"><span class="page-toolbar__label">Feature Toggles</span></div>';
+render_sortable_table($headers, $rows, $sort_values);
+echo '</section>';
 
 include('../tail.php');
 ?>

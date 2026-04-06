@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html>
-<?php
-include("head.php") ?>
+<?php include('head.php') ?>
 <body>
-<?php
-include('menu.php');
-#echo "<p><img src='data/ct.jpg'></p>";
-?>
-<script language='javascript'>
+<?php include('menu.php'); ?>
+<section class="panel">
+  <p id="contact-link" class="weather-card__meta"></p>
+</section>
+<script>
   var user = 'admin';
   var host = 'goforreal.xyz';
   var comb = user + '@' + host;
-  document.write("Contact me: <a href='" + "mail" + "to:" + comb + "'>" + comb + "</a>");
+  document.getElementById('contact-link').innerHTML = "Contact me: <a href='mailto:" + comb + "'>" + comb + "</a>";
 </script>
-<?php
-include('tail.php');
-?>
+<?php include('tail.php'); ?>
 </body>
 </html>

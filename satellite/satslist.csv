@@ -19,33 +19,38 @@ AAUSAT-2;32788;;437.426 ;;1k2*MSK 9k6 FSK;OZ2CUB;re-entered
 AAUSAT-3;39087;;437.425 ;437.425 ;4800bps FSK CW;OZ3CUB;inactive
 AAUSAT-4;41460;;437.425 ;437.425 ;2k4*/9k6/19k2 GFSK CW;OZ4CUB;re-entered
 AAUSAT-5;40948;;437.425 ;437.425 ;9600bps GMSK CW;OZ5CUB;re-entered
+Acadia-10;;;;;;;unknown
 ACRUX-1;44369;;437.200 ;;9600bps GMSK;CQ;re-entered
 ACS3;59588;;401.500 ;;2400bps GMSK;;non-amateur
 AC1-001/002/003;;;2255.000 ;;;;unknown
 ADDCUBE;64590;;435.500/2412.000;;FM;;unknown
 ADE;;;;;;;to be launched
+ADIS;;;;;;;unknown
 AENEAS;38760;;437.600 ;;1200bps AFSK;KE6YFA;inactive
-AEPEX;;;437.325/2405.000;;9k6/19k2GFSK 10MbpsOQPSK;;to be launched
+AEPEX;;;437.325/2405.000;;9k6/19k2GFSK 10MbpsOQPSK;;unknown
 AeroCube-1;;;902-928;;9600bps GFSK;;failure
 AeroCube-2;31133;;902-928;;9600bps GFSK;;inactive
 AEROS-MH-1;59145;;2245.000 ;;FM;;unknown
 AESP14;40389;;437.600 ;;9600bps GFSK;;inactive
 AETS-1;;;922.000/2228.000;;;;failure
+AE1a;;;;;;;unknown
 AE2a;;;;;;;unknown
 AE3Va;;;;;;;unknown
 AggieSat-4;41313;;436.250 ;;9k6/153k6 FSK;;re-entered
 AHMAT-1;57206;;437.050 ;;1145baudAFSK;RS41S;unknown
+AiglonSat-1;;;;;;;unknown
 AIM;31304;;2282.500 ;;;;re-entered
 AISat;40054;;2259.000 ;437.505 ;FM CW*;DP0AIS;active
 AISAT-1;44104;145.825 ;145.825/2259.000;;1200bps AFSK;AISAT;inactive
+AISSat-4;;;;;;;unknown
 AISTECHSAT-2;43768;;436.730 ;;4k8*/9k6 FSK;;active
 AISTECHSAT-3;44103;;436.730 ;;4k8/9k6* FSK;;re-entered
 AIST-1;39492;;435.265 ;435.265 ;CW;;re-entered
 AIST-2;39133;;435.215 ;435.265 ;FM CW;;inactive
-AIST-2D;41465;145.831-145.849;435.3065-435.3235;435.315 ;4800bps PSK CW;;inactive
-AIST-2T-1;67253;;;;;;unknown
+AIST-2D;41465;145.831-145.849;435.3065-435.3235;435.315 ;4800bps PSK CW;;re-entered
+AIST-2T-1;67253;;435.792 ;;FM;;unknown
 AIST-2T-2;67254;;;;;;unknown
-AIST-ST;;;436.995 ;;LoRa;RS86S;unknown
+AIST-ST;AIST-ST;;436.995 ;;LoRa;RS86S;unknown
 AlainSat-1;62637;;400.650/400.850;2260.000 ;4k8/9k6 FSK;;inactive
 Aldebaran-1;;;468.500 ;;LoRa;;failure
 ALEXANDER;39144;;2401.200-2431.200;437.425 ;1200bps AFSK;KJ6KRW;re-entered
@@ -256,7 +261,8 @@ Blackjack-1;56956;;2264.800 ;;300k FM;;unknown
 Blackjack-2;56955;;2264.800 ;;300k BPSK;;unknown
 Blackjack-3;56950;;2264.800 ;;300k BPSK;;unknown
 Blackjack-4;56952;;2264.800 ;;300k BPSK;;unknown
-Black Kite-1;;;2288.000 ;;;;inactive
+Black-Kite-1;;;2288.000 ;;;;inactive
+Black-Kite-2;;;2286.000 ;;38k4GMSK;;unknown
 Black Knight-1;39398;;437.345 ;;;;re-entered
 Blue Diamond;42783;;401.150 ;;9600bps FSK;;re-entered
 BlueBird-01;61047;;439.500 ;;2400bps GFSK;;inactive
@@ -268,7 +274,7 @@ BlueBird-06;67232;;435.000 ;;19k2 GFSK;;inactive
 BlueBon;62688;;400.850 ;;FM;;unknown
 BlueWalker-3;53807;;437.500/2210.000;;2k4*/9k6 FSK;;inactive
 Bobcat-1;46922;;436.600 ;;9k6/38k4/57k6* GMSK;BOBCAT;re-entered
-BOTAN;65942;;145.825/437.375*;437.375 ;1k2AFSK 4k8*GMSK APRS CW*;JS1YPT;active
+BOTAN;65942;;145.825/437.375*;437.375 ;1k2AFSK 4k8*GMSK APRS CW*;JS1YPT;re-entered
 BOTSAT-1;63216;;401.360 ;;4800bps GMSK;BOTSAT;active
 BO-47;27422;;145.840 ;;400bps BPSK;;inactive
 BO-48;27422;;435.270 ;;400bps BPSK;;inactive
@@ -296,7 +302,7 @@ BRO-15;60553;;401.735 ;;9600bps FSK;;active
 BRO-16;62654;;401.735/2260.500;;4k8/9k6* FSK;;inactive
 BRO-17;66672;;401.735 ;;4800bps FSK;;inactive
 BRO-18;64550;;401.735/2260.500;;4k8/9k6* FSK;;active
-BRO-19;;;;;;;unknown
+BRO-19;;;401.735 ;;4k8_FSK;;active
 BRO-20;66674;;401.735 ;;4800bps FSK;;inactive
 BSUSat-1;43666;436.200 ;436.200/436.990*;;4k8/9k6* GMSK Digipeater;EU10S;re-entered
 BSUSat-2;57175;436.200 ;436.990 ;;4k8/9k6* GMSK Digipeater;EU11S;active
@@ -315,7 +321,7 @@ CANX-3A;39092;;145.890 ;145.890 ;CW;;inactive
 CANX-3B;39091;;145.890/437.365;2234.400 ;32Kbps-256Kbps BPSK;;inactive
 CANX-4;40055;;145.890/2234.400;437.365 ;32Kbps-256Kbps BPSK;;inactive
 CANX-5;40056;;145.890/2234.400;437.365 ;32Kbps-256Kbps BPSK;;inactive
-CANVAS;;;;;;;to be launched
+CANVAS;;;437.250/2405.300;;9k6_GMSK;;to be launched
 Canyval-X 1/2;;;435.000 ;435.000 ;9600bps MSK;;unknown
 CANYVAL-C1;;;436.330 ;;4800bps MSK;;re-entered
 CANYVAL-C2;;;437.500 ;;4800bps MSK;;re-entered
@@ -456,7 +462,7 @@ COPPER;39395;;2403.000-2403.400;437.290 ;9600bps FSK;;re-entered
 CoRAL;67685;;401.140 ;;1k2*/9k6_FSK;CORAL;active
 CORVUS-BC2;42846;;400.175 ;;FM;;inactive
 CORVUS-BC1;42847;;400.175 ;;FM;;inactive
-COSMO;;;401.200 ;;9k6_GFSK;;to be launched
+COSMO;;;401.200/2220.000;;9k6/19k2_GFSK;COSMO;active
 CosmoGirl-Sat;60953;145.825 ;145.825/437.120;437.120 ;1k2AFSK 4k8GMSK APRS CW*;JS1YOI;re-entered
 Cosmos-2576;59773;;;;;;unknown
 CO-55;27844;;437.470 ;436.838 ;1200bps AFSK CW*;JQ1YCY;active
@@ -484,7 +490,7 @@ CP-12;47319;;437.150 ;437.150 ;9600bps FSK CW;KK6HIT;re-entered
 CP-13;;;;;;;unknown
 CP-14;;;;;;;to be launched
 CP-15;;;;;;;failure
-CP-16;;;436.965 ;;9k6_GFSK;;to be launched
+CP-16;;;436.965 ;;9k6_GFSK;KK6HIT-6;active
 CroCube;;;436.775 ;;9600bps GFSK;9A0CC;unknown
 CryoCube-1;45260;2082.004 ;2261.000;;;;re-entered
 CSC-1;58022;;401.175 ;;1200bps BPSK;CSC1;unknown
@@ -550,6 +556,7 @@ CXBN;38762;;437.525 ;;9600bps GFSK;;inactive
 CXBN-2;42704;;437.075 ;;9600bps FSK;;re-entered
 CyBEEsat;;;137.500 ;;1k2_GMSK;;to be launched
 CYCLOPS;53373;;436.050 ;;2400bps GMSK_USP;RS29S;re-entered
+CYCLOPS-1;;;;;;;unknown
 CySat-1;61501;;436.375 ;;9600bps FSK;;inactive
 D3;53769;;437.080/2432.000;;1k2AFSK 9k6GMSK;;unknown
 DAILI;51443;;914.700 ;;FM;;re-entered
@@ -561,6 +568,7 @@ DaVinci;43857;145.100 ;436.500 ;;9600bps GMSK;;re-entered
 DCBB;40912;;145.475*/437.950;;9k6* GMSK;BJ1SH;re-entered
 DCS-1;67263;;401.150 ;2k4 GMSK_USP;;SCA0KR;active
 DCUBED-1;;;435.225 ;;FM;;unknown
+DecimalSat-1;;;436.600 ;436.600 ;500/1000GFSK SSDV;;unknown
 Deimos;60526;;400.300 ;;9600bps GMSK;;unknown
 DEKART;46493;;437.000 ;;4800bps mobitex;;inactive
 DELFI-C3;32789;;145.870 ;;1200bps BPSK;DLFIC3;active
@@ -578,7 +586,8 @@ DEWASat-2;56180;;401.100 ;;2k4 FSK;;re-entered
 DHABISAT;49017;;436.908 ;;1200bps BPSK;A68MX;re-entered
 DIDO-2;42000;;400.300 ;;1200bps BPSK;DIDO2;re-entered
 DIDO-3;46284;;400.450 ;;1200bps BPSK;DIDO3;re-entered
-DISCO-2;;;437.075/2432.500;;9k6_FSK/GMSK;;to be launched
+DISCO-1;56222;;437.075 ;;4k8_FSK;;re-entered
+DISCO-2;;;437.075/2432.500;;9k6_FSK/GMSK;;unknown
 Diwata-2;43678;437.500 ;145.900 ;145.900 ;FM* CW;D1W2PH;active
 DIY-1;47963;;437.125 ;437.125 ;100bdRTTY 500*bdFSK CW;CONDOL;re-entered
 DJIBOUTI-1A;58266;;401.800 ;;2400bps FSK;DJIB1A;re-entered
@@ -600,6 +609,7 @@ DRAGONSat;35690;;437.325 ;;9600bps FSK;;re-entered
 DragonSat-1;39383;;145.870 ;;9600bps FSK;;re-entered
 Dragoon;64542;;2225.700 ;;FM;;unknown
 DragSail;42771;;437.300/2403.000;;1200bps AFSK;;inactive
+Dream-Big-PFW;;;;;;;unknown
 Druzhba-ATURK;;;;;;;unknown
 DSLWP-A1(A);43471;;435.425/2222.810;436.425 ;500/250bps GMSK JT4G;BJ1SM;inactive
 DSLWP-A2(B);43472;;435.400/2275.220;436.400 ;500/250bps GMSK JT4G;BJ1SN;re-entered
@@ -648,6 +658,7 @@ Elevation-1;62677;;400.200*/400.575;2245.500 ;7416bps FSK FM;;inactive
 ELFIN-A;43617;;437.450 ;;9k6*/19k2 GFSK;WJ2XNX;re-entered
 ELFIN-B;43616;;437.475 ;;9k6*/19k2 GFSK;WJ2XOX;re-entered
 ELLIOT;;;;;;;unknown
+EMISAR;;;401.334 ;401.334 ;9k6_GFSK CW;;active
 EMMA;60953;145 825 ;145 825/437.120;437.120 ;1k2AFSK 4k8GMSK APRS CW*;JS1YOI;re-entered
 EnduroSat One;43551;;437.050 ;437.050 ;9600bps GMSK Music;LZ0AMS;re-entered
 ENSO;58470;;436.250 ;;2k4/9k6*FSK;FX6FRC;re-entered
@@ -662,9 +673,12 @@ EPICHyper-3;;;;;;;unknown
 EQUISat;43552;;435.550 ;435.550 ;4k8*/9k6 4LFSK CW LED;;re-entered
 ERMINAZ-1U;;;435.775 ;;9k6-19k2 GFSK GMSK QPSK;;to be launched
 ERMINAZ-1V;;;145.965 ;;9k6-19k2 GFSK GMSK QPSK;;to be launched
-ERMINAZ-2U;;;435.900 ;;600-19k2 GFSK GMSK BPSK;;to be launched
-ERMINAZ-2V;;;145.920 ;;600-19k2 GFSK GMSK BPSK;;to be launched
-ERMINAZ-2X;;;145.960 ;;600-19k2 GFSK GMSK BPSK;;to be launched
+ERMINAZ-2U;;;435.900 ;;600-19k2 GFSK GMSK BPSK;DP0PQA;unknown
+ERMINAZ-2V;;;145.920 ;;600-19k2 GFSK GMSK BPSK;DP0PQB;unknown
+ERMINAZ-2X;;;145.960 ;;600-19k2 GFSK GMSK BPSK;DP0PQC;unknown
+ERMIS-1;;;401.550/2218.000;;9600bps FSK;;active
+ERMIS-2;;;401.250/2218.000;;9600bps FSK;;active
+ERMIS-3;;;401.313/2218.000;;9600bps FSK;;active
 ERNST;60528;;401.100 ;;4800bps FSK;;unknown
 ESAIL;46273;;;;;;re-entered
 ESEO;43792;1263.500 ;145.930/145.895;437.000*;FM 1k2BPSK 4k8*/9k6GFSK;IW4DUL;inactive
@@ -694,6 +708,8 @@ FASTRAC-1;37227;145.980 ;437.345 ;;9600bps FSK;FAST1;inactive
 FASTRAC-2;37380;435.025 ;145.825 ;;1200bps AFSK;FAST2;inactive
 FASTRAC-2;37380;437.345 ;145.825 ;;9600bps FSK;FAST2;inactive
 FCAL;29667;;437.385 ;;1200bps AFSK;KD4HBO;re-entered
+FEMTO-1;;;;;;;unknown
+FGN-100-D3;;;2280.000 ;;;;unknown
 FEES;48082;;437.200 ;;9600bps FSK/LoRa;;re-entered
 FEES-2;51441;;145.000/437.200*;;9600bps FSK 125k LoRa*;;re-entered
 FIREBIRD-1;39463;;437.405 ;;19200bps FSK;K7MSU;inactive
@@ -706,6 +722,8 @@ Flamingo-1;;;401.050/2240.000;;9k6*GMSK FM;;active
 FloripaSat-1;44885;436.100 ;436.100*;145.900 ;1k2*/2k4 2GFSK;PY0EFS;inactive
 FloripaSat-2A;;;468.200 ;;1200bps GMSK;;failure
 FloripaSat-2B;;;;;LoRa;;failure
+Flylab-1;;;;;;;unknown
+Flylab-2;;;;;;;unknown
 FMN-1;43192;145.945 ;435.350 ;;9600*bps BPSK FM;BUAABJ;re-entered
 Foras-Promineo;66911;;437.400 ;;LoRa;;unknown
 ForgeStar-1;;;2260.990 ;;FM;;unknown
@@ -736,6 +754,10 @@ FossaSat-2E18;;;401.700 ;;LoRa;;unknown
 FossaSat-2E19;62676;;401.700 ;;LoRa;;unknown
 FossaSat-2E20;;;401.700 ;;LoRa;;unknown
 FossaSat-2E21;64536;;401.700 ;;LoRa;;active
+FossaSat-2E22;66779;;401.700 ;;LoRa;;active
+FossaSat-2E23;;;401.700 ;;LoRa;;unknown
+FossaSat-2E24;66780;;401.700 ;;LoRa;;active
+FossaSat-2E25;;;401.700 ;;LoRa;;unknown
 FossaSat-FEROX 14~17;;;401.700 ;;LoRa;;re-entered
 Fox-1A;40967;435.182 ;145.980 ;145.980 ;FM CTCSS 67.0Hz/200bps DUV;;inactive
 Fox-1B;43017;435.250 ;145.960 ;145.960 ;FM* CTCSS 67.0Hz/200bps DUV;;active
@@ -780,13 +802,16 @@ GALAPAGOS-UTE-SWSU;67279;;435.750/437.050*;;1143*AFSK 2k4FSK SSTV;HC1PX;active
 GALASSIA;41170;;144.200/145.000;436.400 ;4k8*AFSK 9k6GMSK;;re-entered
 GALASSIA-2;57486;;436.400 ;;1200bps FSK;;inactive
 Galaxy-Explorer;;;468.500 ;;;;failure
+GARAI-A;62635;;2241.000 ;;400k BPSK;;unknown
+GARAI-B;;;2243.000 ;;;;unknown
 Gardens-01;62298;145.825 ;437.375 ;437.375 ;1k2AFSK 4k8GMSK APRS CW;;re-entered
 Gardens-02;59508;145.825 ;145.825/437.375;;1k2AFSK 4k8*GMSK APRS CW*;JS1YMX;re-entered
 Gardens-03;60954;145.825 ;437.375 ;437.375 ;1k2AFSK 4k8*GMSK APRS CW*;JS1YNI;re-entered
-Gardens-04;65942;145.825 ;437.375 ;437.375 ;1k2AFSK 4k8*GMSK APRS CW*;;active
+Gardens-04;65942;145.825 ;437.375 ;437.375 ;1k2AFSK 4k8*GMSK APRS CW*;;re-entered
 GASPACS;51439;;437.365 ;;9600bps 2GFSK;N7GAS;re-entered
 GCOM-W1;38337;;2220.000 ;;FM;;unknown
 GEARRSat-1;40456;;;;;;unknown
+GEMS2-Amethyst;;;2245.000 ;;;;unknown
 GeneSat-1;29655;;437.065/437.100;437.065 ;1200bps AFSK;KE7EGC;re-entered
 GENESIS-1;29252;;;;;;unknown
 GENESIS-2;31789;;;;;;unknown
@@ -810,6 +835,7 @@ GhanaSat-1;42821;;437.375 ;437.372 ;1k2AFSK 9k6GMSK CW;JG6YJP;inactive
 GHALIB;;;401.175 ;;1200bps BPSK;FALCON;re-entered
 GHGSat-C12;;;;;;;unknown
 GHGSat-C13;;;;;;;unknown
+Ghost-Rider;;;;;;;unknown
 GHRCESAT;47718;;436.000;;LoRa;;inactive
 GHS-01;65733;;437.090 ;437.090 ;1k2AFSK 9k6GMSK Digitalker CW;JJ2YZA;inactive
 GITAI-SC1;62388;;2264.000 ;;32k_FSK;;unknown
@@ -825,6 +851,7 @@ GOSAT;33492;;2220.000 ;;FM;;unknown
 Gossamer Piccolomini;50993;;915.000 ;;FM;;unknown
 GO-32;25397;145.850/145.930;435.225*/435.325;;9600bps FSK;4XTECH-11 12;active
 GRAHAM;39146;;2401.200-2431.200;437.425 ;1200bps AFSK;KJ6KRW;re-entered
+GRAVITAS;;;400.575 ;;;;unknown
 GRBAlpha;47959;145.905 ;437.025 ;437.025 ;9k6GFSK Digipeater CW;OM9GRB;re-entered
 GRBBeta;60237;;436.785 ;2405.000 ;9600bps GFSK CW;HA2GRB;active
 GreenCube;53106;435.310 ;435.310 ;;0k3/1k2*/2k4FSK Digipeater;;inactive
@@ -847,19 +874,24 @@ HADES-E;;145.925 ;436.888 ;436.888 ;200-2k4 USB FM CW;;to be launched
 HADES-F;;145.925 ;436.666 ;436.666 ;200-2k4 USB FM CW;;to be launched
 HADES-R;62690;145.925 ;436.888 ;436.888 ;200*-2k4 USB FM CW;;active
 HADES-ICM;63492;145.875 ;436.666 ;436.666 ;200*-2k4_USB FM CW;;active
-HADES-SA;;;437.075 ;;;;to be launched
+HADES-SA;;;436.875 ;;200/800*/1600_FSK SSDV;;active
 Hamsat;28650;435.220-435.280;145.930-145.870;145.936 ;SSB Carrier;Indian;inactive
 Hamsat;28650;435.225-435.275;145.925-145.875;145.860 ;SSB CW;Dutch;inactive
+Harbinger;;;;;;;unknown
 HARP;45256;450.000 ;468.000 ;;;;re-entered
 HAUSAT-1;;;437.465 ;;1200bps AFSK;D90HP;failure
 HAVELSAT;42700;;436.845 ;436.845 ;9600bps GMSK CW;ON02TR;re-entered
 Haven demo;;;400.500/400.575;;;;unknown
 HawaiiSat1;;;145.9805 ;437.2705 ;9600bps GFSK;;failure
 HawkSat-1;35004;;437.345 ;;1200bps AFSK;;inactive
+Hawk-14A;;;;;;;unknown
+Hawk-14B;;;;;;;unknown
+Hawk-14C;;;;;;;unknown
 Hayasat-1;58471;;437.020 ;;9600bps GFSK;EK1HYS;re-entered
 HA-1;43156;145.930 ;436.950 ;437.350/437.644*;FM 9600bps BPSK;BI4ST;active
 HCT-Sat1;;;436.200 ;;9600bps GMSK;OK0BDT;inactive
 HCT-Sat2;66671;;436.300 ;;9600bps GMSK;HCTST2;active
+HELLOWORLD-1;;;;;;;unknown
 HELLO-TEST-1;;;401.075/2262.500;;9600bps FSK;;inactive
 HELLO-TEST-2;;;401.075/2262.500;;9600bps FSK;;inactive
 Hermes;;;437.425 ;;1200bps AFSK;;failure
@@ -893,7 +925,7 @@ Hors-1;57188;;435.300 ;;9600bps FSK;;unknown
 Hors-2;57196;;435.500 ;;9600bps FSK;;unknown
 Hors-3;61753;;435.650 ;;38400bps FSK;RS81S;unknown
 Hors-4;61754;;435.700 ;;38400bps FSK;RS82S;unknown
-Hors-5;;;;;;;unknown
+Hors-5;67283;;;;;;unknown
 HORYU-2;38340;;437.375 ;437.375 ;1200bps FSK CW;JG6YBW;inactive
 HORYU-4;41340;;437.375/2400.300;437.375*;1k2 AFSK 9k6 GMSK S-BPSK CW*;JG6YBW;inactive
 HO-59;29484;145.980 ;437.425 ;437.275 ;1200bps AFSK;JR8YJT;re-entered
@@ -979,6 +1011,10 @@ ICEYE-X51;63257;;;;;;unknown
 ICEYE-X55;64581;;2269.725 ;;FM;;unknown
 ICEYE-X56;64574;;2269.725 ;;FM;;unknown
 ICEYE-X57;64578;;2275.880 ;;FM;;unknown
+ICEYE-X73;;;;;;;unknown
+ICEYE-X74;;;;;;;unknown
+ICEYE-X75;;;;;;;unknown
+ICEYE-X76;;;;;;;unknown
 ICUBE-1;39432;435.060 ;145.947 ;;1200bps BPSK/FM-DSB;;inactive
 IDEASSat;47458;;437.345/2420.000;BN0IDA;9600bps GMSK;;re-entered
 IDEFIX;27422;;145.840 ;;400bps BPSK;;inactive
@@ -996,6 +1032,7 @@ INNOCUBE;62616;;435.950 ;437.020 ;9600bps MSK CW;DP1NNO;active
 InnoSat-2;43738;;435.500*/437.450;;4800bps GMSK;;re-entered
 InnoSat-3;64894;;436.436 ;;9600bps GFSK;RS92S0;active
 InnoSat-16;64878;;435.830 ;;9600bps GFSK;RS92S7;active
+InnoSat-Unamuno;;;;;;;unknown
 INSPIRESat-1;51657;;437.500 ;;9600bps GFSK;BCT;active
 INSPIRESat-4;57485;;437.760 ;;9600bps GFSK;;inactive
 INSPIRESat-7;56211;145.830/145.970*;435.200/437.410*;;9k6 BPSK FM;UVSQPL;re-entered
@@ -1008,6 +1045,7 @@ INS-2TD;51658;;435.080 ;;1200bps FSK;INDUSR;re-entered
 INTUITION-1;58565;;401.400 ;;9600bps GMSK;INT1KP;active
 INVADER;39577;;437.200 ;437.325 ;1k2AFSK DigiTalker CW;JQ1ZKK;re-entered
 ION;;;437.505 ;;1200bps AFSK;;failure
+ION-SCV-Astounding-Alexandra;;;2247.000 ;;;;unknown
 ION-MK01;46274;;437.515 ;;1200bps FSK;;inactive
 ION-SCV-002;47504;;;;1200bps FSK;;unknown
 ION-SCV-003;48912;;437.515 ;;1200bps FSK;;inactive
@@ -1030,11 +1068,20 @@ ION-SCV-020;64545;;401.415 ;;1200bps FSK;;inactive
 ION-SCV-021;;;2251.500 ;;;;unknown
 ION-SCV-022;;;2251.500 ;;;;unknown
 IO-26;22826;145.875-145.950;435.822/435.867;435.791 ;1200bps JAS;ITMSAT-11 12;inactive
-IO-86;40931;145.825/145.880;145.825/435.880;145.825 ;1k2AFSK FM CW;YBSAT/YBOX;active
+IO-86;40931;145.825/145.880;145.825/435.880;145.825 ;1k2AFSK FM SSDV CW;YBSAT/YBOX;active
 IO-117;53106;435.310 ;435.310 ;;0k3/1k2*/2k4FSK Digipeater;;active
+Io-1;;;2245.000 ;;;;unknown
 Iperdrone_0;60520;;401.110 ;;9600bps FSK;;unknown
 IPEX;39471;;437.270 ;437.270 ;9600bps GMSK CW;KJ6KSL;inactive
 Irazu;43468;;436.500 ;;9600bps FSK;TI0IRA;inactive
+IRIDE-MS1-EAGLET-2-9;;;;;;;unknown
+IRIDE-MS1-EAGLET-2-10;;;;;;;unknown
+IRIDE-MS1-EAGLET-2-11;;;;;;;unknown
+IRIDE-MS1-EAGLET-2-12;;;;;;;unknown
+IRIDE-MS1-EAGLET-2-13;;;;;;;unknown
+IRIDE-MS1-EAGLET-2-14;;;;;;;unknown
+IRIDE-MS1-EAGLET-2-15;;;;;;;unknown
+IRIDE-MS1-EAGLET-2-16;;;;;;;unknown
 IRIDE-MS2-HEO-1;62697;;;;;;unknown
 IRIDE-MS2-HEO-2;;;;;;;unknown
 IRIDE-MS2-HEO-3;;;;;;;unknown
@@ -1073,9 +1120,10 @@ ITF-2;41932;;437.525 ;437.525 ;1200bps FM CW;JQ1ZTK;re-entered
 IT-SPINS;49017;;437.405 ;;19200bps GMSK;K7MSU;re-entered
 ITUpSat-1;35935;;437.325 ;437.325 ;19200bps GFSK CW*;ITUPSAT;active
 IWATO;65943;;145.840 ;145.840 ;1k2AFSK 9K6GMSK CW;JL3ZPN;inactive
-JACK-001;64530;;436.300 ;;9600bps GFSK;JACK001;inactive
-JACK-003;66654;;436.300 ;;9600bps GFSK;DS35;active
-JACK-004;66659;;436.300 ;;9600bps GFSK;DS35;active
+Jack-001;64530;;436.300 ;;9600bps GFSK;JACK001;inactive
+Jack-002;;;436.300 ;;9600bps GFSK;DS35;active
+Jack-003;66654;;436.300 ;;9600bps GFSK;DS35;active
+Jack-004;66659;;436.300 ;;9600bps GFSK;DS35;active
 Jackal-3;62378;;2205.000/2282.500;;196k8_BPSK/131k_QPSK;;unknown
 Jackal-X-1L-001;;;2283.000 ;;110000_QPSK;;unknown
 Jackal-X-1L-002;;;2283.000 ;;110000_QPSK;;unknown
@@ -1096,6 +1144,7 @@ JPSS-1;43013;;2.248GHz;;FM;;weather sat
 JPSS-2;54234;;;;;;weather sat
 JUBA;;;;;;;unknown
 Jugnu;37839;;437.505 ;437.276 ;CW;;inactive
+Jumang;53346;;400.130/2210.200;;LoRa FM;;unknown
 Jussara-K;;401.500 ;468.500 ;;LoRa;;failure
 Juvenile-1F;43199;;;436.370 ;9600bps BPSK;MXSAT;re-entered
 JY1Sat;43803;435.100-435.120;145.875-145.855;145.840 ;1200bps BPSK SSB CW;JY1SAT;inactive
@@ -1155,7 +1204,7 @@ Kosar;61769;;436.740 ;;38400bps FSK;;unknown
 KOSEN-1;49402;;21.125-21.150;435.525 ;1k2AFSK/9k6FSK CW*;JR5YGJ;active
 KOSEN-2;;;436.750 ;436.750 ;1k2AFSK 9k6GMSK CW;;failure
 KOSEN-2R;;;436.750 ;436.750 ;1k2AFSK 9k6GMSK CW;;to be launched
-Kowsar-1.5;67255;;436.100 ;;LoRa;;unknown
+Kowsar-1.5;67264;;436.100 ;;LoRa;;unknown
 KOYOH;58463;;467.674/1624.000;2232.000 ;FM 500k BPSK;;unknown
 KO-23;22077;145.900/145.850;435.175 ;;9600bps FSK;HL01-11 12;inactive
 KO-25;22828;145.980/145.870;436.500 ;;9600bps FSK;HL02-11 12;inactive
@@ -1182,15 +1231,25 @@ LabSat;51086;;401.100 ;;FM;;re-entered
 LACHIT-1;;;436.175 ;435.360 ;9k6_FSK CW;;failure
 LAICE-1;;;437.505 ;;9600bps GMSK;;unknown
 LambdaSat;40458;;437.462 ;;1200bps AFSK;;unknown
-LAPAN-A2;40931;145.825/145.880;145.825/435.880;145.825 ;1k2AFSK FM CW;YBSAT/YBOX;active
+LAPAN-A2;40931;145.825/145.880;145.825/435.880;145.825 ;1k2AFSK FM SSDV CW;YBSAT/YBOX;active
 LAPAN-A3;41603;;437.425 ;;1200bps FFSK;;non-amateur
 LARES;38077;;;;;;non-amateur
 LASARsat;;;436.925 ;436.925 ;9600bps GMSK CW;OK0LSR;active
 LBSat;23607;;137.955 ;;;;unknown
 LEDSAT;49069;435.310 ;435.190 ;;1k2/9k6* FSK Digipeater;;re-entered
+LEMUR-2-CARROLLEMO;;;;;;;unknown
+LEMUR-2-CLARA;;;;;;;unknown
+LEMUR-2-DELOITTE-2;;;;;;;unknown
+LEMUR-2-DELOITTE-3;;;;;;;unknown
+LEMUR-2-EMARCHIA;;;;;;;unknown
 LEMUR-2-GRAMESUE;67370;;401.100 ;;BPSK;;unknown
+LEMUR-2-IRINA;;;;;;;unknown
+LEMUR-2-JULIA-JOEL;;;;;;;unknown
 LEMUR-2-KRISH;;;;;;;unknown
+LEMUR-2-PEGGY-2004;;;;;;;unknown
+LEMUR-2-POLO-11;;;;;;;unknown
 LEMUR-2-SEJONG-2;;;;;;;unknown
+LEMUR-2-SEJONG-3;;;;;;;unknown
 LEMUR-2-Spacegus;56187;;402.790 ;;;;unknown
 LEMUR-2-OnReflection;56182;;;;;;unknown
 LEMUR-2-Romeo-n-Leo;56206;;402.788 ;;FM;;re-entered
@@ -1213,7 +1272,7 @@ LilacSat-2;40908;145.825/145.875;144.390/437.225*;437.200;1k2/4k8*/9k6 FSK APRS 
 Lilium-1;58467;;400.455/436.885;;2400bps BPSK;BN0LL1;unknown
 Lilium-2;;;401.915/2202.000;;;;unknown
 Lilium-3;;;401.915/2202.000;;;;unknown
-Lilium-4;;145.980 ;435.250/437.850/2405.000;;1k2_AFSK 2Mbps_GFSK;BN0YCA;to be launched
+Lilium-4;;145.825/145.980;435.250/437.850/2405.000;;1k2_AFSK 2Mbps_GFSK;BN0YCA;unknown
 Lilo;64562;;401.100*/402.790/2200.500;;4800bps GMSK FM;HUBBLE6;inactive
 LINK;42714;;436.030 ;;1200bps BPSK;D80LW;re-entered
 LINGQUE-1A;43942;;401.800 ;;FM;;re-entered
@@ -1225,7 +1284,7 @@ LituanicaSAT-2;42768;;437.265 ;;9600bps FSK;LY0LS;re-entered
 LIZZIESAT-1;59132;;2201.000 ;;FM;;unknown
 LIZZIESAT-2;62383;;2201.250/2262.250;;FM;;unknown
 LIZZIESAT-3;63233;;2201.200 ;;400kbps BPSK;;unknown
-LOBACHEVSKY;67282;;145.910/435.500/436.320*;;1k2_AFSK 9k6*_GFSK;RS83S;unknown
+LOBACHEVSKY;67284;;145.910/435.500/436.320*;;1k2_AFSK 9k6*_GFSK;RS83S;unknown
 LOGSATS;58465;;401.375 ;;9600bps BPSK;;unknown
 LOGSATS-2;;;;;;;unknown
 LORIS;55125;;437.165 ;;19200bps GMSK;;re-entered
@@ -1242,7 +1301,8 @@ Luca;67287;;437.180 ;;2k4*/4k8 GMSK_USP;RS90S;active
 Lucky-7;44406;;437.525 ;;4k8*/9k6 GFSK;;re-entered
 LUMEN-1;;;400.500 ;;FM;;unknown
 LUME-1;43908;;437.060 ;;4800bps GMSK;;re-entered
-LUNA-1;66777;;401.775 ;;9k6_GMSK;LUNA02-1;active
+LUNA-1;66777;;401.725 ;;9k6_GMSK;LUNA02-1;active
+LUNA-2;;;401.725 ;;9k6_GMSK;LUNA01-1;active
 Luojia 1-01;43485;;437.250 ;;4800bps GMSK;;inactive
 LUR-1;60503;;401.500 ;;19200bps FSK;;unknown
 Lyra-Block-1-3;;;;;;;unknown
@@ -1299,6 +1359,7 @@ MicroMAS-1;40457;;468.000 ;;1.5Mbit/s OQPSK;;unknown
 MicroOrbiter-1;59483;;399.975/922.100;400.959 ;LoRa CW*;;re-entered
 MIET-AIS;53377;;437.900 ;;2400bps GMSK_USP;RS28S;re-entered
 MIMAN;52900;;436.500 ;;2k4/4k8* FSK;;active
+Mimir-1;;;;;;;unknown
 MinXSS-1;41474;;437.350 ;;9600bps GMSK;MINXSS;re-entered
 MinXSS-2;43758;;437.250 ;;9600bps GMSK;MINXS2;inactive
 MIR;16609;145.985 ;145.985 ;;Packet;R0MIR;re-entered
@@ -1330,6 +1391,8 @@ MO-110;47964;;437.345 ;437.345 ;2GMSK CW;;active
 MO-112;48868;145.9875;436.925 ;;9600bps GMSK;3B8MIR;active
 MO-122;60209;145.910-145.940;435.810-435.840;435.800 ;1200bps BPSK SSB;;active
 MRC-100;56993;;436.720 ;;1k25/2k5/5k/12k5*GMSK;;re-entered
+MR-1;;;;;;;unknown
+MR-2;67556;;2249.000 ;;FM;;unknown
 MTCube-1;44395;;436.750 ;;9600bps GFSK;;re-entered
 MTCube-2;53109;;436.750 ;;1k2AFSK 2k4*/9k6GMSK;;inactive
 MTUSI-1;61750;;435.600 ;;38400bps FSK;;unknown
@@ -1342,6 +1405,7 @@ MYSAT-1;44045;;435.775 ;;1k2*/4k8/9k6 BPSK;A68MY;re-entered
 MYSAT-2;49017;;436.908 ;;1200bps BPSK;A68MX;re-entered
 M-Cubed;37855;;437.485;;9600bps GMSK;K7MSU;re-entered
 M-SEL/CORTEZ;63231;;400.500/2491.750;;38400bps GFSK;;unknown
+N1-ATLAS;;;;;;;unknown
 N3SS;58020;;;;;;unknown
 Nahid-2;;;;;;;unknown
 NAHLA;;;2245.000 ;;;;unknown
@@ -1374,6 +1438,8 @@ NETSAT-3;46505;;435.600 ;;9600bps GFSK;DP2NSC;inactive
 NETSAT-4;46504;;435.600 ;;9600bps GFSK;DP2NSD;inactive
 NEUDOSE;56315;;436.050 ;;9600bps GFSK;VE3NEU;inactive
 NEUTRON-1;46923;145.840 ;435.300 ;;9k6 FSK/1k2*BPSK_KISS;WH6DNU;re-entered
+Newsat-53;;;;;;;unknown
+Newsat-54;;;;;;;unknown
 NEXUS;43937;145.900-145.930;435.910-435.880;435.900/437.075*;9k6/38k4FSK pi/4QPSK CW*;JS1YAV;re-entered
 NinjaSat;58341;;402.000 ;;2400bps GMSK;;inactive
 Nightjar;60535;;435.350 ;;4800bps GFSK;XX0UHF;active
@@ -1449,6 +1515,7 @@ NuX-1;51073;;437.650 ;;1200bps FSK;;re-entered
 Nyx-Mission-Possible;;;;;;;unknown
 OBSERVER-1A;;;2246.000;;;;unknown
 OBSERVER-1B;;;2219.000/2246.000;;;;unknown
+OBZP1;;;435.615/435.715;;1k2_AFSK DOKA;OBZP1;active
 Oculus-ASR;44346;;437.200 ;;9600bps GMSK;;unknown
 OF-2;45113;;435.040/2426.000;;9k6 GMSK/3-5Mbps QPSK;KG5UAK;re-entered
 OMNI-LER1;;;2245.000;;FM;;inactive
@@ -1464,10 +1531,11 @@ OO-38;26063;;437.100 ;;9600bps FSK;KF6RFX;inactive
 OPS-SAT;44878;;437.200 ;;9600bps GMSK;DP0OPS;re-entered
 OPTIMAL-1;;;;;;;non-amateur
 Optimus-2;;;2260.000 ;;2000000_QPSK;;unknown
+OptiSat;;;400.360/2275.000;;4k8_GMSK;;active
 OPTOS;39420;;;;;;non-amateur
 OPUSAT;39575;;437.154 ;;1k2AFSK 9k6GFSK CW;JL3ZCA;re-entered
 OPUSAT-II;47930;436.500 ;145.900 ;145.900 ;1k2*AFSK/9k6/13k6GMSK CW;JL3ZKS;re-entered
-ORARI;40931;145.825/145.880;145.825/435.880;145.825 ;1k2AFSK FM CW;YBSAT/YBOX;active
+ORARI;40931;145.825/145.880;145.825/435.880;145.825 ;1k2AFSK FM SSDV CW;YBSAT/YBOX;active
 OrbAstro-PC1/TR1;;;;;;;unknown
 ORBICRAFT-ZORKIY;47960;;437.850*/437.950/10465.000;;2k4/4k8*/9k6GMSK_USP SSTV;RS15S;re-entered
 ORBIT-3D;60235;;401.725 ;2246.500 ;9600bps GMSK;;unknown
@@ -1488,6 +1556,7 @@ Otter-Pup;56933;;400.500 ;;38400bps GFSK;;unknown
 Otter-Pup-2;64537;;400.500 ;;38k4 GFSK;;unknown
 OUFTI-1;41458;435.045 ;145.950 ;145.980 ;9600bps DSTAR FSK CW;OUFTI;inactive
 OUTPOST-MISSION-2;58334;;401.250/401.500 ;;FM;;unknown
+Out of the Box;;;402.360 ;;9k6_GMSK;SPCLKR;active
 Owlsat;;;436.975 ;;9600bps GFSK;;unknown
 O/OREOS;37224;;437.305 ;;1200bps AFSK;KF6JBP;inactive
 PACE-1;48909;;437.485/2283.000;437.485 ;1200bps AFSK FM CW;;inactive
@@ -1503,14 +1572,15 @@ PARUS-MGTU;58173;;437.200 ;;9k6/12k0 FSK;;re-entered
 PARUS-T1;62621;;145.825/436.850;;1k2AFSK APRS_Digipeater;BN0TIT;inactive
 PARUS-T1A;;145.825/145.980;145.825/435.250/437.850;;1k2AFSK APRS FM;;failure
 PARUS-T2;64560;145.980 ;145.825/435.250*/437.850;;1200bps AFSK FM*;;inactive
-PARUS-T3;;;145.825/437.195/2402.000;;1k2_AFSK 9k6_GMSK FM;;to be launched
-PARUS-6U1;;;145.825/437.195/2402.000;;1k2_AFSK 9k6_GMSK FM;;to be launched
+PARUS-T3;;;145.825/437.195*/2402.000;;1k2_AFSK 9k6*GMSK FM;;active
+PARUS-6U1;;;145.825/437.195*/2402.000;;1k2_AFSK 9k6*GMSK FM;;active
 Paya;;;;;;;unknown
 PCSAT-1;26931;145.827 ;145.827 ;;1200bps AFSK;(A) W3ADO-1;active
 PCSAT-1;26931;435.250 ;145.827 ;;9600bps FSK;(A) PCSAT-1;inactive
 PCSAT-1;26931;;144.390 ;;1200bps AFSK;(B) PCSAT-11;inactive
 PCSAT-1;26931;;144.390 ;;9600bps FSK;(B) PCSAT-12;inactive
 PCSAT-2;;145.825 ;435.275/437.975;;9600bps FSK;PC2TLM;re-entered
+PeakSat;;;400.500 ;400.500 ;50kbps_FSK CW;;unknown
 PearlAfricaSat-1;54535;;145.825/435.375;435.375 ;4800bps GMSK APRS CW;;inactive
 PEARL-1C;58342;;435.310 ;;9600bps GMSK;PEARLC;re-entered
 PEARL-1H;58265;;435.390 ;;9600bps GMSK;PEARLH;re-entered
@@ -1531,6 +1601,7 @@ Phase-4A;43700;2401.500-2409.500;10491.000-10499.000;;Digital transponder;;inact
 PHASMA-DIRAC;66681;;400.550/2208.000;;;;unknown
 PHASMA-LAMARR;66683;;400.550/2208.000;;;;unknown
 PHI-1;66775;;436.850/2230.000;;9k6_GMSK;PHI1;active
+PHOBOS;;;400.800/2240.750;;125k_FSK;;unknown
 Phoenix;42706;;436.915 ;;9600bps GMSK;ON01TW;re-entered
 Phoenix;43188;437.325 ;435.525 ;;D-Star Telemetry;DP1GOS;inactive
 Phoenix;45258;;437.350/2402.500;;9600bps GMSK;WJ2XOY;re-entered
@@ -1654,7 +1725,7 @@ QUICK-3;;;;;;;unknown
 Q-PACE;;;437.275 ;;9600bps FSK;;inactive
 R2;;;401.050 ;;FM;;unknown
 R5-S1;;;;;;;failure
-R5-S2-2.0;60208;;1621.250 ;;FM;;unknown
+R5-S2-2.0;60207;;1621.250 ;;FM;;unknown
 R5-S4;60204;;1621.250 ;;FM;;unknown
 Raavana-1;44329;;437.375 ;437.375 ;4800bps GMSK CW;JG6YLG;re-entered
 RACE;;;437.525 ;437.525 ;38k4 GMSK CW;;failure
@@ -1745,7 +1816,7 @@ RS-44;44909;145.935-145.995;435.670-435.610;435.605 ;SSB CW*;RS44;operational
 RS-45;;;;;;;unknown
 RS-46;39497;;435.465 ;435.465/435.565;CW;;non-operational
 RS-47;39765;;435.465 ;435.465/435.565;CW;;non-operational
-RS-48;41465;;435.315 ;435.315 ;CW;;non-operational
+RS-48;41465;;435.315 ;435.315 ;CW;;re-entered
 RTU-MIREA1;61785;;436.200 ;436.200 ;9600bps GFSK CW;RS51S;active
 Ruzaevka-390;61766;;437.050 ;;1143bps AFSK SSTV;RS44S;inactive
 RUVDSSat1;;;;;;;unknown
@@ -1756,7 +1827,7 @@ SaganSat0;60958;145.825;145.825/437.050;437.050 ;1k2AFSK 4k8GMSK APRS CW;JG6YPC;
 SAKHACUBE-CHOLBON;67290;;437.350 ;;2k4/9k6*GMSK_USP SSTV;RS18S;active
 SAKURA;60954;145.825 ;437.375 ;437.375 ;1k2AFSK 4k8*GMSK APRS CW*;JS1YNI;re-entered
 SALSAT;46495;;435.900/435.950*;;1200bps AFSK;;inactive
-SAL-E;;;436.965 ;;9k6_GFSK;;to be launched
+SAL-E;;;436.965 ;;9k6_GFSK;KK6HIT-6;active
 SamSat-218D;41466;435.590-435.610;145.850-145.890;145.870 ;TRXSSAU CW;SAMSAT218D;re-entered
 SamSat-ION;57173;;437.400 ;437.400 ;1k2*/2k4 FSK CW;RS36S;inactive
 SamSat-ION2;61784;;437.400 ;;1200bps FSK;RS75S;unknown
@@ -1816,10 +1887,12 @@ Serenity;;;437.100 ;;4800bps AFSK;;failure
 Serenity-2;53955;;437.100 ;;4800bps AFSK;;re-entered
 Serenity-3;60206;;437.100 ;;4800bps GFSK;;unknown
 SERPENS;40897;;145.980/437.365;;1k2 MSK/9k6 GFSK CW;PY0ESA;re-entered
+SERT3;;;;;;;unknown
 SGSat;42703;;437.450 ;;9600bps FSK;;unknown
 Shaonian-Xing;43199;;;436.370 ;9600bps BPSK;MXSAT;active
 Shaggy;64566;;401.100/402.790/2200.500;;4800bps GMSK FM;HUBBLE4;inactive
 SharjahSat-1;55104;;437.325/2405.000;;256/1k2/9k6* GMSK;A60UOS;active
+SharjahSat-2;;;437.325/2405.000;;9k6_GMSK;;unknown
 SHERPA-AC1;52763;;;400.500/400.481;FM CW;;inactive
 SHIELDS-1;43850;;400.250 ;;9600bps GFSK;SHIELD;active
 ShindaiSat;39572;;437.305 ;437.485 ;1200bps AFSK CW;JR0ZST;re-entered
@@ -1912,6 +1985,7 @@ SLIM;57800;;437.410 ;2212.000 ;CW;;inactive
 SMEX-9;31304;;2282.500 ;;;;re-entered
 SMOG-1;47964;;437.345 ;437.345 ;2GMSK CW;;re-entered
 SMOG-P;44832;;437.150 ;;12.5kbps GMSK;;active
+SM-1.2;;;;;;;unknown
 SM-3.1;;;;;;;unknown
 SNIPE-A;56749;;435.450 ;;4800bps MSK_AX.100_Mode 5;;inactive
 SNIPE-B;56745;;436.000 ;;4800bps MSK_AX.100_Mode 5;;active
@@ -1957,7 +2031,8 @@ Spacegus;56187;;402.790 ;;;;unknown
 SPACEHAUC-1;49277;;437.500 ;;9600bps FSK;;re-entered
 SpaceTeamSat1;;;437.395 ;;1k2_GFSK CW;;to be launched
 SpaceTuna-1;54537;;;;Blue LED;;unknown
-SPACEVAN;58295;;2271.750/2288.500;;FM;;inactive
+Spacevan;58295;;2271.750/2288.500;;FM;;inactive
+Spacevan-002;;;2271.750/2288.500;;;;unknown
 Space-Weather-CubeSat-1;;;;;;;to be launched
 SPADEX-A;62459;;436.500 ;;9600bps BPSK;;unknown
 SPADEX-B;62460;;2210.000 ;;1500000 BPSK;;unknown
@@ -1976,6 +2051,7 @@ SPIRONE;66657;;436.650/2425.100;;9600bps GMSK;6K0FX;active
 SPOC;46921;;437.350/2401.300;;9k6 GMSK/2Mbps QPSK;MOCI;re-entered
 SpooQy-1;44332;;435.300/436.200*/437.500;;4k8/9k6* GMSK;;re-entered
 SporeSat;39681;;2401.200-2431.200;437.100 ;1200bps AFSK;;unknown
+SPOQC;;;;;;;unknown
 SPORT;55129;;400.860 ;;1k2/9k6* BPSK;SPORT;re-entered
 SPRITE;;;437.325/2402.000;;19k2_GMSK 4Mbps_BPSK;;unknown
 Sprites;;;437.240/437.325;;125bps MSK;;unknown
@@ -2002,7 +2078,7 @@ STARS-II-mother;39579;;437.405 ;437.245 ;1200bps AFSK CW;JR5YDX;re-entered
 STARS-II-daughter;39579;;437.425 ;437.255 ;1200bps AFSK CW;JR5YDY;re-entered
 STARS-Me-mother;43640;;437.405 ;437.245 ;1k2AFSK 9k6GMSK CW;JJ2YPL;re-entered
 STARS-Me-daughter;43640;;437.425 ;437.255 ;1k2AFSK 9k6GMSK CW;JJ2YPM;re-entered
-STARS-Me2;65731;;437.400 ;437.350 ;1k2AFSK 9k6FSK CW;JJ2YXO;inactive
+STARS-Me2;65731;;437.400 ;437.350 ;1k2AFSK 9k6FSK CW;JJ2YXO;re-entered
 Startical-IOD-2;;;;;;;unknown
 STECCO;47962;;435.800 ;;9600bps FSK;;re-entered
 STEP CubeLab;43138;;437.485 ;437.485 ;9600bps FSK CW*;;re-entered
@@ -2041,6 +2117,7 @@ SurfSat;43614;;437.275 ;;9600bps FSK;;re-entered
 Surveillance;;; 400.130/436.550 ;;LoRa;;unknown
 SuryaSatellite-1;55181;145.825 ;145.825 ;435.825 ;1k2AFSK APRS CW;YH1SSS;re-entered
 SUSat;42730;;436.775 ;;9600bps FSK;;re-entered
+SCV-019;;;;;;;unknown
 Svyatobor-1;57187;;437.875 ;;2k4*/4k8/9k6 GMSK_USP;;active
 SwampSat;39402;;437.385 ;;9600bps FSK;;re-entered
 SwampSat-2;45115;;145.875/436.600*/2432.000;;9k6 GMSK/3Mbps QPSK;WK2XID;re-entered
@@ -2105,19 +2182,20 @@ TechEdSat-7;47312;;;;;;re-entered
 TechEdSat-8;44032;;;;;;re-entered
 TechEdSat-9;;;;;;;to be launched
 TechEdSat-10;45917;;;;;;re-entered
-TechEdSat-11;60205;;401.875/437.465/2280.000;;1200bps FM;;inactive
+TechEdSat-11;60208;;401.875/437.465/2280.000;;1200bps FM;;inactive
 TechEdSat-12;;;;;;;to be launched
 TechEdSat-13;51095;;;;;;re-entered
 TechEdSat-14;;;;;;;unknown
 TechEdSat-15;53957;;;;;;re-entered
 TechEdSat-16;;;;;;;to be launched
 TechEdSat-22;;;401.875 ;;;;inactive
+TechEdSat-23;;;;;;;unknown
 TechnoSat;42829;;435.950;435.950;4k8*/9k6 GMSK CW;DP0TBA;inactive
 TechSat-1B;25397;145.850/145.930;435.225*/435.325;;9600bps FSK;4XTECH-11 12;active
 TeikyoSat-3;39576;;437.450 ;437.450 ;1200bps AFSK CW;JQ1ZKM;re-entered
 TeikyoSat-4;49396;;437.450/5831.000;437.450 ;1k2AFSK 9k6GMSK 115k2FSK CW*;JS1YHH;inactive
 Ten-Koh;43677;;437.390 ;437.390 ;1k2AFSK 9k6* GMSK CW WSJT;JG6YKY;inactive
-Ten-Koh2;;145.895-145.935;435.875-435.915/435.895;435.860 ;4k8-38k4_GMSK/4FSK SSB CW;JS1YKI;unknown
+Ten-Koh2;68261;145.895-145.935;435.875-435.915/435.895;435.860 ;4k8-38k4_GMSK SSB CW*;JS1YKI;active
 Ten-Koh3;;;436.740/437.400;;1k2AFS/9k6MSK/162bps_LoRa;;to be launched
 TEPCE-1/2;;;;;;;unknown
 TetherSat;;;437.100/437.305;;9600bps GFSK;;inactive
@@ -2179,7 +2257,8 @@ Tomorrow-R1;56199;;400.500 ;;38k4 GFSK;;re-entered
 Tomorrow-R2;56962;;400.500 ;;38k4 GFSK;;unknown
 Tomsk-TPU-120;42910;;437.025 ;145.800 ;9600bps FSK Voice;RS4S;inactive
 TORO;60530;;435.410 ;;4k8*/9k6 GMSK;XX0UHF;unknown
-TORO-2;;;401.580 ;;;;unknown
+TORO-2;;;401.580 ;;4k8_GFSK;;unknown
+TORO-3;;;401.580 ;;4k8_GFSK;PYRAC3;active
 TO-31;25396;145.925/145.975;436.925/436.900;;9600bps FSK;TMSAT1-11 12;inactive
 TO-89;41932;;437.525 ;437.525 ;1200bps FM CW;JQ1ZTK;re-entered
 TO-108;44881;435.270-435.290;145.935-145.915;;SSB*;;inactive
@@ -2194,6 +2273,7 @@ TriSat-4;;;;;;;unknown
 TriSat-S;;;2280.550 ;;FM;;to be launched
 Triton-1;39427;435.xxx;145.818/145.823*;2408.000 ;1200bps RC-BPSK CW*;TRIV0 TRIV1;inactive
 Triton;58017;;;400.900 ;CW;;inactive
+TROOP-F3;;;;;;;unknown
 TRSI-1;44831;;437.075 ;437.075;FSK CW;;re-entered
 TRSI-2;52420;;437.075 ;;2400bps BPSK;;re-entered
 TRSI-3;52418;;437.075 ;437.075 ;FSK* CW;;re-entered
@@ -2220,8 +2300,8 @@ TY-3;43664;435.875/2406.000/5656.000;435.875/2406.000/5836.000;;9k6 GMSK/5Mbps O
 TY-4;43665;435.925/2409.000/5659.000;435.925*/2409.000/5839.000;;9k6 GMSK/5Mbps OFDM;;re-entered
 TY-5;43553;436.025/2412.000/5665.000;436.025/2412.000/5842.000;;9k6 GMSK/5Mbps OFDM;;unknown
 TY-6;43158;436.100/2415.000/5667.000;436.100*/2415.000/5845.000;;9k6 GMSK/5Mbps OFDM;;re-entered
-T_MicroSat-1;66766;;401.025 ;;9k6_GFSK;TRON1;active
-T_MicroSat-2;;;;;;;to be launched
+T_MicroSat-1;66766;;401.025 ;;9k6_GFSK;TRON 1;active
+T_MicroSat-2;;;401.025/2220.000;;9k6_GFSK;TRON 2;active
 UaiSat;;;;;;;failure
 UAPSat-1;39571;145.980 ;437.385 ;;1200bps AFSK;OA0UAP;inactive
 UBAKUSAT;43467;145.940-145.990;435.200-435.250;;SSB;;re-entered
@@ -2270,6 +2350,8 @@ UNICORN-2N;58642;;;;;;re-entered
 UNICORN-2O;63980;;;;;;unknown
 UNICORN-2P;63981;;;;;;unknown
 UNICORN-2Q;63491;;;;;;unknown
+UNICORN-2R;;;401.820 ;;;;unknown
+UNICORN-2S;;;401.820 ;;;;unknown
 UNICubeSAT;38085;;437.305 ;;9600bps FSK;;inactive
 UNIFORM-1;39767;;2228.000;;;;non-amateur
 UniSat-5;39421;;437.175/437.425;;9600bps GMSK;;inactive
@@ -2306,6 +2388,7 @@ VANGUARD;;;;;;;unknown
 VanZyl-2;;;;;;;unknown
 VDNH-80;44392;;436.500 ;;4800bps mobitex;;re-entered
 VEERY-FS1;52777;;137.950 ;;FM;;inactive
+VegaFly-1;;;436.655 ;436.655 ;500bps_GFSK CW;;unknown
 VELOX-I;40057;;145.980 ;145.980 ;9600bps FSK CW;VELOXI;inactive
 VELOX-2;41171;;145.930 ;145.930 ;1200bps BPSK CW;VELOX2;re-entered
 VELOX-AM;57482;;437.125 ;;4800bps FSK;;inactive
@@ -2316,7 +2399,13 @@ Venta-1;42791;;437.325/2289.250;;9600bps;YL1VA;inactive
 Vermont Lunar;39407;;437.305 ;;9600bps FSK;W1VTC2;re-entered
 Veronika;58261;;145.925/436.680;;9600bps GFSK;OM9VER;re-entered
 Vigoride-6;56196;;400.500/400.524 ;;38k4 FSK;;unkown
+Vigoride-7;;;400.500 ;;;;unkown
 VisionCube;;;437.425 ;;9600bps GMSK;;unkown
+Vindler-201;;;;;;;unkown
+Vindler-202;;;;;;;unkown
+Vindler-203;;;;;;;unkown
+VIREON-1;;;2265.000 ;;;;unkown
+VIREON-2;;;2265.000 ;;;;unkown
 Vizard;53386;;437.800 ;;2400bps GMSK_USP;RS33S;re-entered
 Vizard-ion;61749;;436.870 ;;9600bps GFSK;RS68S;active
 VIZARD-meteo;57189;;437.825 ;;2k4/4k8/9k6* GMSK_USP;RS38S;active
@@ -2343,6 +2432,8 @@ WASEDA-SAT3;41933;;437.290 ;437.290 ;1200bps PCM-FSK CW;;re-entered
 WENTIAN;53239;;;;;;inactive
 WE_WISH;38856;;437.515 ;437.505 ;2400bps FM SSTV CW;JQ1ZIJ;re-entered
 WildTrackCube-SIMBA;47941;;435.310 ;;1k2/9k6* FSK;;active
+WINNEBAGO-04;;;;;;;unknown
+WINNEBAGO-06;;;2272.500 ;;FM;;unknown
 WISeSat-5/6/7;;;401.700 ;;;;unknown
 Wisseed-Sat;60955;;;;;;unknown
 WNISAT-1;39423;;467.674 ;;;;non-amateur
@@ -2350,7 +2441,6 @@ WO-18;20441;;437.104/437.075;;1200bps PSK;;inactive
 WO-39;26061;145.860 ;437.070/437.175;;9600bps FSK;;inactive
 Wren;39435;;437.405 ;437.405 ;1200bps FSK CW;;inactive
 WREN-1;60478;;401.750 ;;4800bps GMSK;;unknown
-W-Series-4;;;;;;;unknown
 Xatcobeo;38082;;437.365/145.940;437.365 ;1200bps FFSK SSR CW;;re-entered
 XCUBE-1;62400;;2245.000 ;;40k_BPSK FM;;inactive
 Xiaoxiang-1;41842;;437.500/437.525;2401.600 ;9600bps GMSK;;re-entered

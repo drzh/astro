@@ -1,69 +1,107 @@
 <?php
-echo date('D, Y-n-j, G:i T'), '&nbsp;[', gmdate('G:i'), ' UTC]'; ?>
-<br/>
+if (!function_exists('astro_is_active')) {
+    function astro_is_active($href)
+    {
+        $request_uri = $_SERVER['REQUEST_URI'] ?? ($_SERVER['SCRIPT_NAME'] ?? '');
+        $request_path = parse_url($request_uri, PHP_URL_PATH) ?: '';
+        $request_query = parse_url($request_uri, PHP_URL_QUERY) ?: '';
+        $target_path = parse_url($href, PHP_URL_PATH) ?: '';
+        $target_query = parse_url($href, PHP_URL_QUERY) ?: '';
 
-<a href='/index.php'>Site</a>
+        if (basename($request_path) !== basename($target_path)) {
+            return false;
+        }
 
-<?php if (file_exists('config/tgsky.off') || file_exists('../config/tgsky.off')) { ?>
-  | <span class='del'>SkyCover</span>
-<?php } else { ?>
-  | <a href='/skycover.php'>SkyCover</a>
-<?php } ?>
+        if ($target_query === '') {
+            return true;
+        }
 
-<?php if (file_exists('config/tgskyus.off') || file_exists('../config/tgskyus.off')) { ?>
-  | <span class='del'>SkyCoverUS</span>
-<?php } else { ?>
-  | <a href='/skycoverus.php'>SkyCoverUS</a>
-<?php } ?>
+        parse_str($request_query, $current_params);
+        parse_str($target_query, $target_params);
 
-| <a href='/ndfd.php'>NDFD</a>
-| <a href='/cloud.php'>Cloud</a>
+        foreach ($target_params as $key => $value) {
+            if (!array_key_exists($key, $current_params) || (string) $current_params[$key] !== (string) $value) {
+                return false;
+            }
+        }
 
-<?php if (file_exists('config/tggoes.off') || file_exists('../config/tggoes.off')) { ?>
-  | <span class='del'>GOES</span>
-<?php } else { ?>
-  | <a href='/goes.php'>GOES</a>
-<?php } ?>
+        return true;
+    }
+}
 
-| <a href='/sfa.php'>SFA</a>
-| <a href='/radar.php'>Radar</a>
-<br/>
+if (!function_exists('astro_menu_item')) {
+    function astro_menu_item($href, $label, $disabled = false, $extra_class = '')
+    {
+        if ($disabled) {
+            return '<span class="menu-disabled del">' . $label . '</span>';
+        }
 
-<?php if (file_exists('config/tgnam60.off') || file_exists('../config/tgnam60.off')) { ?>
-<span class='del'>NAM-60</span>
-<?php } else { ?>
-<a class='alert' href='/nam60.php'>NAM-60</a>
-<?php } ?>
+        $classes = trim('menu-link ' . $extra_class . (astro_is_active($href) ? ' is-active' : ''));
+        $current = astro_is_active($href) ? ' aria-current="page"' : '';
 
-<?php if (file_exists('config/tgnam84.off') || file_exists('../config/tgnam84.off')) { ?>
-  | <span class='del'>NAM-84</span>
-<?php } else { ?>
-  | <a href='/nam84.php'>NAM-84</a>
-<?php } ?>
+        return '<a class="' . $classes . '" href="' . $href . '"' . $current . '>' . $label . '</a>';
+    }
+}
 
-| <a href='/nam84p.php'>NAM-84-P</a>
-| <a href='/nam240p.php'>NAM-240-P</a>
-| <a href='/nam384p.php'>NAM-384-P</a>
-<br/>
-
-<a href='/daynight.php'>Night</a>
-| <a href='/light_pollution/lp.php'>LPollution</a>
-| <a href='/planets.php'>Planets</a>
-| <a href='/table/table.php?tb=occultation.txt'>Occultation</a>
-| <a href='/table/table.php?tb=cobs.commet.list.observed.json.txt'>Comets</a>
-| <a href='/aurora.php'>Aurora</a>
-| <a href='/sun.php'>Sun</a>
-<br/ >
-
-<a href='/satellite_ha.php?sat=All&mag=3&max=20'>Sate (Vis)</a>
-| <a href='/satellite.php?sat=ALL_PRI&max=20'>Sate (Ham)</a>
-| <a href='/ham.php'>HAM</a>
-| <a href='/table/table.php?tb=radnet.ft_worth.txt'>Radiation</a>
-| <a href='/economy.php'>Eco</a>
-| <a href='/map.php'>Maps</a>
-| <a href='/link.php'>Links</a>
-| <a href='/about.php'>About</a>
-<br/>
-
-<hr>
-
+$updated_label = date('D, Y-n-j, G:i T') . ' [' . gmdate('G:i') . ' UTC]';
+?>
+<div class="site-shell">
+  <header class="site-header site-header--compact">
+    <div class="site-meta"><?php echo htmlspecialchars($updated_label, ENT_QUOTES, 'UTF-8'); ?></div>
+    <nav class="site-nav" aria-label="Primary">
+      <div class="menu-row">
+        <?php
+        $row = [];
+        $row[] = astro_menu_item('/index.php', 'Site');
+        $row[] = astro_menu_item('/skycover.php', 'SkyCover', file_exists('config/tgsky.off') || file_exists('../config/tgsky.off'));
+        $row[] = astro_menu_item('/skycoverus.php', 'SkyCoverUS', file_exists('config/tgskyus.off') || file_exists('../config/tgskyus.off'));
+        $row[] = astro_menu_item('/ndfd.php', 'NDFD');
+        $row[] = astro_menu_item('/cloud.php', 'Cloud');
+        $row[] = astro_menu_item('/goes.php', 'GOES', file_exists('config/tggoes.off') || file_exists('../config/tggoes.off'));
+        $row[] = astro_menu_item('/sfa.php', 'SFA');
+        $row[] = astro_menu_item('/radar.php', 'Radar');
+        echo implode('<span class="menu-divider" aria-hidden="true">|</span>', $row);
+        ?>
+      </div>
+      <div class="menu-row">
+        <?php
+        $row = [];
+        $row[] = astro_menu_item('/nam60.php', 'NAM-60', file_exists('config/tgnam60.off') || file_exists('../config/tgnam60.off'), 'alert');
+        $row[] = astro_menu_item('/nam84.php', 'NAM-84', file_exists('config/tgnam84.off') || file_exists('../config/tgnam84.off'));
+        $row[] = astro_menu_item('/nam84p.php', 'NAM-84-P');
+        $row[] = astro_menu_item('/nam240p.php', 'NAM-240-P');
+        $row[] = astro_menu_item('/nam384p.php', 'NAM-384-P');
+        echo implode('<span class="menu-divider" aria-hidden="true">|</span>', $row);
+        ?>
+      </div>
+      <div class="menu-row">
+        <?php
+        $row = [];
+        $row[] = astro_menu_item('/daynight.php', 'Night');
+        $row[] = astro_menu_item('/light_pollution/lp.php', 'LPollution');
+        $row[] = astro_menu_item('/planets.php', 'Planets');
+        $row[] = astro_menu_item('/table/table.php?tb=occultation.txt', 'Occultation');
+        $row[] = astro_menu_item('/table/table.php?tb=cobs.commet.list.observed.json.txt', 'Comets');
+        $row[] = astro_menu_item('/aurora.php', 'Aurora');
+        $row[] = astro_menu_item('/sun.php', 'Sun');
+        echo implode('<span class="menu-divider" aria-hidden="true">|</span>', $row);
+        ?>
+      </div>
+      <div class="menu-row">
+        <?php
+        $row = [];
+        $row[] = astro_menu_item('/satellite_ha.php?sat=All&mag=3&max=20', 'Sate (Vis)');
+        $row[] = astro_menu_item('/satellite.php?sat=ALL_PRI&max=20', 'Sate (Ham)');
+        $row[] = astro_menu_item('/ham.php', 'HAM');
+        $row[] = astro_menu_item('/table/table.php?tb=radnet.ft_worth.txt', 'Radiation');
+        $row[] = astro_menu_item('/economy.php', 'Eco');
+        $row[] = astro_menu_item('/map.php', 'Maps');
+        $row[] = astro_menu_item('/link.php', 'Links');
+        $row[] = astro_menu_item('/about.php', 'About');
+        echo implode('<span class="menu-divider" aria-hidden="true">|</span>', $row);
+        ?>
+      </div>
+    </nav>
+  </header>
+  <main class="site-main">
+    <section class="page-section page-content">

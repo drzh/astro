@@ -18,9 +18,12 @@ $sfa = array(
 
 foreach ($sfa as $c) {
     $ran = rand(1,1000);
-    echo $c[0], "<br />", "\n";
-    echo "<img src='$c[1]?=$ran' />", "\n";
-    echo "<hr>\n";
+    echo '<section class="panel">';
+    echo '<h2 class="panel-title">', htmlspecialchars($c[0], ENT_QUOTES, 'UTF-8'), '</h2>';
+    echo '<figure class="media-panel">';
+    echo '<img src="', htmlspecialchars($c[1], ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="', htmlspecialchars($c[0], ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+    echo '</figure>';
+    echo '</section>';
 }
 
 include('tail.php');

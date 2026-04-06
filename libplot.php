@@ -108,14 +108,31 @@ function plotmarker($x, $y, $it = 'JPG', $rg = 'FullDisk', $type = 'line1')
     }
 }
 
-function plotmarkerlabel($x, $y, $it = 'JPG', $rg = 'FullDisk', $title, $iddiv)
+function plotmarker_tooltip($title, $value = '')
+{
+    $parts = array();
+    $title = trim((string) $title);
+    $value = trim((string) $value);
+
+    if ($title !== '') {
+        $parts[] = $title;
+    }
+    if ($value !== '') {
+        $parts[] = $value;
+    }
+
+    return implode(' | ', $parts);
+}
+
+function plotmarkerlabel($x, $y, $it = 'JPG', $rg = 'FullDisk', $title, $iddiv, $value = '')
 {
     global $scale;
     $x = ($x - $scale[$it][$rg]['x']) / $scale[$it][$rg]['rx'];
     $y = ($y - $scale[$it][$rg]['y']) / $scale[$it][$rg]['ry'];
     if ($x > 0 && $x <= $scale[$it][$rg]['w'] && $y > 0 && $y <= $scale[$it][$rg]['h']) {
         $lenbar = ceil(3 / $scale[$it][$rg]['r']);
-        echo '<rect name="', $title, '" x="', $x - $lenbar, '" y="', $y - $lenbar, '" width="', $lenbar * 2, '" height="', $lenbar * 2, '" fill-opacity="0" onmousemove="showtooltip(evt, ', $x, ', ', $y, ', \'', $iddiv, '\')" onmouseout="hidetooltip(\'', $iddiv, '\')" />';
+        $tooltip = htmlspecialchars(plotmarker_tooltip($title, $value), ENT_QUOTES, 'UTF-8');
+        echo '<rect name="', $tooltip, '" data-tooltip="', $tooltip, '" x="', $x - $lenbar, '" y="', $y - $lenbar, '" width="', $lenbar * 2, '" height="', $lenbar * 2, '" fill-opacity="0" onmousemove="showtooltip(evt, ', $x, ', ', $y, ', \'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" onmouseout="hidetooltip(\'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" />';
     }
 }
 
@@ -171,4 +188,100 @@ function getimg($it = 'JPG', $rg = 'FullDisk', $ch = '01')
         $imgmid .= '/GOES16-' . $rgcode[$rg] . '-' . $ch . '-';
     }
     return $imgpre[$rg] . $imgmid . $imgpost[$it][$rg];
+}
+
+function plotsvg_scale_x($x, $param)
+{
+    return intval($param['marginleft'] + $param['mainwidth'] / ($param['xmax'] - $param['xmin']) * ($x - $param['xmin']));
+}
+
+function plotsvg_scale_y($y, $param)
+{
+    return intval($param['margintop'] + $param['mainheight'] - $param['mainheight'] / ($param['ymax'] - $param['ymin']) * ($y - $param['ymin']));
+}
+
+function plotsvg_line($xstart, $ystart, $xend, $yend, $type = 'line1')
+{
+    echo '<line x1="', $xstart, '" y1="', $ystart, '" x2="', $xend, '" y2="', $yend, '" class="', $type, '" />';
+}
+
+function plotsvg_text($text, $x, $y, $type = 'sctext1', $rotate = 0)
+{
+    $transform = ($rotate == 0) ? '' : 'transform=rotate(' . $rotate . ',' . ($x - 5) . ',' . $y . ')';
+    echo '<text x="', $x, '" y="', $y, '" class="', $type, '" ', $transform, '>', $text, '</text>';
+}
+
+function plotsvg_circle($x, $y, $r, $type = 'sccir1', $param = array(), $tooltip = '')
+{
+    echo '<circle cx="', plotsvg_scale_x($x, $param), '" cy="', plotsvg_scale_y($y, $param), '" r="', $r, '" class="', $type, '">';
+    if ($tooltip !== '') {
+        echo '<title>', htmlspecialchars((string) $tooltip, ENT_QUOTES, 'UTF-8'), '</title>';
+    }
+    echo '</circle>';
+}
+
+function plotsvg_rect($xstart, $ystart, $xend, $yend, $type = 'screct1', $param = array())
+{
+    echo '<rect x="', plotsvg_scale_x($xstart, $param), '" y="', plotsvg_scale_y($yend, $param), '" width="', plotsvg_scale_x($xend, $param) - plotsvg_scale_x($xstart, $param), '" height="', plotsvg_scale_y($ystart, $param) - plotsvg_scale_y($yend, $param), '" class="', $type, '" />';
+}
+
+function plotsvg($x, $y, $xlab = '', $param = array(), $type = '', $tooltip = array())
+{
+    if ($xlab == '') {
+        $xlab = $x;
+    }
+
+    $panelwidth = $param['marginleft'] + $param['marginright'] + $param['mainwidth'];
+    $panelheight = $param['margintop'] + $param['marginbottom'] + $param['mainheight'];
+    $len = count($x);
+    $param['xmin'] = min($x);
+    $param['xmax'] = max($x);
+
+    if ($param['xbreaks'] == '') {
+        $step = ceil(($param['xmax'] - $param['xmin']) / 50);
+        $param['xbreaks'] = range($param['xmax'], $param['xmin'], -$step);
+    }
+    if ($param['ybreaks'] == '') {
+        $param['ybreaks'] = range($param['ymin'], $param['ymax'], ($param['ymax'] - $param['ymin']) / 5);
+    }
+
+    echo '<div style="position:relative; width:', $panelwidth, 'px; height:', $panelheight, 'px;">';
+    echo '<svg style="position:absolute; top:0px; left:0px; width:', $panelwidth, 'px; height:', $panelheight, 'px;">';
+
+    foreach ($param['xbreaks'] as $xb) {
+        plotsvg_line(
+            plotsvg_scale_x($xb, $param),
+            plotsvg_scale_y($param['ymin'], $param),
+            plotsvg_scale_x($xb, $param),
+            plotsvg_scale_y($param['ymax'], $param),
+            'scline1'
+        );
+        for ($i = 0; $i < $len; $i++) {
+            if ($x[$i] == $xb) {
+                plotsvg_text($xlab[$i], plotsvg_scale_x($xb, $param), plotsvg_scale_y($param['ymin'], $param), 'sctext2', 90);
+                break;
+            }
+        }
+    }
+
+    foreach ($param['ybreaks'] as $yb) {
+        plotsvg_line(
+            plotsvg_scale_x($param['xmin'], $param),
+            plotsvg_scale_y($yb, $param),
+            plotsvg_scale_x($param['xmax'], $param),
+            plotsvg_scale_y($yb, $param),
+            'scline1'
+        );
+        plotsvg_text($yb, plotsvg_scale_x(0, $param) - 10, plotsvg_scale_y($yb, $param) + 5, 'sctext1');
+        plotsvg_text($yb, plotsvg_scale_x($param['xmax'], $param) + 10, plotsvg_scale_y($yb, $param) + 5, 'sctext2');
+    }
+
+    for ($i = 0; $i < $len; $i++) {
+        $point_type = ($type == '') ? 'sccir1' : $type[$i];
+        $point_tooltip = $tooltip[$i] ?? '';
+        plotsvg_circle($x[$i], $y[$i], 2, $point_type, $param, $point_tooltip);
+    }
+
+    echo '</svg>';
+    echo '</div>';
 }

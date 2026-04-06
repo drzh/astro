@@ -1,7 +1,6 @@
 <?php
-
 $tz = 'America/Chicago';
-$event = array('sun', 'civil', 'nautical', 'astronomical', 'moon', 'moon_phase');
+$events = array('sun', 'civil', 'nautical', 'astronomical', 'moon', 'moon_phase');
 $today = date('Ymd');
 $days = array(
   $today,
@@ -13,105 +12,133 @@ $days = array(
   date('Ymd', strtotime('+6 day', strtotime($today))),
 );
 
-function datecolor($day1, $day2) {
-  # if (($day2 - $day1) % 2 == 0) {
-  if ((strtotime($day2) - strtotime($day1)) / 86400 % 2 == 0) {
-    return "#444444";
+function daynight_format_value($day, $raw, $tz)
+{
+  $raw = trim((string) $raw);
+  if ($raw === '' || $raw === '-') {
+    return '-';
   }
-  else {
-    return "#333333";
+
+  if (strlen($raw) === 4 && ctype_digit($raw)) {
+    return date('H:i', strtotime($day . $raw . ' ' . $tz));
   }
+
+  return $raw;
 }
 
-#// Moon phase
-#$moonphase = "<tr align='center'>";
-#$moonphase .= "<td>moon phase</td>";
-#$fname = 'data/moon.phase.2024_2035.CDT.format';
-##$fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
-#foreach ($days as $day) {
-  #$fh = fopen($fname, "r") or die("Cannot open file: $fname!\n");
-  #$phase = "-";
-  #while(! feof($fh)) {
-    #$e = explode("\t", fgets($fh));
-    #$e[1] = rtrim($e[1]);
-    #if ($e[0] == $day) {
-      #$phase = $e[1];
-      ##if ($phase != '-') {
-        ##$phase *= 100;
-      ##}
-      #break;
-    #}
-    #if (strcmp($e[0], $day) > 0) {
-      #break;
-    #}
-  #}
-  #fclose($fh);
-  #$moonphase .= "<td colspan='2' bgcolor='" . datecolor($today, $day) . "'>" . $phase . "</td>";
-#}
-#$moonphase .= "</tr>";
-#fclose($fh);
+function load_daynight_values($fname, $days, $tz)
+{
+  $values = array();
+  foreach ($days as $day) {
+    $values[$day] = array('begin' => '-', 'end' => '-');
+  }
 
+  if (!file_exists($fname)) {
+    return $values;
+  }
+
+  $wanted = array_flip($days);
+  $fh = fopen($fname, 'r');
+  if (!$fh) {
+    return $values;
+  }
+
+  while (($line = fgets($fh)) !== false) {
+    $e = explode("\t", rtrim($line));
+    if (count($e) < 3 || !isset($wanted[$e[0]])) {
+      continue;
+    }
+
+    $values[$e[0]] = array(
+      'begin' => daynight_format_value($e[0], $e[1], $tz),
+      'end' => daynight_format_value($e[0], $e[2], $tz),
+    );
+  }
+  fclose($fh);
+
+  return $values;
+}
+
+function daynight_header_cell($label, $colspan = 1, $rowspan = 1)
+{
+  $attr = '';
+  if ($colspan > 1) {
+    $attr .= ' colspan="' . (int) $colspan . '"';
+  }
+  if ($rowspan > 1) {
+    $attr .= ' rowspan="' . (int) $rowspan . '"';
+  }
+
+  return '<th' . $attr . '><span class="table-head-cell">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</span></th>';
+}
+
+echo '<div class="weather-stack">';
 foreach ($pos as $p) {
-  echo "<h2><a href='$p[4]' target='_blank'>$p[0]</a> (<a href='http://maps.google.com/maps?q=$p[1],$p[2]' target='_blank'>$p[1], $p[2]</a>)</h2>";
-  if (glob('data/' . $p[5] . '.*')) {
-    echo "<table width=1000 border=1>";
-    echo "<tr align='center'>", "\n";
-    echo "<th>Day</th>", "\n";
-    foreach ($days as $day) {
-      echo "<th colspan='2' bgcolor='", datecolor($today, $day), "'>", date("D, n/j", strtotime($day)), "</th>", "\n";
-    }
-    echo "</tr>", "\n";
-    echo "<th align='center'>Event</th>", "\n";
-    foreach ($days as $day) {
-      echo "<th align='center' bgcolor='", datecolor($today, $day), "'>Begin</th>";
-      echo "<th align='center' bgcolor='", datecolor($today, $day), "'>End</th>", "\n";
-    }
-    echo "</tr>", "\n";
-    foreach ($event as $eve) {
-      $fname = 'data/' . $p[5] . "." . $eve . ".2024_2035.CDT.format";
-      if (!file_exists($fname)) {
-        echo "Cannot find file: $fname\n";
-        continue;
-      }
-      echo "<tr align='center'>";
-      echo "<td valign='top'>", $eve, "</td>";
-      foreach ($days as $day) {
-        $begin = "-";
-        $end = "-";
-        $fh = fopen($fname, "r") or die("Cannot open file!\n");
-        while(! feof($fh)) {
-          $e = explode("\t", fgets($fh));
-          $e[2] = rtrim($e[2]);
-	        if ($e[0] == $day) {
-            if (strcmp($e[1], "-") != 0) {
-              # Check If $e[1] is four digits integer
-              if (strlen($e[1]) == 4 && ctype_digit($e[1])) {
-                $begin = date("H:i", strtotime($e[0] . $e[1] . " " . $tz));
-              } else {
-                $begin = $e[1];
-              }
-            }
-            if (strcmp($e[2], "-") != 0) {
-              # Check If $e[2] is four digits integer
-              if (strlen($e[2]) == 4 && ctype_digit($e[2])) {
-                $end = date("H:i", strtotime($e[0] . $e[2] . " " . $tz));
-              } else {
-                $end = $e[2];
-              }
-            }
-            break;
-          }
-	      }
-	      fclose($fh);
-        echo "<td valign='top' bgcolor='", datecolor($today, $day), "'>", $begin, "</td>";
-        echo "<td valign='top' bgcolor='", datecolor($today, $day), "'>", $end, "</td>";
-        //echo "<td valign='top' bgcolor='", datecolor($day), "'>", strtotime($day), ', ', strtotime($today), ', ', (strtotime($day) - strtotime($today)) / 86400, "</td>";
-      }
-      echo "</tr>", "\n";
-    }
-    echo $moonphase;
-    echo "</table>", "\n";
+  $coord_link = 'https://maps.google.com/maps?q=' . $p[1] . ',' . $p[2];
+  $has_data = count(glob('data/' . $p[5] . '.*')) > 0;
+
+  echo '<section class="panel">';
+  echo '<div class="weather-card__header weather-card__header--compact">';
+  echo '<h2 class="weather-card__title weather-card__title--compact"><a href="', htmlspecialchars($p[4], ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($p[0], ENT_QUOTES, 'UTF-8'), '</a></h2>';
+  echo '<div class="weather-card__meta weather-card__meta--compact">';
+  if (!empty($p[7])) {
+    echo '<span class="weather-card__badge">', htmlspecialchars($p[7], ENT_QUOTES, 'UTF-8'), '</span>';
+    echo '<span class="weather-card__dot" aria-hidden="true">&bull;</span>';
   }
-  echo "<hr>", "\n";
+  echo '<a href="', htmlspecialchars($coord_link, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($p[1] . ', ' . $p[2], ENT_QUOTES, 'UTF-8'), '</a>';
+  echo '</div>';
+  echo '</div>';
+
+  if (!$has_data) {
+    echo '<p class="page-note">No day/night timing files were found for this site.</p>';
+    echo '</section>';
+    continue;
+  }
+
+  echo '<div class="table-wrap">';
+  echo '<table class="table1">';
+  echo '<thead>';
+  echo '<tr>';
+  echo daynight_header_cell('Event', 1, 2);
+  foreach ($days as $day) {
+    echo daynight_header_cell(date('D, n/j', strtotime($day)), 2, 1);
+  }
+  echo '</tr>';
+  echo '<tr>';
+  foreach ($days as $day) {
+    echo daynight_header_cell('Begin');
+    echo daynight_header_cell('End');
+  }
+  echo '</tr>';
+  echo '</thead>';
+  echo '<tbody>';
+
+  $row_index = 0;
+  foreach ($events as $event_name) {
+    $fname = 'data/' . $p[5] . '.' . $event_name . '.2024_2035.CDT.format';
+    if (!file_exists($fname)) {
+      continue;
+    }
+
+    $label = ucwords(str_replace('_', ' ', $event_name));
+    $values = load_daynight_values($fname, $days, $tz);
+    $cell_class = ($row_index % 2 === 0) ? 'td1' : 'td0';
+    echo '<tr>';
+    echo '<td class="', $cell_class, '">', htmlspecialchars($label, ENT_QUOTES, 'UTF-8'), '</td>';
+    foreach ($days as $day) {
+      $begin = $values[$day]['begin'];
+      $end = $values[$day]['end'];
+      echo '<td class="', $cell_class, '">', htmlspecialchars($begin, ENT_QUOTES, 'UTF-8'), '</td>';
+      echo '<td class="', $cell_class, '">', htmlspecialchars($end, ENT_QUOTES, 'UTF-8'), '</td>';
+    }
+    echo '</tr>';
+    $row_index++;
+  }
+
+  echo '</tbody>';
+  echo '</table>';
+  echo '</div>';
+  echo '</section>';
 }
+echo '</div>';
 ?>

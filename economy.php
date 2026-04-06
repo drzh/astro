@@ -4,8 +4,7 @@
 <body>
 <?php
 require 'menu.php';
-
-require 'plot.inc';
+require 'libplot.php';
 
 $param = array(
   'marginleft' => 50,
@@ -22,7 +21,6 @@ $param = array(
   'ymax' => '',
 );
 
-# Treasury rate
 $fs = array(
   array(
     'name' => 'economy/treasury/treasury_rate.300d.data',
@@ -35,118 +33,65 @@ $fs = array(
       '10Yr' => 'sccir4',
       '30Yr' => 'sccir5',
     ),
-    'cxstep' => 100
+    'cxstep' => 100,
   ),
-#  array(
-    #'name' => 'economy/treasury/treasury_rate.100d.diff.data',
-    #'title' => 'Treasury Rate Difference',
-    #'ytype' => array(
-      #//'1YEAR-1YEAR' => 'sccir1',
-      #//'2YEAR-1YEAR' => 'sccir3',
-      #//'5YEAR-1YEAR' => 'sccir2',
-      #//'10YEAR-1YEAR' => 'sccir4',
-      #//'30YEAR-1YEAR' => 'sccir6',
-      #'3MONTH-3MONTH' => 'sccir1',
-      #'1YEAR-3MONTH' => 'sccir3',
-      #'2YEAR-3MONTH' => 'sccir2',
-      #'5YEAR-3MONTH' => 'sccir7',
-      #'10YEAR-3MONTH' => 'sccir4',
-      #'30YEAR-3MONTH' => 'sccir6',
-    #),
-    #'cxstep' => 170
-  #),
 );
+
+echo '<div class="weather-stack">';
 foreach ($fs as $f) {
+  echo '<section class="panel">';
+  echo '<h2 class="panel-title">', htmlspecialchars($f['title'], ENT_QUOTES, 'UTF-8'), '</h2>';
+
   $x = array();
   $y = array();
   $xlab = array();
   $type = array();
-  $fh = fopen($f['name'], "r");
+  $tooltip = array();
+  $fh = fopen($f['name'], 'r');
   if ($fh) {
-    while(! feof($fh)) {
-      $e = explode("\t", trim(fgets($fh)));
-      $len = count($e);
-      if ($len > 3) {
-        array_push($x, $e[0]);
-        array_push($xlab, $e[1]);
-        array_push($y, $e[2]);
-        array_push($type, $f['ytype'][$e[3]]);
+    while (!feof($fh)) {
+      $e = explode("\t", trim((string) fgets($fh)));
+      if (count($e) > 3) {
+        $x[] = $e[0];
+        $xlab[] = $e[1];
+        $y[] = $e[2];
+        $type[] = $f['ytype'][$e[3]];
+        $tooltip[] = $e[1] . ' | ' . $e[3] . ': ' . $e[2];
       }
     }
     fclose($fh);
-    # calc scale
+
     $diff = max($y) - min($y);
     $mag = 1e-2;
     while ($diff / $mag > 2) {
       $mag *= 20;
     }
     $mag /= 20;
-    # plot
     $param['ymin'] = floor(min($y) / $mag) * $mag;
     $param['ymax'] = ceil(max($y) / $mag) * $mag;
     $param['ybreaks'] = range($param['ymin'], $param['ymax'], $mag);
-    echo '<h3>', $f['title'], '</h3>';
+
+    echo '<figure class="media-panel image-scroll">';
+    echo '<div class="chart-stack">';
     $cx = $param['marginleft'];
     $cxstep = $f['cxstep'];
     echo '<svg style="width:', 100 + $cx + $cxstep * count($f['ytype']), 'px; height:20px">';
     foreach (array_keys($f['ytype']) as $k) {
-      echo '<circle class="', $f['ytype'][$k], '" cx=', $cx, ' cy=10 r=2></circle>';
-      echo '<text class="', $f['ytype'][$k], '" x=', $cx + 10, ' y=15>', $k, '</text>';
+      echo '<circle class="', $f['ytype'][$k], '" cx="', $cx, '" cy="10" r="2"></circle>';
+      echo '<text class="', $f['ytype'][$k], '" x="', $cx + 10, '" y="15">', htmlspecialchars($k, ENT_QUOTES, 'UTF-8'), '</text>';
       $cx += $cxstep;
     }
     echo '</svg>';
-    plotsvg($x, $y, $xlab, $param, $type);
+    plotsvg($x, $y, $xlab, $param, $type, $tooltip);
+    echo '</div>';
+    echo '</figure>';
   } else {
-    echo "<p>Cannot open file: $fname!</p>";
+    echo '<p class="page-note">Cannot open file: ', htmlspecialchars($f['name'], ENT_QUOTES, 'UTF-8'), '.</p>';
   }
+
+  echo '</section>';
 }
-
-## CPI data
-#$fs = array(
-  #array(
-    #'name' => 'economy/cpi/AllItems.10y.cpi.data',
-    #'title' => 'CPI - All Items - 10 years'
-  #),
-  #array(
-    #'name' => 'economy/cpi/AllItems.36m.cpi.data',
-    #'title' => 'CPI - All Items - 36 months'
-  #),
-#);
-#foreach ($fs as $f) {
-  #$x = array();
-  #$xlab = array();
-  #$y = array();
-  #$fh = fopen($f['name'], "r");
-  #if ($fh) {
-    #while(! feof($fh)) {
-      #$e = explode("\t", trim(fgets($fh)));
-      #$len = count($e);
-      #if ($len > 1) {
-         #array_push($x, $e[0]);
-         #array_push($xlab, $e[1]);
-         #array_push($y, $e[2]);
-      #}
-    #}
-    #fclose($fh);
-    ## calc scale
-    #$diff = max($y) - min($y);
-    #$mag = 1;
-    #while ($diff / $mag > 4) {
-      #$mag *= 2;
-    #}
-    #$mag /= 2;
-    ## plot
-    #$param['ymin'] = floor(min($y) / $mag) * $mag;
-    #$param['ymax'] = ceil(max($y) / $mag) * $mag;
-    #$param['ybreaks'] = range($param['ymin'], $param['ymax'], $mag);
-    #echo '<h3>', $f['title'], '</h3>';
-    #plotsvg($x, $y, $xlab, $param);
-  #} else {
-    #echo "<p>Cannot open file: $fname</p>";
-  #}
-#}
-
-echo "<hr>\n";
+echo '</div>';
 
 include('tail.php');
 ?>

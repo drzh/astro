@@ -1,8 +1,18 @@
+<!DOCTYPE html>
 <html>
-<?php include("head.php") ?>
+<?php include('head.php') ?>
 <body>
 <?php
 require 'menu.php';
+
+function goes_nav_item($href, $label, $active)
+{
+  if ($active) {
+    return '<span class="citem">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</span>';
+  }
+
+  return '<a class="menu-state-link" href="' . $href . '">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</a>';
+}
 
 $st = '';
 $ch = '';
@@ -14,42 +24,48 @@ if (isset($_GET['ch'])) {
   $ch = $_GET['ch'];
 }
 if (isset($_GET['tg'])) {
-  $ch = $_GET['tg'];
+  $tg = $_GET['tg'];
+}
+if ($tg !== '') {
+  $ch = $tg;
 }
 
 $fs = glob('goes/data/*.[0-9][0-9].png');
-
 $state = array();
 foreach ($fs as $f) {
   $e = explode('.', basename($f));
-  if (! array_key_exists($e[0], $state)) {
+  if (!array_key_exists($e[0], $state)) {
     $state[$e[0]] = array();
   }
-  array_push($state[$e[0]], $e[1]);
-  #echo $f, '-', $e[0], '-', $e[1], '<br/>';
+  $state[$e[0]][] = $e[1];
 }
+ksort($state);
 
+echo '<section class="panel">';
 foreach (array_keys($state) as $s) {
-  echo $s, ' : ', '<a href="goes.php?st=', $s, '&ch=All">All</a>';
+  echo '<div class="page-toolbar">';
+  echo '<span class="page-toolbar__label">', htmlspecialchars($s, ENT_QUOTES, 'UTF-8'), '</span>';
+  echo '<div class="chip-row">';
+  echo goes_nav_item('goes.php?st=' . urlencode($s) . '&ch=All', 'All', $st == $s && $ch == 'All');
   foreach (array_values($state[$s]) as $v) {
-    echo ' - <a href="goes.php?st=', $s,'&ch=', $v, '">', $v, '</a>';
+    echo goes_nav_item('goes.php?st=' . urlencode($s) . '&ch=' . urlencode($v), $v, $st == $s && $ch == $v);
   }
-  echo '<br/>';
+  echo '</div>';
+  echo '</div>';
 }
+echo '</section>';
 
 if ($st != '' && $ch != '') {
-  $chs = array();
-  if ($ch == 'All') {
-    $chs = $state[$st];
-  }
-  else {
-    $chs = array($ch);
-  }
+  $chs = $ch == 'All' ? $state[$st] : array($ch);
   foreach ($chs as $c) {
     $fname = $st . '.' . $c . '.png';
     $rand = rand(100, 999);
-    echo $st, ' ', $c, '<br/>';
-    echo '<img src="goes/data/', $fname, '?=', $rand, '"><br/>';
+    echo '<section class="panel">';
+    echo '<h2 class="panel-title">', htmlspecialchars($st . ' ' . $c, ENT_QUOTES, 'UTF-8'), '</h2>';
+    echo '<figure class="media-panel">';
+    echo '<img src="goes/data/', htmlspecialchars($fname, ENT_QUOTES, 'UTF-8'), '?=', $rand, '" alt="', htmlspecialchars($st . ' ' . $c . ' GOES image', ENT_QUOTES, 'UTF-8'), '">';
+    echo '</figure>';
+    echo '</section>';
   }
 }
 
