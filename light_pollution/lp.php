@@ -59,6 +59,7 @@
   $it = 'LP';
   $rg = 'TX';
   $stylepos = 'top: 0px; left: 0px; width:' . $scale[$it][$rg]['w'] . 'px; height: ' . $scale[$it][$rg]['h'] . 'px;';
+  echo '<section class="panel"><figure class="media-panel media-panel--tight">';
   echo '<div style="position:relative; ', $stylepos, '">';
   $ran = rand(1, 1000000);
   echo '<img src="NorthAmerica2024B-TX.png">';
@@ -76,6 +77,7 @@
   echo '</svg>';
   echo '<span class="tooltip" id="', $rg . '_' . $i, '" style="position:absolute; visibility:hidden"> </span>';
   echo '</div>';
+  echo '</figure></section>';
   #echo '<br/>';
   $i++;
 

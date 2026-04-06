@@ -174,7 +174,8 @@ if ($rg != '' && $ch != '') {
       echo ' data-scroll-sync-group="', htmlspecialchars($scroll_group, ENT_QUOTES, 'UTF-8'), '"';
     }
     echo '>';
-    echo '<div style="position:relative; ', $stylepos, '">';
+    echo '<div class="responsive-stage-frame" style="width:', (int) $scale[$it][$rg]['w'], 'px; height:', (int) $scale[$it][$rg]['h'], 'px;">';
+    echo '<div class="responsive-stage" data-stage-width="', (int) $scale[$it][$rg]['w'], '" data-stage-height="', (int) $scale[$it][$rg]['h'], '" style="position:relative; ', $stylepos, '">';
     echo '<img src="', htmlspecialchars(getimg($it, $rg, $c), ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="', htmlspecialchars($rg . ' ' . $c . ' cloud image', ENT_QUOTES, 'UTF-8'), '">';
     echo '<svg style="position:absolute; ', $stylepos, '" onload="init(evt)">';
     foreach ($paths as $path) {
@@ -187,6 +188,7 @@ if ($rg != '' && $ch != '') {
     }
     echo '</svg>';
     echo '<span class="tooltip" id="', htmlspecialchars($rg . $c, ENT_QUOTES, 'UTF-8'), '" style="position:absolute; visibility:hidden"> </span>';
+    echo '</div>';
     echo '</div>';
     echo '</figure>';
     if (isset($colorbar[$c]) && $colorbar[$c] != '') {

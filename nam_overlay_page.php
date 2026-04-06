@@ -153,7 +153,8 @@ function nam_render_overlay_page($config)
             echo ' data-scroll-sync-group="', htmlspecialchars($scroll_group, ENT_QUOTES, 'UTF-8'), '"';
         }
         echo '>';
-        echo '<div style="position:relative; ', $stylepos, '">';
+        echo '<div class="responsive-stage-frame" style="width:', (int) $scale[$image_type][$region]['w'], 'px; height:', (int) $scale[$image_type][$region]['h'], 'px;">';
+        echo '<div class="responsive-stage" data-stage-width="', (int) $scale[$image_type][$region]['w'], '" data-stage-height="', (int) $scale[$image_type][$region]['h'], '" style="position:relative; ', $stylepos, '">';
         echo '<img src="', htmlspecialchars($image_url, ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($title, ENT_QUOTES, 'UTF-8'), '">';
         echo '<svg style="position:absolute; ', $stylepos, '" onload="init(evt)">';
         foreach ($paths as $path) {
@@ -166,6 +167,7 @@ function nam_render_overlay_page($config)
         }
         echo '</svg>';
         echo '<span class="tooltip" id="', htmlspecialchars($tooltip_id, ENT_QUOTES, 'UTF-8'), '" style="position:absolute; visibility:hidden"></span>';
+        echo '</div>';
         echo '</div>';
         echo '</figure>';
         echo '</section>';

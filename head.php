@@ -180,6 +180,31 @@ if (!isset($page_title) || $page_title === '') {
     });
   }
 
+  function layoutResponsiveStages() {
+    document.querySelectorAll('.responsive-stage[data-stage-width][data-stage-height]').forEach((stage) => {
+      const frame = stage.closest('.responsive-stage-frame');
+      if (!frame) {
+        return;
+      }
+
+      const stageWidth = Number(stage.dataset.stageWidth);
+      const stageHeight = Number(stage.dataset.stageHeight);
+      if (!stageWidth || !stageHeight) {
+        return;
+      }
+
+      const host = frame.parentElement || frame;
+      const availableWidth = host.clientWidth || stageWidth;
+      const scale = Math.min(1, availableWidth / stageWidth);
+
+      frame.style.width = `${stageWidth * scale}px`;
+      frame.style.height = `${stageHeight * scale}px`;
+      stage.style.width = `${stageWidth}px`;
+      stage.style.height = `${stageHeight}px`;
+      stage.style.transform = `scale(${scale})`;
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('table.sortable').forEach(attachSorting);
 
@@ -190,12 +215,16 @@ if (!isset($page_title) || $page_title === '') {
         return;
       }
       if (!scrollSyncGroups.has(groupName)) {
-        scrollSyncGroups.set(groupName, []);
+      scrollSyncGroups.set(groupName, []);
       }
       scrollSyncGroups.get(groupName).push(element);
     });
     scrollSyncGroups.forEach((elements) => attachScrollSync(elements));
+    layoutResponsiveStages();
   });
+
+  window.addEventListener('load', layoutResponsiveStages);
+  window.addEventListener('resize', layoutResponsiveStages, { passive: true });
 })();
 </script>
 </head>

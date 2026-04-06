@@ -168,10 +168,13 @@ if ($size === '1') {
   foreach ($cloud as $c) {
     $ran = rand(1, 1000);
     $tooltip_id = 'cloudus-' . preg_replace('/[^a-z0-9_-]+/i', '', $c[3]);
+    $composite_width = 2317;
+    $composite_height = 1300;
     echo '<section class="panel">';
     echo '<h2 class="panel-title">', htmlspecialchars($c[0], ENT_QUOTES, 'UTF-8'), '</h2>';
     echo '<figure class="media-panel media-panel--tight image-scroll">';
-    echo '<div class="cloud-composite">', "\n";
+    echo '<div class="responsive-stage-frame" style="width:', $composite_width, 'px; height:', $composite_height, 'px;">';
+    echo '<div class="cloud-composite responsive-stage" data-stage-width="', $composite_width, '" data-stage-height="', $composite_height, '" style="width:', $composite_width, 'px; height:', $composite_height, 'px;">', "\n";
     echo '<img style="top:106px; left:1597px; width:720px; height:480px;" src="http://www.ssd.noaa.gov/goes/east/ne/', htmlspecialchars($c[1], ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Northeast ', htmlspecialchars($c[0], ENT_QUOTES, 'UTF-8'), ' cloud mosaic"><br/>', "\n";
     echo '<img style="top:14px; left:1166px; width:840px; height:559px;" src="http://www.ssd.noaa.gov/goes/east/gl/', htmlspecialchars($c[1], ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Great Lakes ', htmlspecialchars($c[0], ENT_QUOTES, 'UTF-8'), ' cloud mosaic"><br/>', "\n";
     echo '<img style="top:0; left:558px; width:720px; height:480px;" src="http://www.ssd.noaa.gov/goes/east/np/', htmlspecialchars($c[1], ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Northern Plains ', htmlspecialchars($c[0], ENT_QUOTES, 'UTF-8'), ' cloud mosaic"><br/>', "\n";
@@ -183,7 +186,7 @@ if ($size === '1') {
     echo '<img style="top:715px; left:149px; width:720px; height:480px;" src="http://www.ssd.noaa.gov/goes/east/sw/', htmlspecialchars($c[1], ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Southwest ', htmlspecialchars($c[0], ENT_QUOTES, 'UTF-8'), ' cloud mosaic"><br/>', "\n";
     echo '<img style="top:758px; left:706px; width:720px; height:480px;" src="http://www.ssd.noaa.gov/goes/east/sc/', htmlspecialchars($c[1], ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="South Central ', htmlspecialchars($c[0], ENT_QUOTES, 'UTF-8'), ' cloud mosaic"><br/>', "\n";
     echo '<img style="top:801px; left:1226px; width:720px; height:480px;" src="http://www.ssd.noaa.gov/goes/east/se/', htmlspecialchars($c[1], ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Southeast ', htmlspecialchars($c[0], ENT_QUOTES, 'UTF-8'), ' cloud mosaic"><br/>', "\n";
-    echo '<svg style="top:0; left:0; width:2000px; height:1300px;" onload="init(evt)">', "\n";
+    echo '<svg style="top:0; left:0; width:', $composite_width, 'px; height:', $composite_height, 'px;" onload="init(evt)">', "\n";
     foreach ($testlats as $lat) {
       plotmarker($lat, $testlong1, 'line2');
       plotmarker($lat, $testlong2, 'line2');
@@ -202,6 +205,7 @@ if ($size === '1') {
       plotmarkerlabel($p[0], $p[1], $p[2], $tooltip_id);
     }
     echo '</svg>', "\n";
+    echo '</div>';
     echo '<span class="tooltip" id="', htmlspecialchars($tooltip_id, ENT_QUOTES, 'UTF-8'), '" style="position:absolute; visibility:hidden"></span>', "\n";
     echo '</div>';
     echo '</figure>';

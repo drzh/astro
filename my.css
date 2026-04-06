@@ -439,10 +439,31 @@ a:focus-visible {
     margin: 0 auto;
 }
 
+.responsive-stage-frame {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.responsive-stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+}
+
+.responsive-stage > img,
+.responsive-stage > svg {
+    max-width: none;
+}
+
+.responsive-stage-frame .tooltip {
+    position: absolute;
+}
+
 .cloud-composite {
     position: relative;
-    width: 2000px;
-    height: 1300px;
     border-radius: calc(var(--radius-sm) - 4px);
     overflow: hidden;
     background: #08151f;
