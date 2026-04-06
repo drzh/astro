@@ -7,13 +7,9 @@
 <?php
 require 'menu.php';
 
-function cloud_nav_item($href, $label, $active)
+function cloud_select_option($value, $label, $selected)
 {
-  if ($active) {
-    return '<span class="citem">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</span>';
-  }
-
-  return '<a class="menu-state-link" href="' . $href . '">' . htmlspecialchars($label, ENT_QUOTES, 'UTF-8') . '</a>';
+  return '<option value="' . htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8') . '"' . ($selected ? ' selected' : '') . '>' . htmlspecialchars((string) $label, ENT_QUOTES, 'UTF-8') . '</option>';
 }
 
 $rg = '';
@@ -94,35 +90,37 @@ $colorbar = array(
 $region = array('FullDisk', 'CONUS', 'TX');
 
 echo '<section class="panel">';
-echo '<div class="page-toolbar">';
-echo '<span class="page-toolbar__label">Region</span>';
-echo '<div class="chip-row">';
+echo '<form class="filter-form filter-form--compact" method="get" action="cloud.php">';
+if ($pa !== '') {
+  echo '<input type="hidden" name="pa" value="', htmlspecialchars($pa, ENT_QUOTES, 'UTF-8'), '">';
+}
+echo '<div class="filter-field">';
+echo '<label class="filter-field__label" for="cloud-region">Region</label>';
+echo '<select class="filter-select" id="cloud-region" name="rg" onchange="this.form.submit()">';
 foreach ($region as $r) {
-  $href = 'cloud.php?rg=' . urlencode($r) . ($ch == '' ? '' : '&ch=' . urlencode($ch)) . ($it == '' ? '' : '&it=' . urlencode($it)) . ($pa == '' ? '' : '&pa=' . urlencode($pa));
-  echo cloud_nav_item($href, $r, $rg == $r);
+  echo cloud_select_option($r, $r, $rg == $r);
 }
+echo '</select>';
 echo '</div>';
-echo '</div>';
-
-echo '<div class="page-toolbar">';
-echo '<span class="page-toolbar__label">Channel</span>';
-echo '<div class="chip-row">';
+echo '<div class="filter-field">';
+echo '<label class="filter-field__label" for="cloud-channel">Channel</label>';
+echo '<select class="filter-select" id="cloud-channel" name="ch" onchange="this.form.submit()">';
 foreach (array('All' => 'All') + $channeltype as $c => $n) {
-  $href = 'cloud.php?' . ($rg == '' ? '' : 'rg=' . urlencode($rg)) . '&ch=' . urlencode($c) . ($it == '' ? '' : '&it=' . urlencode($it)) . ($pa == '' ? '' : '&pa=' . urlencode($pa));
-  echo cloud_nav_item($href, $c, $ch == $c);
+  $label = ($c === 'All') ? 'All' : ($c . ' - ' . $n);
+  echo cloud_select_option($c, $label, $ch == $c);
 }
+echo '</select>';
 echo '</div>';
-echo '</div>';
-
-echo '<div class="page-toolbar">';
-echo '<span class="page-toolbar__label">Image</span>';
-echo '<div class="chip-row">';
+echo '<div class="filter-field">';
+echo '<label class="filter-field__label" for="cloud-image">Image</label>';
+echo '<select class="filter-select" id="cloud-image" name="it" onchange="this.form.submit()">';
 foreach ($imgtype as $i => $n) {
-  $href = 'cloud.php?' . ($rg == '' ? '' : 'rg=' . urlencode($rg)) . ($ch == '' ? '' : '&ch=' . urlencode($ch)) . '&it=' . urlencode($i) . ($pa == '' ? '' : '&pa=' . urlencode($pa));
-  echo cloud_nav_item($href, $i, $it == $i);
+  echo cloud_select_option($i, $i, $it == $i);
 }
+echo '</select>';
 echo '</div>';
-echo '</div>';
+echo '<noscript><button class="filter-submit" type="submit">Apply</button></noscript>';
+echo '</form>';
 echo '</section>';
 
 $fproj = 'goes/site.fulldisk.proj';

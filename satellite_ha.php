@@ -6,11 +6,23 @@
 require 'menu.php';
 include('libtable.php');
 
-$maxurl = 20;
+function satellite_ha_select_option($value, $label, $selected)
+{
+  return '<option value="' . htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8') . '"' . ($selected ? ' selected' : '') . '>' . htmlspecialchars((string) $label, ENT_QUOTES, 'UTF-8') . '</option>';
+}
+
+function satellite_ha_numeric_options($values, $current)
+{
+  if (!in_array($current, $values, true)) {
+    $values[] = $current;
+  }
+  sort($values, SORT_NUMERIC);
+  return $values;
+}
+
 $max = 20;
 $sat = '';
-$magurl = 3.0;
-$mag = $magurl;
+$mag = 3.0;
 if (isset($_GET['sat'])) {
   $sat = $_GET['sat'];
 }
@@ -31,20 +43,16 @@ $offset = 60 * 3;
 $headers = array();
 $rows = array();
 $sort_values = array();
+$satellite_lists = array();
 
-ob_start();
-echo '<div class="menu-stack menu-stack--column">';
 foreach ($files as $f) {
   $e = explode('.', basename($f));
-  $s = $e[0];
-  if ($sat == $s) {
-    echo '<div class="citem">', htmlspecialchars($s, ENT_QUOTES, 'UTF-8'), '</div>';
-  } else {
-    echo '<a class="menu-state-link" href="satellite_ha.php?sat=', urlencode($s), '&mag=', $magurl, '&max=', $maxurl, '">', htmlspecialchars($s, ENT_QUOTES, 'UTF-8'), '</a>';
-  }
+  $satellite_lists[] = $e[0];
 }
-echo '</div>';
-$sidebar_menu = ob_get_clean();
+sort($satellite_lists, SORT_NATURAL);
+
+$mag_options = satellite_ha_numeric_options(array(1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0, 6.0), (float) $mag);
+$max_options = satellite_ha_numeric_options(array(10, 20, 30, 40, 50, 75, 100), $max);
 
 if ($sat != '') {
   $fname = 'satellite/ha/' . $sat . '.tsv';
@@ -108,10 +116,36 @@ if ($sat != '') {
   }
 }
 
-echo '<div class="split-layout">';
-echo '<aside class="panel page-sidebar">';
-echo $sidebar_menu;
-echo '</aside>';
+echo '<section class="panel">';
+echo '<form class="filter-form filter-form--compact" method="get" action="satellite_ha.php">';
+echo '<div class="filter-field">';
+echo '<label class="filter-field__label" for="satellite-ha-name">Visible Pass List</label>';
+echo '<select class="filter-select" id="satellite-ha-name" name="sat" onchange="this.form.submit()">';
+echo satellite_ha_select_option('', 'Choose list', $sat === '');
+foreach ($satellite_lists as $name) {
+  echo satellite_ha_select_option($name, $name, $sat === $name);
+}
+echo '</select>';
+echo '</div>';
+echo '<div class="filter-field">';
+echo '<label class="filter-field__label" for="satellite-ha-mag">Max Magnitude</label>';
+echo '<select class="filter-select" id="satellite-ha-mag" name="mag" onchange="this.form.submit()">';
+foreach ($mag_options as $option) {
+  echo satellite_ha_select_option(number_format((float) $option, 1, '.', ''), number_format((float) $option, 1, '.', ''), (float) $mag === (float) $option);
+}
+echo '</select>';
+echo '</div>';
+echo '<div class="filter-field">';
+echo '<label class="filter-field__label" for="satellite-ha-max">Rows</label>';
+echo '<select class="filter-select" id="satellite-ha-max" name="max" onchange="this.form.submit()">';
+foreach ($max_options as $option) {
+  echo satellite_ha_select_option($option, $option, $max === (int) $option);
+}
+echo '</select>';
+echo '</div>';
+echo '<noscript><button class="filter-submit" type="submit">Apply</button></noscript>';
+echo '</form>';
+echo '</section>';
 
 echo '<section class="panel">';
 echo '<div class="chip-row">';
@@ -123,10 +157,9 @@ echo '</div>';
 if (!empty($headers)) {
   render_sortable_table($headers, $rows, $sort_values, array('empty_message' => 'No visible passes match the current filters.'));
 } else {
-  echo '<p class="page-note">Choose a visible-pass list from the sidebar to view results.</p>';
+  echo '<p class="page-note">Choose a visible-pass list from the dropdown to view results.</p>';
 }
 echo '</section>';
-echo '</div>';
 
 $tgalert = 'config/tgsatvisalt.off';
 if (!file_exists($tgalert)) {

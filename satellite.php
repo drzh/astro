@@ -6,8 +6,20 @@
 require 'menu.php';
 include('libtable.php');
 
-$maxurl = 20;
-$eleurl = 15;
+function satellite_select_option($value, $label, $selected)
+{
+  return '<option value="' . htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8') . '"' . ($selected ? ' selected' : '') . '>' . htmlspecialchars((string) $label, ENT_QUOTES, 'UTF-8') . '</option>';
+}
+
+function satellite_numeric_options($values, $current)
+{
+  if (!in_array($current, $values, true)) {
+    $values[] = $current;
+  }
+  sort($values, SORT_NUMERIC);
+  return $values;
+}
+
 $max = 20;
 $ele = 15;
 $sat = '';
@@ -33,11 +45,8 @@ $headers = array();
 $rows = array();
 $sort_values = array();
 $tz_label = date('T');
-
-ob_start();
-echo '<div class="menu-stack menu-stack--column">';
-echo '<a class="menu-state-link" href="satellite/freq.php">Frequencies</a>';
-echo '<span class="page-toolbar__label">Priority</span>';
+$priority_satellites = array();
+$other_satellites = array();
 
 $fh = fopen($filepri, 'r') or die("Cannot open file $filepri!\n");
 while (!feof($fh)) {
@@ -48,29 +57,22 @@ while (!feof($fh)) {
   $satpri[$s] = 1;
   $fname = 'satellite/data/sat.' . $s . '.table.tsv';
   if (file_exists($fname)) {
-    if ($sat == $s) {
-      echo '<div class="citem">', htmlspecialchars($s, ENT_QUOTES, 'UTF-8'), '</div>';
-    } else {
-      echo '<a class="menu-state-link" href="satellite.php?sat=', urlencode($s), '&ele=', $eleurl, '&max=', $maxurl, '">', htmlspecialchars($s, ENT_QUOTES, 'UTF-8'), '</a>';
-    }
+    $priority_satellites[] = $s;
   }
 }
 fclose($fh);
 
-echo '<span class="page-toolbar__label">All Satellites</span>';
 foreach ($files as $f) {
   $e = explode('.', basename($f));
   $s = $e[1];
   if (!array_key_exists($s, $satpri)) {
-    if ($sat == $s) {
-      echo '<div class="citem">', htmlspecialchars($s, ENT_QUOTES, 'UTF-8'), '</div>';
-    } else {
-      echo '<a class="menu-state-link" href="satellite.php?sat=', urlencode($s), '&ele=', $eleurl, '&max=', $maxurl, '">', htmlspecialchars($s, ENT_QUOTES, 'UTF-8'), '</a>';
-    }
+    $other_satellites[] = $s;
   }
 }
-echo '</div>';
-$sidebar_menu = ob_get_clean();
+sort($other_satellites, SORT_NATURAL);
+
+$elevation_options = satellite_numeric_options(array(5, 10, 15, 20, 25, 30, 40, 50, 60, 75, 90), $ele);
+$max_options = satellite_numeric_options(array(10, 20, 30, 40, 50, 75, 100), $max);
 
 if ($sat != '') {
   $fname = 'satellite/data/sat.' . $sat . '.table.tsv';
@@ -135,10 +137,48 @@ if ($sat != '') {
   }
 }
 
-echo '<div class="split-layout">';
-echo '<aside class="panel page-sidebar">';
-echo $sidebar_menu;
-echo '</aside>';
+echo '<section class="panel">';
+echo '<form class="filter-form filter-form--compact" method="get" action="satellite.php">';
+echo '<div class="filter-field">';
+echo '<label class="filter-field__label" for="satellite-name">Satellite</label>';
+echo '<select class="filter-select" id="satellite-name" name="sat" onchange="this.form.submit()">';
+echo satellite_select_option('', 'Choose satellite', $sat === '');
+if (!empty($priority_satellites)) {
+  echo '<optgroup label="Priority">';
+  foreach ($priority_satellites as $name) {
+    echo satellite_select_option($name, $name, $sat === $name);
+  }
+  echo '</optgroup>';
+}
+if (!empty($other_satellites)) {
+  echo '<optgroup label="All Satellites">';
+  foreach ($other_satellites as $name) {
+    echo satellite_select_option($name, $name, $sat === $name);
+  }
+  echo '</optgroup>';
+}
+echo '</select>';
+echo '</div>';
+echo '<div class="filter-field">';
+echo '<label class="filter-field__label" for="satellite-ele">Min Elevation</label>';
+echo '<select class="filter-select" id="satellite-ele" name="ele" onchange="this.form.submit()">';
+foreach ($elevation_options as $option) {
+  echo satellite_select_option($option, $option . ' deg', $ele === (int) $option);
+}
+echo '</select>';
+echo '</div>';
+echo '<div class="filter-field">';
+echo '<label class="filter-field__label" for="satellite-max">Rows</label>';
+echo '<select class="filter-select" id="satellite-max" name="max" onchange="this.form.submit()">';
+foreach ($max_options as $option) {
+  echo satellite_select_option($option, $option, $max === (int) $option);
+}
+echo '</select>';
+echo '</div>';
+echo '<div class="filter-actions"><a class="menu-state-link" href="satellite/freq.php">Frequencies</a></div>';
+echo '<noscript><button class="filter-submit" type="submit">Apply</button></noscript>';
+echo '</form>';
+echo '</section>';
 
 echo '<section class="panel">';
 echo '<div class="chip-row">';
@@ -150,10 +190,9 @@ echo '</div>';
 if (!empty($headers)) {
   render_sortable_table($headers, $rows, $sort_values, array('empty_message' => 'No upcoming passes match the current filters.'));
 } else {
-  echo '<p class="page-note">Choose a satellite from the list to view upcoming passes.</p>';
+  echo '<p class="page-note">Choose a satellite from the dropdown to view upcoming passes.</p>';
 }
 echo '</section>';
-echo '</div>';
 
 $tgalert = 'config/tgsathamalt.off';
 if (!file_exists($tgalert)) {

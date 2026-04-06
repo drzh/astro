@@ -205,8 +205,67 @@ if (!isset($page_title) || $page_title === '') {
     });
   }
 
+  function wrapLegacyTables() {
+    document.querySelectorAll('.legacy-html-panel').forEach((panel) => {
+      panel.querySelectorAll('table').forEach((table) => {
+        if (table.closest('.table-wrap')) {
+          return;
+        }
+
+        const ancestorTable = table.parentElement ? table.parentElement.closest('table') : null;
+        if (ancestorTable) {
+          return;
+        }
+
+        const wrap = document.createElement('div');
+        wrap.className = 'table-wrap table-wrap--legacy';
+        table.parentNode.insertBefore(wrap, table);
+        wrap.appendChild(table);
+      });
+    });
+  }
+
+  function layoutResponsiveTables() {
+    const shouldScale = window.matchMedia('(max-width: 640px)').matches;
+
+    document.querySelectorAll('.table-wrap').forEach((wrap) => {
+      const table = Array.from(wrap.children).find((child) => child.tagName === 'TABLE');
+      if (!table) {
+        return;
+      }
+
+      wrap.classList.remove('table-wrap--scaled');
+      wrap.style.height = '';
+      table.style.width = '';
+      table.style.maxWidth = '';
+      table.style.transform = '';
+      table.style.transformOrigin = '';
+
+      if (!shouldScale) {
+        return;
+      }
+
+      const availableWidth = wrap.clientWidth;
+      const naturalWidth = table.scrollWidth;
+      if (!availableWidth || !naturalWidth || naturalWidth <= availableWidth) {
+        return;
+      }
+
+      const scale = availableWidth / naturalWidth;
+
+      table.style.width = `${naturalWidth}px`;
+      table.style.maxWidth = 'none';
+      const naturalHeight = table.getBoundingClientRect().height;
+      table.style.transformOrigin = 'top left';
+      table.style.transform = `scale(${scale})`;
+      wrap.style.height = `${Math.ceil(naturalHeight * scale)}px`;
+      wrap.classList.add('table-wrap--scaled');
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('table.sortable').forEach(attachSorting);
+    wrapLegacyTables();
 
     const scrollSyncGroups = new Map();
     document.querySelectorAll('[data-scroll-sync-group]').forEach((element) => {
@@ -221,10 +280,17 @@ if (!isset($page_title) || $page_title === '') {
     });
     scrollSyncGroups.forEach((elements) => attachScrollSync(elements));
     layoutResponsiveStages();
+    layoutResponsiveTables();
   });
 
-  window.addEventListener('load', layoutResponsiveStages);
-  window.addEventListener('resize', layoutResponsiveStages, { passive: true });
+  window.addEventListener('load', () => {
+    layoutResponsiveStages();
+    layoutResponsiveTables();
+  });
+  window.addEventListener('resize', () => {
+    layoutResponsiveStages();
+    layoutResponsiveTables();
+  }, { passive: true });
 })();
 </script>
 </head>
