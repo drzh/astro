@@ -187,7 +187,7 @@ if ($rg != '' && $ch != '') {
         if (isset($colorbar[$c]) && $colorbar[$c] != '') {
             echo '<figure class="media-panel">';
             echo '<span class="media-panel__label">Color Bar</span>';
-            echo '<img src="', htmlspecialchars($colorbar[$c], ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($c . ' color bar', ENT_QUOTES, 'UTF-8'), '">';
+            echo '<img class="media-panel__image--intrinsic" src="', htmlspecialchars($colorbar[$c], ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($c . ' color bar', ENT_QUOTES, 'UTF-8'), '">';
             echo '</figure>';
         }
         echo '</section>';

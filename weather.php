@@ -60,30 +60,50 @@ foreach ($pos as $p) {
 
     echo '<div class="weather-card__grid">';
     if ($clearDarkSkyImage !== '') {
+        $clearDarkSkySrc = $clearDarkSkyImage . '?=' . $ran;
+        $clearDarkSkyAlt = 'Clear Dark Sky chart for ' . $siteName;
+        $clearDarkSkyCaption = $siteName . ' | Clear Dark Sky';
         echo '<figure class="media-panel">';
         echo '<span class="media-panel__label">Clear Dark Sky</span>';
-        echo '<img src="', htmlspecialchars($clearDarkSkyImage, ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Clear Dark Sky chart for ', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '<a class="media-panel__trigger" data-image-modal href="', htmlspecialchars($clearDarkSkySrc, ENT_QUOTES, 'UTF-8'), '" data-image-modal-alt="', htmlspecialchars($clearDarkSkyAlt, ENT_QUOTES, 'UTF-8'), '" data-image-modal-caption="', htmlspecialchars($clearDarkSkyCaption, ENT_QUOTES, 'UTF-8'), '">';
+        echo '<img src="', htmlspecialchars($clearDarkSkySrc, ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($clearDarkSkyAlt, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '</a>';
         echo '</figure>';
     }
 
     if ($coord_link !== '') {
+        $timerSrc = 'https://www.7timer.info/bin/astro.php?lon=' . $longitude . '&lat=' . $latitude . '&lang=en&ac=0&unit=metric&output=internal&tzshift=0&v=' . $ran;
+        $timerAlt = '7Timer astro forecast for ' . $siteName;
+        $timerCaption = $siteName . ' | 7Timer Astro Forecast';
         echo '<figure class="media-panel">';
         echo '<span class="media-panel__label">7Timer Astro Forecast</span>';
-        echo '<img src="https://www.7timer.info/bin/astro.php?lon=', htmlspecialchars($longitude, ENT_QUOTES, 'UTF-8'), '&lat=', htmlspecialchars($latitude, ENT_QUOTES, 'UTF-8'), '&lang=en&ac=0&unit=metric&output=internal&tzshift=0&v=', $ran, '" alt="7Timer astro forecast for ', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '<a class="media-panel__trigger" data-image-modal href="', htmlspecialchars($timerSrc, ENT_QUOTES, 'UTF-8'), '" data-image-modal-alt="', htmlspecialchars($timerAlt, ENT_QUOTES, 'UTF-8'), '" data-image-modal-caption="', htmlspecialchars($timerCaption, ENT_QUOTES, 'UTF-8'), '">';
+        echo '<img src="', htmlspecialchars($timerSrc, ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($timerAlt, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '</a>';
         echo '</figure>';
     }
     echo '</div>';
 
     if ($meteogramUrl !== '') {
         $ahour = preg_replace('/ahour=0/', 'ahour=48', $meteogramUrl);
+        $meteogramSrc = $meteogramUrl . '?=' . $ran;
+        $meteogramAlt = 'NOAA meteogram for ' . $siteName;
+        $meteogramCaption = $siteName . ' | NOAA Meteogram 0-48h';
+        $meteogramExtendedSrc = $ahour . '?=' . $ran;
+        $meteogramExtendedAlt = 'Extended NOAA meteogram for ' . $siteName;
+        $meteogramExtendedCaption = $siteName . ' | NOAA Meteogram 48-96h';
         echo '<div class="media-grid-two">';
         echo '<figure class="media-panel">';
         echo '<span class="media-panel__label">NOAA Meteogram 0-48h</span>';
-        echo '<img src="', htmlspecialchars($meteogramUrl, ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="NOAA meteogram for ', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '<a class="media-panel__trigger" data-image-modal href="', htmlspecialchars($meteogramSrc, ENT_QUOTES, 'UTF-8'), '" data-image-modal-alt="', htmlspecialchars($meteogramAlt, ENT_QUOTES, 'UTF-8'), '" data-image-modal-caption="', htmlspecialchars($meteogramCaption, ENT_QUOTES, 'UTF-8'), '">';
+        echo '<img src="', htmlspecialchars($meteogramSrc, ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($meteogramAlt, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '</a>';
         echo '</figure>';
         echo '<figure class="media-panel">';
         echo '<span class="media-panel__label">NOAA Meteogram 48-96h</span>';
-        echo '<img src="', htmlspecialchars($ahour, ENT_QUOTES, 'UTF-8'), '?=', $ran, '" alt="Extended NOAA meteogram for ', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '<a class="media-panel__trigger" data-image-modal href="', htmlspecialchars($meteogramExtendedSrc, ENT_QUOTES, 'UTF-8'), '" data-image-modal-alt="', htmlspecialchars($meteogramExtendedAlt, ENT_QUOTES, 'UTF-8'), '" data-image-modal-caption="', htmlspecialchars($meteogramExtendedCaption, ENT_QUOTES, 'UTF-8'), '">';
+        echo '<img src="', htmlspecialchars($meteogramExtendedSrc, ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($meteogramExtendedAlt, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
+        echo '</a>';
         echo '</figure>';
         echo '</div>';
     }

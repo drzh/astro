@@ -281,6 +281,112 @@ if (!function_exists('astro_render_head')) {
     });
   }
 
+  let imageModalController = null;
+  let imageModalTrigger = null;
+
+  function getImageModalController() {
+    if (imageModalController) {
+      return imageModalController;
+    }
+
+    const root = document.getElementById('image-modal');
+    if (!root) {
+      return null;
+    }
+
+    imageModalController = {
+      root,
+      image: root.querySelector('[data-image-modal-image]'),
+      caption: root.querySelector('[data-image-modal-caption]'),
+      close: root.querySelector('[data-image-modal-close]'),
+    };
+
+    return imageModalController;
+  }
+
+  function closeImageModal() {
+    const modal = getImageModalController();
+    if (!modal || modal.root.hidden) {
+      return;
+    }
+
+    modal.root.hidden = true;
+    modal.root.setAttribute('aria-hidden', 'true');
+    if (modal.image) {
+      modal.image.removeAttribute('src');
+      modal.image.alt = '';
+    }
+    if (modal.caption) {
+      modal.caption.hidden = true;
+      modal.caption.textContent = '';
+    }
+    document.body.classList.remove('image-modal-open');
+
+    if (imageModalTrigger && typeof imageModalTrigger.focus === 'function') {
+      imageModalTrigger.focus({ preventScroll: true });
+    }
+    imageModalTrigger = null;
+  }
+
+  function openImageModal(trigger) {
+    const modal = getImageModalController();
+    if (!modal || !trigger || !modal.image) {
+      return;
+    }
+
+    const source = trigger.getAttribute('href') || trigger.dataset.imageModalSrc || '';
+    if (!source) {
+      return;
+    }
+
+    const inlineImage = trigger.querySelector('img');
+    const alt = trigger.dataset.imageModalAlt || (inlineImage ? inlineImage.getAttribute('alt') : '') || '';
+    const caption = trigger.dataset.imageModalCaption || '';
+
+    imageModalTrigger = trigger;
+    modal.image.src = source;
+    modal.image.alt = alt;
+    if (modal.caption) {
+      modal.caption.textContent = caption;
+      modal.caption.hidden = caption === '';
+    }
+
+    modal.root.hidden = false;
+    modal.root.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('image-modal-open');
+
+    if (modal.close) {
+      modal.close.focus({ preventScroll: true });
+    }
+  }
+
+  function attachImageModal() {
+    const modal = getImageModalController();
+    if (!modal) {
+      return;
+    }
+
+    document.addEventListener('click', (event) => {
+      const trigger = event.target.closest('[data-image-modal]');
+      if (trigger) {
+        event.preventDefault();
+        openImageModal(trigger);
+        return;
+      }
+
+      if (event.target === modal.root || event.target.closest('[data-image-modal-close]')) {
+        event.preventDefault();
+        closeImageModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeImageModal();
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('table.sortable').forEach(attachSorting);
     wrapLegacyTables();
@@ -299,6 +405,7 @@ if (!function_exists('astro_render_head')) {
     scrollSyncGroups.forEach((elements) => attachScrollSync(elements));
     layoutResponsiveStages();
     layoutResponsiveTables();
+    attachImageModal();
   });
 
   window.addEventListener('load', () => {
@@ -458,6 +565,15 @@ if (!function_exists('astro_render_tail')) {
         ?>
     </section>
   </main>
+</div>
+<div class="image-modal" id="image-modal" hidden aria-hidden="true" role="dialog" aria-modal="true" aria-label="Expanded image">
+  <div class="image-modal__panel" role="document">
+    <button type="button" class="image-modal__close" data-image-modal-close>Close</button>
+    <figure class="image-modal__figure">
+      <img class="image-modal__image" data-image-modal-image alt="">
+      <figcaption class="image-modal__caption" data-image-modal-caption hidden></figcaption>
+    </figure>
+  </div>
 </div>
 <?php
     }
