@@ -113,7 +113,7 @@
     <div class="link-list">
       <a href='https://www.depts.ttu.edu/phas/News_and_Events/3RR.php' target='_blank' rel='noopener noreferrer'>3RF - TTUS 3RR Star Parties</a>
       <a href='http://cires.colorado.edu/Artificial-light' target='_blank' rel='noopener noreferrer'>World Atlas of Artificial Sky Brightness (2016)</a>
-      <a href='https://www.lightpollutionmap.info/#zoom=4&lat=4900000&lon=-10300000&layers=B0TFFFFF' target='_blank' rel='noopener noreferrer'>Light Pollution Map (2015)</a>
+      <a href='https://www.lightpollutionmap.info/#zoom=4&lat=4900000&lon=-10300000&layers=B0TFFFFF' target='_blank' rel='noopener noreferrer'>Light Pollution Map (2025)</a>
       <a href='https://djlorenz.github.io/astronomy/lp/' target='_blank' rel='noopener noreferrer'>Light Pollution Atlas (2024)</a>
       <a href='http://darksitefinder.com/maps/world.html' target='_blank' rel='noopener noreferrer'>Dark Site Finder (2022)</a>
     </div>
