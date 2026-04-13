@@ -78,7 +78,6 @@ $exported_at = '';
 $mode = '';
 $prediction_time = '';
 $target_name = '';
-$threshold = null;
 $latitude = null;
 $longitude = null;
 
@@ -97,9 +96,6 @@ if (isset($request['prediction_time']) && is_string($request['prediction_time'])
 }
 if (isset($target['name']) && is_string($target['name'])) {
     $target_name = $target['name'];
-}
-if (isset($target['threshold']) && is_numeric($target['threshold'])) {
-    $threshold = (float) $target['threshold'];
 }
 if (isset($request['location']) && is_array($request['location'])) {
     if (isset($request['location']['lat']) && is_numeric($request['location']['lat'])) {
@@ -149,10 +145,6 @@ if ($latitude !== null && $longitude !== null) {
   <p class="weather-card__meta" style="margin:0 0 5px 0;">
     <?php if ($maps_href !== ''): ?>
     <a href="<?php echo htmlspecialchars($maps_href, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer"><?php echo htmlspecialchars(number_format((float) $latitude, 2) . ', ' . number_format((float) $longitude, 2), ENT_QUOTES, 'UTF-8'); ?></a>
-    <span class="weather-card__dot" aria-hidden="true">&bull;</span>
-    <?php endif; ?>
-    <?php if ($threshold !== null): ?>
-    Threshold: <?php echo htmlspecialchars($format_decimal($threshold), ENT_QUOTES, 'UTF-8'); ?>
     <span class="weather-card__dot" aria-hidden="true">&bull;</span>
     <?php endif; ?>
     <a href="<?php echo htmlspecialchars($json_href, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">Raw JSON</a>
