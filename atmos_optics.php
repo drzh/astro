@@ -102,17 +102,11 @@ if ($latitude !== null && $longitude !== null) {
   <?php if ($payload === null): ?>
   <p><?php echo htmlspecialchars($error_message, ENT_QUOTES, 'UTF-8'); ?></p>
   <?php else: ?>
-  <p class="weather-card__meta">
+  <p class="weather-card__meta" style="margin:0 0 2px 0;">
     <?php
     $details = array();
-    if ($target_name !== '') {
-        $details[] = htmlspecialchars($target_name, ENT_QUOTES, 'UTF-8');
-    }
     if ($mode !== '') {
         $details[] = 'Mode: ' . htmlspecialchars(ucfirst($mode), ENT_QUOTES, 'UTF-8');
-    }
-    if ($threshold !== null) {
-        $details[] = 'Threshold: ' . htmlspecialchars($format_percent($threshold), ENT_QUOTES, 'UTF-8');
     }
     if ($generated_at !== '') {
         $details[] = 'Updated: ' . htmlspecialchars($format_timestamp($generated_at), ENT_QUOTES, 'UTF-8');
@@ -120,38 +114,38 @@ if ($latitude !== null && $longitude !== null) {
     echo implode(' | ', $details);
     ?>
   </p>
-  <p class="weather-card__meta">
+  <p class="weather-card__meta" style="margin:0 0 5px 0;">
     <?php if ($maps_href !== ''): ?>
     <a href="<?php echo htmlspecialchars($maps_href, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer"><?php echo htmlspecialchars(number_format((float) $latitude, 2) . ', ' . number_format((float) $longitude, 2), ENT_QUOTES, 'UTF-8'); ?></a>
     <span class="weather-card__dot" aria-hidden="true">&bull;</span>
     <?php endif; ?>
     <a href="<?php echo htmlspecialchars($json_href, ENT_QUOTES, 'UTF-8'); ?>" target="_blank" rel="noopener noreferrer">Raw JSON</a>
   </p>
+  <table class="table1">
+    <thead>
+      <tr>
+        <th>Value</th>
+        <th>Number</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($phenomena as $key => $label): ?>
+      <?php
+      $value = 0.0;
+      if (isset($payload[$key]) && is_numeric($payload[$key])) {
+          $value = (float) $payload[$key];
+      }
+      ?>
+      <tr>
+        <td><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></td>
+        <td><?php echo htmlspecialchars($format_decimal($value), ENT_QUOTES, 'UTF-8'); ?></td>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
   <?php endif; ?>
 </section>
-
 <?php if ($payload !== null): ?>
-<div class="media-grid-two">
-  <?php foreach ($phenomena as $key => $label): ?>
-  <?php
-  $value = 0.0;
-  if (isset($payload[$key]) && is_numeric($payload[$key])) {
-      $value = (float) $payload[$key];
-  }
-  if ($threshold === null) {
-      $status = 'Current probability';
-  } else {
-      $status = ($value >= $threshold) ? 'Above threshold' : 'Below threshold';
-  }
-  ?>
-  <section class="panel">
-    <h2 class="panel-title"><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></h2>
-    <p><strong><?php echo htmlspecialchars($format_percent($value), ENT_QUOTES, 'UTF-8'); ?></strong></p>
-    <p class="weather-card__meta"><?php echo htmlspecialchars($status . ' | Raw: ' . $format_decimal($value), ENT_QUOTES, 'UTF-8'); ?></p>
-  </section>
-  <?php endforeach; ?>
-</div>
-
 <section class="panel">
   <h2 class="panel-title">Data Sources</h2>
   <?php if ($sources === array()): ?>

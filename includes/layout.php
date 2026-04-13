@@ -507,7 +507,7 @@ if (!function_exists('astro_menu_rows')) {
                 array('href' => '/sun.php', 'label' => 'Sun'),
                 array('href' => '/aurora.php', 'label' => 'Aurora'),
                 array('href' => '/table/table.php?tb=cobs.commet.list.observed.json.txt', 'label' => 'Comets'),
-                array('href' => '/atmos_optics.php', 'label' => 'Atmos_Optics'),
+                array('href' => '/atmos_optics.php', 'label' => 'Atmos Optics'),
                 array('href' => '/map.php', 'label' => 'Maps'),
                 array('href' => '/table/table.php?tb=radnet.ft_worth.txt', 'label' => 'Radiation'),
             ),
