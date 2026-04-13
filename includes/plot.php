@@ -137,7 +137,7 @@ if (!function_exists('plotmarkerlabel')) {
         if ($x > 0 && $x <= $scale[$it][$rg]['w'] && $y > 0 && $y <= $scale[$it][$rg]['h']) {
             $lenbar = ceil(3 / $scale[$it][$rg]['r']);
             $tooltip = htmlspecialchars(plotmarker_tooltip($title, $value), ENT_QUOTES, 'UTF-8');
-            echo '<rect name="', $tooltip, '" data-tooltip="', $tooltip, '" x="', $x - $lenbar, '" y="', $y - $lenbar, '" width="', $lenbar * 2, '" height="', $lenbar * 2, '" fill-opacity="0" onmousemove="showtooltip(evt, ', $x, ', ', $y, ', \'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" onmouseout="hidetooltip(\'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" />';
+            echo '<rect name="', $tooltip, '" data-tooltip="', $tooltip, '" x="', $x - $lenbar, '" y="', $y - $lenbar, '" width="', $lenbar * 2, '" height="', $lenbar * 2, '" fill-opacity="0" onpointermove="showtooltip(evt, ', $x, ', ', $y, ', \'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" onpointerleave="hidetooltip(\'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" onmousemove="showtooltip(evt, ', $x, ', ', $y, ', \'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" onmouseout="hidetooltip(\'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" ontouchstart="showtooltip(evt, ', $x, ', ', $y, ', \'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" ontouchmove="showtooltip(evt, ', $x, ', ', $y, ', \'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" ontouchend="hidetooltip(\'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" ontouchcancel="hidetooltip(\'', htmlspecialchars($iddiv, ENT_QUOTES, 'UTF-8'), '\')" />';
         }
     }
 }

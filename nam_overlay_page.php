@@ -158,8 +158,8 @@ function nam_render_overlay_page($config)
             plotmarkerlabel($m[1], $m[2], $image_type, $region, $m[0], $tooltip_id);
         }
         echo '</svg>';
-        echo '<span class="tooltip" id="', htmlspecialchars($tooltip_id, ENT_QUOTES, 'UTF-8'), '" style="position:absolute; visibility:hidden"></span>';
         echo '</div>';
+        echo '<span class="tooltip" id="', htmlspecialchars($tooltip_id, ENT_QUOTES, 'UTF-8'), '" style="position:absolute; visibility:hidden"></span>';
         echo '</div>';
         echo '</figure>';
         echo '</section>';

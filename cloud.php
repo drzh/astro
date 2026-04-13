@@ -180,8 +180,8 @@ if ($rg != '' && $ch != '') {
             plotmarkerlabel($m[1], $m[2], $it, $rg, $m[0], $rg . $c);
         }
         echo '</svg>';
-        echo '<span class="tooltip" id="', htmlspecialchars($rg . $c, ENT_QUOTES, 'UTF-8'), '" style="position:absolute; visibility:hidden"> </span>';
         echo '</div>';
+        echo '<span class="tooltip" id="', htmlspecialchars($rg . $c, ENT_QUOTES, 'UTF-8'), '" style="position:absolute; visibility:hidden"> </span>';
         echo '</div>';
         echo '</figure>';
         if (isset($colorbar[$c]) && $colorbar[$c] != '') {
