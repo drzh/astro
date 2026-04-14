@@ -90,6 +90,26 @@ $render_probability_chip = static function ($value) use ($format_decimal, $proba
         '</span>';
 };
 
+$render_current_probability = static function ($value, $reason) use ($render_probability_chip) {
+    $chip = $render_probability_chip($value);
+    if (!is_string($reason) || trim($reason) === '') {
+        return $chip;
+    }
+
+    $reason_text = trim($reason);
+
+    return '<span class="atmos-optics-current-cell">' .
+        '<span class="atmos-optics-current-trigger" tabindex="0" aria-label="' .
+        htmlspecialchars($reason_text, ENT_QUOTES, 'UTF-8') .
+        '">' .
+        $chip .
+        '</span>' .
+        '<span class="atmos-optics-reason-tooltip" role="tooltip">' .
+        htmlspecialchars($reason_text, ENT_QUOTES, 'UTF-8') .
+        '</span>' .
+        '</span>';
+};
+
 $format_timestamp = static function ($value) {
     if (!is_string($value) || trim($value) === '') {
         return '';
@@ -103,18 +123,12 @@ $format_timestamp = static function ($value) {
     }
 };
 
-$exported_at = '';
 $mode = '';
 $prediction_time = '';
 $target_name = '';
 $latitude = null;
 $longitude = null;
 
-if (isset($payload['exported_at']) && is_string($payload['exported_at'])) {
-    $exported_at = $payload['exported_at'];
-} elseif (is_file($json_path)) {
-    $exported_at = gmdate('Y-m-d\TH:i:s\Z', filemtime($json_path));
-}
 if (isset($request['mode']) && is_string($request['mode'])) {
     $mode = $request['mode'];
 } elseif (isset($target['mode']) && is_string($target['mode'])) {
@@ -165,9 +179,6 @@ if ($latitude !== null && $longitude !== null) {
     if ($prediction_time !== '') {
         $details[] = 'Prediction time: ' . htmlspecialchars($format_timestamp($prediction_time), ENT_QUOTES, 'UTF-8');
     }
-    if ($exported_at !== '') {
-        $details[] = 'Updated: ' . htmlspecialchars($format_timestamp($exported_at), ENT_QUOTES, 'UTF-8');
-    }
     echo implode(' | ', $details);
     ?>
   </p>
@@ -189,7 +200,6 @@ if ($latitude !== null && $longitude !== null) {
         <th>Current</th>
         <th>Confidence</th>
         <th>Timeline</th>
-        <th>Reason</th>
       </tr>
     </thead>
     <tbody>
@@ -248,10 +258,9 @@ if ($latitude !== null && $longitude !== null) {
       ?>
       <tr>
         <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo $render_probability_chip($current_probability); ?></td>
+        <td class="<?php echo $row_class; ?>"><?php echo $render_current_probability($current_probability, $reason); ?></td>
         <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($format_decimal($confidence), ENT_QUOTES, 'UTF-8'); ?></td>
         <td class="<?php echo $row_class; ?>"><?php echo $timeline_summary; ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($reason, ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
       <?php endforeach; ?>
     </tbody>
