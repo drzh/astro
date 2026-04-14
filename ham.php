@@ -8,12 +8,12 @@ $ran = rand(1, 1000000);
 ?>
 <section class="panel">
   <h2 class="panel-title">Propagation Maps</h2>
-  <div class="media-grid-two">
-    <figure class="media-panel media-panel--compact-graphic">
+  <div class="media-grid-two ham-media-grid">
+    <figure class="media-panel media-panel--compact-graphic ham-media-panel">
       <span class="media-panel__label">Solar VHF</span>
       <img class="media-panel__image--intrinsic" src="http://www.hamqsl.com/solarvhf.php?=<?php echo $ran; ?>" alt="Solar VHF conditions" loading="lazy" decoding="async">
     </figure>
-    <figure class="media-panel media-panel--compact-graphic">
+    <figure class="media-panel media-panel--compact-graphic ham-media-panel">
       <span class="media-panel__label">Ionospheric Map</span>
       <img class="media-panel__image--intrinsic" src="http://www.sws.bom.gov.au/Images/HF%20Systems/Global%20HF/Ionospheric%20Map/West/fof2_maps.png?=<?php echo $ran; ?>" alt="Ionospheric map" loading="lazy" decoding="async">
     </figure>
@@ -21,8 +21,8 @@ $ran = rand(1, 1000000);
 </section>
 <section class="panel">
   <h2 class="panel-title">Sun Map</h2>
-  <figure class="media-panel">
-    <img src="https://www.timeanddate.com/scripts/sunmap.php?=<?php echo $ran; ?>" alt="Global sun map" loading="lazy" decoding="async">
+  <figure class="media-panel media-panel--compact-graphic ham-media-panel">
+    <img class="media-panel__image--intrinsic" src="https://www.timeanddate.com/scripts/sunmap.php?=<?php echo $ran; ?>" alt="Global sun map" loading="lazy" decoding="async">
   </figure>
 </section>
 <section class="panel">

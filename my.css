@@ -1702,6 +1702,32 @@ figure svg {
     color: var(--text-soft);
 }
 
+.ham-media-grid {
+    justify-items: start;
+    align-items: start;
+}
+
+.ham-media-panel {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0.22rem;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.ham-media-panel .media-panel__label {
+    display: block;
+}
+
+.ham-media-panel img,
+.ham-media-panel .media-panel__image--intrinsic {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+}
+
 @media (max-width: 720px) {
     .atmos-optics-table {
         font-size: clamp(0.68rem, 1.8vw, 0.82rem);
@@ -1729,5 +1755,9 @@ figure svg {
     .atmos-optics-probability {
         min-width: 4.1em;
         padding: 0.12rem 0.35rem;
+    }
+
+    .ham-media-panel {
+        gap: 0.16rem;
     }
 }
