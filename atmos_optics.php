@@ -61,6 +61,35 @@ $format_decimal = static function ($value) {
     return number_format((float) $value, 3);
 };
 
+$probability_band_class = static function ($value) {
+    if (!is_numeric($value)) {
+        return 'atmos-optics-probability--none';
+    }
+
+    $probability = max(0.0, min(1.0, (float) $value));
+    if ($probability < 0.2) {
+        return 'atmos-optics-probability--none';
+    }
+    if ($probability < 0.4) {
+        return 'atmos-optics-probability--blue';
+    }
+    if ($probability < 0.6) {
+        return 'atmos-optics-probability--green';
+    }
+    if ($probability < 0.8) {
+        return 'atmos-optics-probability--orange';
+    }
+    return 'atmos-optics-probability--red';
+};
+
+$render_probability_chip = static function ($value) use ($format_decimal, $probability_band_class) {
+    $classes = 'atmos-optics-probability ' . $probability_band_class($value);
+
+    return '<span class="' . htmlspecialchars($classes, ENT_QUOTES, 'UTF-8') . '">' .
+        htmlspecialchars($format_decimal($value), ENT_QUOTES, 'UTF-8') .
+        '</span>';
+};
+
 $format_timestamp = static function ($value) {
     if (!is_string($value) || trim($value) === '') {
         return '';
@@ -152,7 +181,8 @@ if ($latitude !== null && $longitude !== null) {
   <?php if ($phenomena === array()): ?>
   <p>No phenomena were included in the current payload.</p>
   <?php else: ?>
-  <table class="table1">
+  <div class="table-wrap">
+  <table class="table1 atmos-optics-table">
     <thead>
       <tr>
         <th>Phenomenon</th>
@@ -207,21 +237,26 @@ if ($latitude !== null && $longitude !== null) {
               if (!isset($timeline_entry['probability']) || !is_numeric($timeline_entry['probability'])) {
                   continue;
               }
-              $timeline_parts[] = $timeline_entry['label'] . ' ' . $format_decimal($timeline_entry['probability']);
+              $timeline_parts[] =
+                  '<span class="atmos-optics-timeline-entry">' .
+                  '<span class="atmos-optics-timeline-label">' . htmlspecialchars($timeline_entry['label'], ENT_QUOTES, 'UTF-8') . '</span>' .
+                  $render_probability_chip($timeline_entry['probability']) .
+                  '</span>';
           }
-          $timeline_summary = implode(' | ', $timeline_parts);
+          $timeline_summary = implode('<span class="atmos-optics-timeline-separator" aria-hidden="true">|</span>', $timeline_parts);
       }
       ?>
       <tr>
         <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($format_decimal($current_probability), ENT_QUOTES, 'UTF-8'); ?></td>
+        <td class="<?php echo $row_class; ?>"><?php echo $render_probability_chip($current_probability); ?></td>
         <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($format_decimal($confidence), ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($timeline_summary, ENT_QUOTES, 'UTF-8'); ?></td>
+        <td class="<?php echo $row_class; ?>"><?php echo $timeline_summary; ?></td>
         <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($reason, ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
       <?php endforeach; ?>
     </tbody>
   </table>
+  </div>
   <?php endif; ?>
   <?php endif; ?>
 </section>

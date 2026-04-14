@@ -1588,3 +1588,83 @@ figure svg {
 .daynight-table tbody tr:hover td.daynight-event-cell {
     background-color: var(--table-head) !important;
 }
+
+.atmos-optics-table {
+    font-size: clamp(0.74rem, 0.68rem + 0.35vw, 0.94rem);
+}
+
+.atmos-optics-table th,
+.atmos-optics-table td {
+    vertical-align: top;
+}
+
+.atmos-optics-probability {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 4.5em;
+    padding: 0.16rem 0.42rem;
+    border-radius: 0.35rem;
+    white-space: nowrap;
+}
+
+.atmos-optics-probability--none {
+    background: transparent;
+}
+
+.atmos-optics-probability--blue {
+    background: rgba(71, 138, 226, 0.44);
+    color: #eaf5ff;
+}
+
+.atmos-optics-probability--green {
+    background: rgba(56, 151, 88, 0.42);
+    color: #eefdf1;
+}
+
+.atmos-optics-probability--orange {
+    background: rgba(207, 129, 36, 0.48);
+    color: #fff4e6;
+}
+
+.atmos-optics-probability--red {
+    background: rgba(191, 72, 72, 0.5);
+    color: #fff0f0;
+}
+
+.atmos-optics-timeline-entry {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0.08rem 0;
+    white-space: nowrap;
+}
+
+.atmos-optics-timeline-label {
+    color: var(--text-soft);
+}
+
+.atmos-optics-timeline-separator {
+    display: inline-block;
+    margin: 0 0.4rem;
+    color: var(--text-soft);
+}
+
+@media (max-width: 720px) {
+    .atmos-optics-table {
+        font-size: clamp(0.68rem, 1.8vw, 0.82rem);
+    }
+
+    .atmos-optics-timeline-entry {
+        gap: 0.28rem;
+    }
+
+    .atmos-optics-timeline-separator {
+        margin: 0 0.24rem;
+    }
+
+    .atmos-optics-probability {
+        min-width: 4.1em;
+        padding: 0.12rem 0.35rem;
+    }
+}
