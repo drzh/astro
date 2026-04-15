@@ -492,8 +492,8 @@ if (!function_exists('astro_menu_rows')) {
                 array('href' => '/nam60.php', 'label' => 'NAM-60', 'disabled' => astro_feature_disabled('config/tgnam60.off'), 'extra_class' => 'alert'),
                 array('href' => '/nam84.php', 'label' => 'NAM-84', 'disabled' => astro_feature_disabled('config/tgnam84.off')),
                 array('href' => '/nam84p.php', 'label' => 'NAM-84-P'),
-                array('href' => '/nam240p.php', 'label' => 'NAM-240-P'),
-                array('href' => '/nam384p.php', 'label' => 'NAM-384-P'),
+                array('href' => '/nam240p.php', 'label' => 'GFS-240'),
+                array('href' => '/nam384p.php', 'label' => 'GFS-384'),
             ),
             array(
                 array('href' => '/sun.php', 'label' => 'Sun'),
