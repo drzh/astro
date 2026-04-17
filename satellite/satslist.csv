@@ -517,10 +517,10 @@ CSTP-2.1;61777;;437.485 ;;LoRa;;unknown
 CSTP-2.2;61775;;437.985 ;;LoRa;;unknown
 CSTP-2.11;61774;;437.985 ;;LoRa;;unknown
 CSTP-3.1;;;;;;;unknown
-CSTP-4.1;64882;;437.320 ;;LoRa;;active
+CSTP-4.1;64885;;437.320 ;;LoRa;;active
 CSTP-4.2;64883;;437.240 ;;LoRa;;active
 CSTP-4.3;64882;;437.160 ;;LoRa;;active
-CSTP-4.4;64895;;437.725 ;;LoRa;;active
+CSTP-4.4;64884;;437.725 ;;LoRa;;active
 CSUNSat1;42715;;437.400 ;437.400 ;9600bps GMSK CW;CSUNSAT1;re-entered
 CTC-0;62401;;401.500 ;;9600bps GFSK;WX9XKR;active
 CTC-1A;;;401.500/2185.000;;;;unknown
@@ -1367,6 +1367,7 @@ MIET-AIS;53377;;437.900 ;;2400bps GMSK_USP;RS28S;re-entered
 MIMAN;52900;;436.500 ;;2k4/4k8* FSK;;active
 Mimir-1;;;;;;;unknown
 MinoTaur-IV(Unknown-1);68629;;401.500 ;;2k4_FSK;;unknown
+MinoTaur-IV(Unknown-2);68632;;401.500 ;;2k4_FSK;;unknown
 MinXSS-1;41474;;437.350 ;;9600bps GMSK;MINXSS;re-entered
 MinXSS-2;43758;;437.250 ;;9600bps GMSK;MINXS2;inactive
 MIR;16609;145.985 ;145.985 ;;Packet;R0MIR;re-entered

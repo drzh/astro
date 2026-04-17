@@ -82,8 +82,9 @@ $probability_band_class = static function ($value) {
     return 'atmos-optics-probability--red';
 };
 
-$render_probability_chip = static function ($value) use ($format_percent, $probability_band_class) {
-    $classes = 'atmos-optics-probability ' . $probability_band_class($value);
+$render_probability_chip = static function ($value, $force_none = false) use ($format_percent, $probability_band_class) {
+    $band_class = $force_none ? 'atmos-optics-probability--none' : $probability_band_class($value);
+    $classes = 'atmos-optics-probability ' . $band_class;
 
     return '<span class="' . htmlspecialchars($classes, ENT_QUOTES, 'UTF-8') . '">' .
         htmlspecialchars($format_percent($value), ENT_QUOTES, 'UTF-8') .
@@ -259,7 +260,7 @@ if ($latitude !== null && $longitude !== null) {
       <tr>
         <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></td>
         <td class="<?php echo $row_class; ?>"><?php echo $render_current_probability($current_probability, $reason); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($format_percent($confidence), ENT_QUOTES, 'UTF-8'); ?></td>
+        <td class="<?php echo $row_class; ?>"><?php echo $render_probability_chip($confidence, true); ?></td>
         <td class="<?php echo $row_class; ?>"><?php echo $timeline_summary; ?></td>
       </tr>
       <?php endforeach; ?>

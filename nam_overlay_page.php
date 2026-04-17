@@ -96,6 +96,18 @@ function nam_render_overlay_page($config)
 
     $begin = -1;
     $end = -1;
+    $selected_range = '';
+    if (isset($_GET['range'])) {
+        $selected_range = trim((string) $_GET['range']);
+        foreach ($ranges as $range) {
+            $range_value = (string) $range['bg'] . '-' . (string) $range['ed'];
+            if ($selected_range === $range_value) {
+                $begin = (int) $range['bg'];
+                $end = (int) $range['ed'];
+                break;
+            }
+        }
+    }
     if (isset($_GET['bg'])) {
         $begin = (int) $_GET['bg'];
     }
@@ -109,26 +121,36 @@ function nam_render_overlay_page($config)
         $begin = $end;
     }
 
+    $active_range = null;
+    foreach ($ranges as $range) {
+        if ($begin === (int) $range['bg'] && $end === (int) $range['ed']) {
+            $active_range = $range;
+            break;
+        }
+    }
+    if ($active_range === null && $ranges !== array()) {
+        $active_range = $ranges[0];
+        $begin = (int) $active_range['bg'];
+        $end = (int) $active_range['ed'];
+    }
+
     $marker = nam_overlay_load_rows($projection_file);
     $paths = nam_overlay_load_paths($pa, $path_template);
     $stylepos = 'top:0; left:0; width:' . $scale[$image_type][$region]['w'] . 'px; height:' . $scale[$image_type][$region]['h'] . 'px;';
 
     echo '<section class="panel">';
-    echo '<div class="page-toolbar">';
-    echo '<span class="page-toolbar__label">', htmlspecialchars($selector_label, ENT_QUOTES, 'UTF-8'), '</span>';
-    echo '<div class="chip-row">';
+    echo '<form class="filter-form filter-form--compact" method="get" action="', htmlspecialchars($page, ENT_QUOTES, 'UTF-8'), '">';
+    if ($pa !== '') {
+        echo '<input type="hidden" name="pa" value="', htmlspecialchars($pa, ENT_QUOTES, 'UTF-8'), '">';
+    }
+    $range_options = array();
     foreach ($ranges as $range) {
-        $href = nam_overlay_query($page, $range['bg'], $range['ed'], $pa);
-        $active = ($begin === $range['bg'] && $end === $range['ed']);
-        echo astro_nav_item($href, $range['label'], $active);
+        $range_options[(string) $range['bg'] . '-' . (string) $range['ed']] = $range['label'];
     }
-    echo '</div>';
-    echo '</div>';
+    echo astro_inline_select_field('nam-range-select', 'range', $selector_label, $range_options, (string) $active_range['bg'] . '-' . (string) $active_range['ed']);
+    echo '<noscript><button class="filter-submit" type="submit">Apply</button></noscript>';
+    echo '</form>';
     echo '</section>';
-
-    if ($begin < 0 || $end < 0) {
-        return;
-    }
 
     echo '<div class="weather-stack">';
     $scroll_group = ($end > $begin) ? 'nam-' . md5($page . '|' . $region . '|' . $begin . '|' . $end . '|' . $pa) : '';

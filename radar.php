@@ -20,7 +20,7 @@ $ran = rand(1, 1000000);
 <section class="panel">
   <h2 class="panel-title">CONUS Radar</h2>
   <figure class="media-panel">
-    <img src="https://radar.weather.gov/ridge/standard/CONUS_0.gif?=<?php echo $ran; ?>" alt="CONUS radar" loading="lazy" decoding="async">
+    <img class="media-panel__image--intrinsic" src="https://radar.weather.gov/ridge/standard/CONUS_0.gif?=<?php echo $ran; ?>" alt="CONUS radar" loading="lazy" decoding="async">
   </figure>
 </section>
 <?php include 'tail.php'; ?>

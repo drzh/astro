@@ -3,7 +3,7 @@
 <?php include 'head.php'; ?>
 <?php require_once __DIR__ . '/includes/plot.php'; ?>
 <body>
-<script src="cloud.js"></script>
+<?php astro_render_cloud_script(); ?>
 <?php
 require 'menu.php';
 
@@ -89,31 +89,13 @@ echo '<form class="filter-form filter-form--compact" method="get" action="cloud.
 if ($pa !== '') {
     echo '<input type="hidden" name="pa" value="', htmlspecialchars($pa, ENT_QUOTES, 'UTF-8'), '">';
 }
-echo '<div class="filter-field">';
-echo '<label class="filter-field__label" for="cloud-region">Region</label>';
-echo '<select class="filter-select" id="cloud-region" name="rg" onchange="this.form.submit()">';
-foreach ($region as $r) {
-    echo astro_select_option($r, $r, $rg == $r);
+echo astro_inline_select_field('cloud-region', 'rg', 'Region', array_combine($region, $region), $rg);
+$channel_options = array('All' => 'All');
+foreach ($channeltype as $c => $n) {
+    $channel_options[$c] = $c . ' - ' . $n;
 }
-echo '</select>';
-echo '</div>';
-echo '<div class="filter-field">';
-echo '<label class="filter-field__label" for="cloud-channel">Channel</label>';
-echo '<select class="filter-select" id="cloud-channel" name="ch" onchange="this.form.submit()">';
-foreach (array('All' => 'All') + $channeltype as $c => $n) {
-    $label = ($c === 'All') ? 'All' : ($c . ' - ' . $n);
-    echo astro_select_option($c, $label, $ch == $c);
-}
-echo '</select>';
-echo '</div>';
-echo '<div class="filter-field">';
-echo '<label class="filter-field__label" for="cloud-image">Image</label>';
-echo '<select class="filter-select" id="cloud-image" name="it" onchange="this.form.submit()">';
-foreach ($imgtype as $i => $n) {
-    echo astro_select_option($i, $i, $it == $i);
-}
-echo '</select>';
-echo '</div>';
+echo astro_inline_select_field('cloud-channel', 'ch', 'Channel', $channel_options, $ch);
+echo astro_inline_select_field('cloud-image', 'it', 'Image', $imgtype, $it);
 echo '<noscript><button class="filter-submit" type="submit">Apply</button></noscript>';
 echo '</form>';
 echo '</section>';

@@ -12,7 +12,7 @@
     --border-strong: rgba(137, 171, 188, 0.42);
     --text: #d2dbe1;
     --text-soft: #b3c2cc;
-    --heading: #f9f4de;
+    --heading: #d2dbe1;
     --link: #8bd8ff;
     --link-hover: #ffd18a;
     --accent: #6cd1da;
@@ -390,6 +390,15 @@ a:focus-visible {
 
 .weather-card__title {
     margin-bottom: 0.25rem;
+}
+
+.weather-card__title a {
+    color: var(--text);
+}
+
+.weather-card__title a:hover,
+.weather-card__title a:focus-visible {
+    color: var(--heading);
 }
 
 .weather-card__dot {
@@ -1012,8 +1021,11 @@ a:focus-visible {
 }
 
 .filter-form--compact {
-    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
-    align-items: end;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    gap: 0.3rem 0.45rem;
+    flex-wrap: wrap;
 }
 
 .filter-field {
@@ -1022,11 +1034,27 @@ a:focus-visible {
     min-width: 0;
 }
 
+.filter-field--inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
 .filter-field__label {
     color: var(--text-soft);
     font-size: 0.72rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+}
+
+.filter-field--inline .filter-field__label {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.filter-field--inline .filter-select {
+    width: auto;
+    min-width: 0;
 }
 
 .filter-select {
@@ -1499,7 +1527,7 @@ figure svg {
 .table1 td,
 .legacy-html-panel th,
 .legacy-html-panel td {
-    padding: 3px !important;
+    padding: 5px !important;
     text-align: left;
     border-right: 1px solid var(--border) !important;
     border-bottom: 1px solid var(--border) !important;
@@ -1595,7 +1623,7 @@ figure svg {
 
 .atmos-optics-table th,
 .atmos-optics-table td {
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 .atmos-optics-probability {

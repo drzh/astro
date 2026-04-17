@@ -9,11 +9,19 @@ $forc = 'Wx';
 $state = '';
 $begin = -1;
 $end = -1;
+$selected_range = '';
 if (isset($_GET['fc'])) {
     $forc = $_GET['fc'];
 }
 if (isset($_GET['st'])) {
     $state = $_GET['st'];
+}
+if (isset($_GET['range'])) {
+    $selected_range = trim((string) $_GET['range']);
+    if (preg_match('/^(\d+)-(\d+)$/', $selected_range, $matches)) {
+        $begin = (int) $matches[1];
+        $end = (int) $matches[2];
+    }
 }
 if (isset($_GET['bg'])) {
     $begin = (int) $_GET['bg'];
@@ -45,30 +53,52 @@ $stateurl = array(
     'US' => 'conus',
     'TX' => 'southplains'
 );
+$range_options = array();
+for ($i = 0; $i < 165; $i += 24) {
+    $range_options[] = array(
+        'bg' => $i,
+        'ed' => $i + 23,
+        'label' => (string) ($i / 24),
+    );
+}
+
+if (!array_key_exists($forc, $forecast)) {
+    $forc = 'Wx';
+}
+if (!array_key_exists($state, $stateurl)) {
+    $state_keys = array_keys($stateurl);
+    $state = $state_keys[0];
+}
+$category_options = array();
+foreach ($forecast as $fc => $fc_config) {
+    $category_options[$fc] = $fc_config[0];
+}
+$region_options = array_combine(array_keys($stateurl), array_keys($stateurl));
+$day_options = array();
+foreach ($range_options as $range_option) {
+    $day_options[(string) $range_option['bg'] . '-' . (string) $range_option['ed']] = $range_option['label'];
+}
+
+$active_range = null;
+foreach ($range_options as $range_option) {
+    if ($begin === $range_option['bg'] && $end === $range_option['ed']) {
+        $active_range = $range_option;
+        break;
+    }
+}
+if ($active_range === null && $range_options !== array()) {
+    $active_range = $range_options[0];
+    $begin = $active_range['bg'];
+    $end = $active_range['ed'];
+}
 
 echo '<section class="panel">';
-echo '<div class="menu-stack">';
-foreach (array_keys($forecast) as $fc) {
-    $href = '/ndfd.php?fc=' . urlencode($fc);
-    if ($begin >= 0) {
-        $href .= '&st=' . urlencode($state) . '&bg=' . $begin . '&ed=' . $end;
-    }
-    echo astro_nav_item($href, $forecast[$fc][0], $forc == $fc);
-}
-echo '</div>';
-
-foreach (array_keys($stateurl) as $st) {
-    echo '<div class="page-toolbar">';
-    echo '<span class="page-toolbar__label">', htmlspecialchars($st, ENT_QUOTES, 'UTF-8'), '</span>';
-    echo '<div class="chip-row">';
-    for ($i = 0; $i < 165; $i += 24) {
-        $label = (string) ($i / 24);
-        $href = 'ndfd.php?fc=' . urlencode($forc) . '&st=' . urlencode($st) . '&bg=' . $i . '&ed=' . ($i + 23);
-        echo astro_nav_item($href, $label, $state == $st && $begin == $i && $end == $i + 23);
-    }
-    echo '</div>';
-    echo '</div>';
-}
+echo '<form class="filter-form filter-form--compact" method="get" action="ndfd.php">';
+echo astro_inline_select_field('ndfd-category', 'fc', 'Category', $category_options, $forc);
+echo astro_inline_select_field('ndfd-region', 'st', 'Region', $region_options, $state);
+echo astro_inline_select_field('ndfd-range-select', 'range', 'Day', $day_options, (string) $active_range['bg'] . '-' . (string) $active_range['ed']);
+echo '<noscript><button class="filter-submit" type="submit">Apply</button></noscript>';
+echo '</form>';
 echo '</section>';
 
 if ($begin >= 0 && $state != '' && array_key_exists($forc, $forecast)) {
@@ -79,7 +109,7 @@ if ($begin >= 0 && $state != '' && array_key_exists($forc, $forecast)) {
             $image = $forecast[$forc][1] . $stateurl[$state] . '/' . $forc . $pic_id . '_' . $stateurl[$state] . '.png';
             echo '<section class="panel">';
             echo '<h2 class="panel-title">', htmlspecialchars($forecast[$forc][0], ENT_QUOTES, 'UTF-8'), ' Day ', htmlspecialchars((string) ($i / 24), ENT_QUOTES, 'UTF-8'), '</h2>';
-            echo '<figure class="media-panel"><img src="', htmlspecialchars($image, ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($forecast[$forc][0], ENT_QUOTES, 'UTF-8'), ' forecast image ', htmlspecialchars((string) $pic_id, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async"></figure>';
+            echo '<figure class="media-panel"><img class="media-panel__image--intrinsic" src="', htmlspecialchars($image, ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($forecast[$forc][0], ENT_QUOTES, 'UTF-8'), ' forecast image ', htmlspecialchars((string) $pic_id, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async"></figure>';
             echo '</section>';
         }
     }

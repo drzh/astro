@@ -7,9 +7,9 @@ require '../menu.php';
 require_once __DIR__ . '/../includes/table.php';
 
 $toggle = [
-    'GOES' => 'tggoes',
+    #'GOES' => 'tggoes',
     'SkyCover' => 'tgsky',
-    'SkyCoverUS' => 'tgskyus',
+    #'SkyCoverUS' => 'tgskyus',
     'SatVis_Alert' => 'tgsatvisalt',
     'SatHam_Alert' => 'tgsathamalt',
     'NAM-60' => 'tgnam60',
