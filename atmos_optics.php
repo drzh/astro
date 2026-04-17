@@ -7,8 +7,8 @@
 $datasets = array(
     array(
         'title' => 'Sun Optics',
-        'json_path' => __DIR__ . '/table/atmospheric_optics.json',
-        'json_href' => '/table/atmospheric_optics.json',
+        'json_path' => __DIR__ . '/table/atmospheric_optics_solar.json',
+        'json_href' => '/table/atmospheric_optics_solar.json',
         'fallback_illumination' => 'solar',
     ),
     array(
