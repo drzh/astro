@@ -1318,6 +1318,17 @@ th[aria-sort="descending"] .sort-indicator::before {
     white-space: nowrap;
 }
 
+.weather-card__title--compact .weather-card__title-link--inline {
+    display: inline;
+    overflow: visible;
+    text-overflow: clip;
+    white-space: inherit;
+}
+
+.weather-plot-title {
+    white-space: nowrap;
+}
+
 .weather-card__meta--compact {
     display: inline-flex;
     align-items: center;
@@ -1346,6 +1357,154 @@ th[aria-sort="descending"] .sort-indicator::before {
     letter-spacing: 0.08em;
 }
 
+.weather-plot-root {
+    display: grid;
+    gap: 0.16rem;
+}
+
+.weather-plot-panel {
+    padding: 0 !important;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+.weather-plot-panel .weather-card__header--compact {
+    padding: 0 0.88rem 0.08rem;
+}
+
+.weather-plot-status {
+    margin: 0;
+    color: var(--text-soft);
+}
+
+.weather-plot-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    align-items: center;
+    color: var(--text-soft);
+    font-size: 0.82rem;
+}
+
+.weather-plot-legend__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.weather-plot-legend__dot {
+    display: inline-block;
+    border-radius: 999px;
+}
+
+.weather-plot-legend__dot--sky {
+    width: 0.72rem;
+    height: 0.72rem;
+    background: firebrick;
+}
+
+.weather-plot-legend__dot--humidity {
+    width: 0.34rem;
+    height: 0.34rem;
+    background: green;
+}
+
+.weather-plot-legend__dot--temperature {
+    width: 0.34rem;
+    height: 0.34rem;
+    background: orange;
+}
+
+.weather-plot-legend__dot--treasury-3mo {
+    width: 0.42rem;
+    height: 0.42rem;
+    background: purple;
+}
+
+.weather-plot-legend__dot--treasury-1yr {
+    width: 0.42rem;
+    height: 0.42rem;
+    background: firebrick;
+}
+
+.weather-plot-legend__dot--treasury-2yr {
+    width: 0.42rem;
+    height: 0.42rem;
+    background: green;
+}
+
+.weather-plot-legend__dot--treasury-5yr {
+    width: 0.42rem;
+    height: 0.42rem;
+    background: orange;
+}
+
+.weather-plot-legend__dot--treasury-10yr {
+    width: 0.42rem;
+    height: 0.42rem;
+    background: blue;
+}
+
+.weather-plot-legend__dot--treasury-30yr {
+    width: 0.42rem;
+    height: 0.42rem;
+    background: yellow;
+}
+
+.weather-plot-frame {
+    position: relative;
+    display: block;
+    margin-bottom: 0;
+    padding: 0;
+    background: transparent;
+    border: 0 !important;
+    width: 100%;
+    overflow: visible;
+}
+
+.weather-plot-canvas {
+    width: 100%;
+    min-width: 0;
+}
+
+.weather-plot-canvas .uplot {
+    font-family: inherit;
+    background: transparent;
+    width: 100% !important;
+}
+
+.weather-plot-canvas .u-axis,
+.weather-plot-canvas .u-label {
+    color: var(--text-soft);
+}
+
+.weather-plot-tooltip {
+    position: absolute;
+    z-index: 3;
+    max-width: 240px;
+    padding: 0.22rem 0.4rem;
+    border: 1px solid rgba(179, 194, 204, 0.28);
+    background: rgba(7, 19, 29, 0.92);
+    color: var(--text-soft);
+    font-size: 0.78rem;
+    line-height: 1.3;
+    pointer-events: none;
+    white-space: normal;
+}
+
+.weather-plot-canvas--full {
+    min-width: 100%;
+}
+
+.weather-card__meta--inline {
+    display: inline-flex;
+    margin-left: 0;
+    vertical-align: baseline;
+}
+
 @media (max-width: 900px) {
     .weather-card__header--compact {
         grid-template-columns: 1fr;
@@ -1358,6 +1517,17 @@ th[aria-sort="descending"] .sort-indicator::before {
     .weather-card__title--compact a,
     .weather-card__meta--compact {
         white-space: normal;
+    }
+
+    .weather-plot-root {
+        gap: 0.21rem;
+    }
+
+    .weather-plot-title,
+    .weather-plot-title .weather-card__title-link--inline,
+    .weather-plot-title .weather-card__meta--inline,
+    .weather-plot-title .weather-card__meta--inline a {
+        white-space: nowrap;
     }
 }
 

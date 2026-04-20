@@ -1,225 +1,455 @@
 <?php
-    $today = date('Ymd');
-    $nhourmax = 168;
-    $marginleft = 35;
-    $margintop = 20;
-    $marginright = 30;
-    $marginbottom = 25;
-    $mainwidth = $nhourmax * 10;
-    $mainheight = 100;
-
-    $ybreaksmain = array(0, 20, 40, 60, 80, 100);
-    $ybreaksright = array(-10, 0, 10, 20, 30, 40);
-    $panelwidth = $marginleft + $marginright + $mainwidth;
-    $panelheight = $margintop + $marginbottom + $mainheight;
-
-    function calcx($nhour)
-    {
-        global $marginleft, $mainwidth, $nhourmax;
-        return intval($marginleft + $mainwidth / $nhourmax * $nhour);
-    }
-
-    function calcy($cover)
-    {
-        global $margintop, $mainheight;
-        return intval($margintop + $mainheight - $mainheight / 100 * $cover);
-    }
-
-    function plotline($xstart, $ystart, $xend, $yend, $type = 'line1')
-    {
-        echo '<line x1="', calcx($xstart), '" y1="', calcy($ystart), '" x2="', calcx($xend), '" y2="', calcy($yend), '" class="', $type, '" />';
-    }
-
-    function plottext($text, $x, $y, $type = 'sctext1')
-    {
-        echo '<text x="', calcx($x), '" y="', calcy($y), '" class="', $type, '">', $text, '</text>';
-    }
-
-    function plotcircle($x, $y, $r, $type = 'sccir1', $tooltip = '')
-    {
-        $circle = '<circle cx="' . calcx($x) . '" cy="' . calcy($y) . '" r="' . $r . '" class="' . $type . '">';
-        if ($tooltip !== '') {
-            $circle .= '<title>' . htmlspecialchars($tooltip, ENT_QUOTES, 'UTF-8') . '</title>';
-        }
-        $circle .= '</circle>';
-        return $circle;
-    }
-
-    function plotrect($xstart, $ystart, $xend, $yend, $type = 'screct1')
-    {
-        echo '<rect x="', calcx($xstart), '" y="', calcy($yend), '" width="', calcx($xend) - calcx($xstart), '" height="', calcy($ystart) - calcy($yend), '" class="', $type, '" />';
-    }
-
-    function format_plot_hover_time($time)
-    {
-        return date('D, n/j H:i', $time);
-    }
-
-    echo '<section class="panel">';
-    echo '<svg style="width:300px; height:20px;">';
-    echo '<circle cx="5" cy="10" r="3" class="sccir1" />';
-    echo '<text x="15" y="15" class="sctext2">SkyCover</text>';
-    echo '<circle cx="105" cy="10" r="2" class="sccir2" />';
-    echo '<text x="115" y="15" class="sctext2">Humidity</text>';
-    echo '<circle cx="205" cy="10" r="2" class="sccir3" />';
-    echo '<text x="215" y="15" class="sctext2">Temp</text>';
-    echo '</svg>';
-    echo '</section>';
-
-    $plot_scroll_group = '';
-    if (!empty($pos) && count($pos) > 1) {
-        $plot_scroll_group = 'weather-plot-' . md5(
-            ($_SERVER['SCRIPT_NAME'] ?? '') . '|' .
-            (string) $f1 . '|' .
-            (string) $f2 . '|' .
-            (string) $f3
-        );
-    }
-
-    foreach ($pos as $p) {
-        $siteName = $p['name'];
-        $latitude = $p['latitude'];
-        $longitude = $p['longitude'];
-        $siteLink = $p['clear_dark_sky_link'];
-        $coord_link = 'https://maps.google.com/maps?q=' . $latitude . ',' . $longitude;
-        echo '<section class="panel">';
-        echo '<div class="weather-card__header weather-card__header--compact">';
-        echo '<h2 class="weather-card__title weather-card__title--compact"><a href="', htmlspecialchars($siteLink, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '</a></h2>';
-        echo '<div class="weather-card__meta weather-card__meta--compact"><a href="', htmlspecialchars($coord_link, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($latitude . ', ' . $longitude, ENT_QUOTES, 'UTF-8'), '</a></div>';
-        echo '</div>';
-        echo '<figure class="media-panel image-scroll"';
-        if ($plot_scroll_group !== '') {
-            echo ' data-scroll-sync-group="', htmlspecialchars($plot_scroll_group, ENT_QUOTES, 'UTF-8'), '"';
-        }
-        echo '>';
-        echo '<div style="position:relative; width:', $panelwidth, 'px; height:', $panelheight, 'px;">';
-        echo '<svg style="position:absolute; top:0; left:0; width:', $panelwidth, 'px; height:', $panelheight, 'px;">';
-
-        $fname = $f1;
-        preg_match('/([A-Z]{3}).format/', $fname, $matches, PREG_OFFSET_CAPTURE);
-        $tz = $matches[1][0];
-        $timepre = 0;
-        $time0 = 0;
-        $nhourpre = 0;
-        $fh = fopen($fname, 'r');
-        if (!$fh) {
-            echo '</svg></div></figure><p>Cannot open file: ', htmlspecialchars($fname, ENT_QUOTES, 'UTF-8'), '!</p></section>';
-            continue;
-        }
-        $plotrec1 = '';
-        while (!feof($fh)) {
-            $e = explode("\t", trim((string) fgets($fh)));
-            if (count($e) == 3 && $e[0] == $siteName) {
-                $time = strtotime($e[1] . ' ' . $tz);
-                $day = date('Ymd', strtotime($e[1] . ' ' . $tz));
-                $hour = date('H', strtotime($e[1] . ' ' . $tz));
-                if ($time0 == 0) {
-                    $time0 = $time;
-                    $day0 = $day;
-                    $timebegin = strtotime('-6 hour', strtotime($day0));
-                    $timeend = strtotime('+6 hour', strtotime($day0));
-                    if ($time0 < $timeend) {
-                        plotrect(0, 0, ($timeend - $time0) / 3600, 0, 'screct1');
-                    }
-                    $timemax = strtotime('+' . $nhourmax . ' hour', $time0);
-                    while ($timebegin < $timemax) {
-                        plotrect(($timebegin > $time0) ? ($timebegin - $time0) / 3600 : 0, 0, ((($timeend < $timemax) ? $timeend : $timemax) - $time0) / 3600, 100, 'screct1');
-                        $timebegin = strtotime('+1 day', $timebegin);
-                        $timeend = strtotime('+1 day', $timeend);
-                    }
-                    foreach ($ybreaksmain as $y) {
-                        plotline(0, $y, $nhourmax, $y, 'scline1');
-                        plottext($y, -0.5, $y - 5, 'sctext1');
-                    }
-                    foreach ($ybreaksright as $y) {
-                        plottext($y, $nhourmax + 0.5, $y / 50 * 100 + 15, 'sctext4');
-                    }
-                    $timedayb = strtotime($day0);
-                    $timedayend = strtotime('+' . ceil($nhourmax / 24) . ' day', $time0);
-                    while ($timedayb <= $timedayend) {
-                        if ($timedayb >= $time0) {
-                            $nhour = ($timedayb - $time0) / 3600;
-                            plotline($nhour, 0, $nhour, 120, 'scline1');
-                            if ($nhour > 6 && $nhour <= $nhourmax) {
-                                plottext(date('D, n/j', $timedayb - 86400), $nhour - 1, 105, 'sctext1');
-                            }
-                            if ($nhour < $nhourmax - 10) {
-                                plottext(date('D, n/j', $timedayb), $nhour + 1, 105, 'sctext2');
-                            }
-                        }
-                        $timedayb = strtotime('+1 day', $timedayb);
-                    }
-                }
-                if ($time > $timemax) {
-                    break;
-                }
-                $nhour = ($time - $time0) / 3600;
-                if ($hour % 3 == 0 || $nhour - $nhourpre >= 2) {
-                    plotline($nhour, 0, $nhour, -6, 'scline3');
-                    plottext($hour, $nhour, -20, 'sctext3');
-                }
-                $plotrec1 .= plotcircle($nhour, $e[2], 3, 'sccir1', format_plot_hover_time($time) . ' | SkyCover: ' . $e[2] . '%');
-                $timepre = $time;
-                $nhourpre = $nhour;
-            }
-        }
-        fclose($fh);
-
-        $fname = $f2;
-        $plotrec2 = '';
-        if (file_exists($fname)) {
-            preg_match('/([A-Z]{3}).format/', $fname, $matches, PREG_OFFSET_CAPTURE);
-            $tz = $matches[1][0];
-            $fh = fopen($fname, 'r');
-            if ($fh) {
-                while (!feof($fh)) {
-                    $e = explode("\t", trim((string) fgets($fh)));
-                    if (count($e) == 3 && $e[0] == $siteName) {
-                        $time = strtotime($e[1] . ' ' . $tz);
-                        if ($time > $timemax) {
-                            break;
-                        }
-                        $nhour = ($time - $time0) / 3600;
-                        $plotrec2 .= plotcircle($nhour, $e[2], 1, 'sccir2', format_plot_hover_time($time) . ' | Humidity: ' . $e[2] . '%');
-                    }
-                }
-                fclose($fh);
-            }
-        }
-
-        $fname = $f3;
-        $plotrec3 = '';
-        if (file_exists($fname)) {
-            $temphigh = 40;
-            $templow = -10;
-            preg_match('/([A-Z]{3}).format/', $fname, $matches, PREG_OFFSET_CAPTURE);
-            $tz = $matches[1][0];
-            $fh = fopen($fname, 'r');
-            if ($fh) {
-                while (!feof($fh)) {
-                    $e = explode("\t", trim((string) fgets($fh)));
-                    if (count($e) == 3 && $e[0] == $siteName) {
-                        $time = strtotime($e[1] . ' ' . $tz);
-                        if ($time > $timemax) {
-                            break;
-                        }
-                        $nhour = ($time - $time0) / 3600;
-                        if (is_numeric($e[2])) {
-                            $temp_c = $e[2] - 273.15;
-                            $plotrec3 .= plotcircle($nhour, ($e[2] - 273 - $templow) / ($temphigh - $templow) * 100, 1, 'sccir3', format_plot_hover_time($time) . ' | Temp: ' . number_format($temp_c, 1) . ' C');
-                        } else {
-                            $plotrec3 .= plotcircle($nhour, 0, 1, 'sccir3', format_plot_hover_time($time) . ' | Temp: unavailable');
-                        }
-                    }
-                }
-                fclose($fh);
-            }
-        }
-
-        echo $plotrec3, $plotrec2, $plotrec1;
-        echo '</svg>';
-        echo '</div>';
-        echo '</figure>';
-        echo '</section>';
-    }
+$weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
+    array(
+        'f1' => (string) $f1,
+        'f2' => (string) $f2,
+        'f3' => (string) $f3,
+    )
+);
 ?>
+<link rel="stylesheet" href="https://unpkg.com/uplot@1.6.31/dist/uPlot.min.css">
+<section class="panel">
+  <div class="weather-plot-legend">
+    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--sky"></span>SkyCover</span>
+    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--humidity"></span>Humidity</span>
+    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--temperature"></span>Temp</span>
+  </div>
+</section>
+<section class="panel">
+  <div
+    id="weather-plot-root"
+    class="weather-plot-root"
+    data-endpoint="<?php echo htmlspecialchars($weather_plot_endpoint, ENT_QUOTES, 'UTF-8'); ?>"
+  >
+    <p class="weather-plot-status">Loading weather plots...</p>
+  </div>
+</section>
+<script src="https://unpkg.com/uplot@1.6.31/dist/uPlot.iife.min.js"></script>
+<script>
+(() => {
+  const root = document.getElementById('weather-plot-root');
+  if (!root) {
+    return;
+  }
+
+  const endpoint = root.dataset.endpoint || '';
+  const SERIES_STYLE = {
+    sky_cover: { stroke: 'firebrick', fill: 'firebrick', size: 6, label: 'SkyCover' },
+    humidity: { stroke: 'green', fill: 'green', size: 2, label: 'Humidity' },
+    temperature_plot: { stroke: 'orange', fill: 'orange', size: 2, label: 'Temp' }
+  };
+
+  function setStatus(message) {
+    root.innerHTML = `<p class="weather-plot-status">${message}</p>`;
+  }
+
+  function pointSeries(metricKey, showAxis) {
+    const style = SERIES_STYLE[metricKey];
+    return {
+      label: style.label,
+      stroke: style.stroke,
+      width: 0,
+      paths: () => null,
+      points: {
+        show: true,
+        size: style.size,
+        stroke: style.stroke,
+        fill: style.fill,
+        width: 1
+      },
+      scale: showAxis ? 'y' : 'hidden'
+    };
+  }
+
+  function tempAxisLabel(value) {
+    return (((value / 100) * 50) - 10).toFixed(0);
+  }
+
+  function extractHourLabel(label) {
+    const hourMinute = extractHourMinute(label);
+    if (!hourMinute) {
+      return '';
+    }
+    return String(hourMinute.hour);
+  }
+
+  function extractHourMinute(label) {
+    const match = String(label || '').match(/(\d{1,2}):(\d{2})$/);
+    if (!match) {
+      return null;
+    }
+    return {
+      hour: Number(match[1]),
+      minute: Number(match[2])
+    };
+  }
+
+  function extractHourNumber(label) {
+    const hourMinute = extractHourMinute(label);
+    if (!hourMinute) {
+      return null;
+    }
+    return hourMinute.hour;
+  }
+
+  function computeTickIndexes(x, xLabels) {
+    const tickIndexes = [];
+    let lastTickOffset = null;
+
+    x.forEach((value, idx) => {
+      const hourMinute = extractHourMinute(xLabels[idx]);
+      if (!hourMinute) {
+        return;
+      }
+
+      if (tickIndexes.length === 0) {
+        if (hourMinute.minute !== 0 || hourMinute.hour % 3 !== 0) {
+          return;
+        }
+      } else if (value - lastTickOffset < 3) {
+        return;
+      }
+
+      tickIndexes.push(idx);
+      lastTickOffset = value;
+    });
+
+    return tickIndexes;
+  }
+
+  function dayLabelAtOffset(dayOffset, x, xLabels) {
+    let closestIndex = -1;
+    let closestDistance = Infinity;
+    x.forEach((value, idx) => {
+      const distance = Math.abs(value - dayOffset);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = idx;
+      }
+    });
+    if (closestIndex === -1) {
+      return '';
+    }
+    return xLabels[closestIndex] ? xLabels[closestIndex].replace(/ \d{1,2}:\d{2}$/, '') : '';
+  }
+
+  function dayLabelBeforeOffset(dayOffset, x, xLabels) {
+    for (let idx = x.length - 1; idx >= 0; idx -= 1) {
+      if (x[idx] < dayOffset) {
+        return xLabels[idx] ? xLabels[idx].replace(/ \d{1,2}:\d{2}$/, '') : '';
+      }
+    }
+    return '';
+  }
+
+  function dayLabelAfterOffset(dayOffset, x, xLabels) {
+    for (let idx = 0; idx < x.length; idx += 1) {
+      if (x[idx] >= dayOffset) {
+        return xLabels[idx] ? xLabels[idx].replace(/ \d{1,2}:\d{2}$/, '') : '';
+      }
+    }
+    return '';
+  }
+
+  function isMobileWeatherPlot(width) {
+    return width <= 520 || window.matchMedia('(max-width: 640px)').matches;
+  }
+
+  function getWeatherAxisFontSize(width) {
+    return isMobileWeatherPlot(width) ? 18 : 12;
+  }
+
+  function createCard(site, layout) {
+    const panel = document.createElement('section');
+    panel.className = 'panel weather-plot-panel';
+
+    const header = document.createElement('div');
+    header.className = 'weather-card__header weather-card__header--compact';
+
+    const title = document.createElement('h2');
+    title.className = 'weather-card__title weather-card__title--compact weather-plot-title';
+    const coordText = `${Number(site.latitude).toFixed(4)}, ${Number(site.longitude).toFixed(4)}`;
+    const coordLink = document.createElement('a');
+    coordLink.href = `https://maps.google.com/maps?q=${site.latitude},${site.longitude}`;
+    coordLink.target = '_blank';
+    coordLink.rel = 'noopener noreferrer';
+    coordLink.textContent = coordText;
+    const coordWrap = document.createElement('span');
+    coordWrap.className = 'weather-card__meta weather-card__meta--compact weather-card__meta--inline';
+    coordWrap.appendChild(coordLink);
+
+    if (site.clear_dark_sky_link) {
+      const link = document.createElement('a');
+      link.href = site.clear_dark_sky_link;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.className = 'weather-card__title-link--inline';
+      link.textContent = site.name || 'Site';
+      title.appendChild(link);
+    } else {
+      title.textContent = site.name || 'Site';
+    }
+    title.appendChild(document.createTextNode(' ('));
+    title.appendChild(coordWrap);
+    title.appendChild(document.createTextNode(')'));
+
+    header.appendChild(title);
+    panel.appendChild(header);
+
+    const figure = document.createElement('figure');
+    figure.className = 'media-panel image-scroll weather-plot-frame';
+    const canvas = document.createElement('div');
+    canvas.className = 'weather-plot-canvas';
+    figure.appendChild(canvas);
+    const tooltip = document.createElement('div');
+    tooltip.className = 'weather-plot-tooltip';
+    tooltip.hidden = true;
+    figure.appendChild(tooltip);
+    panel.appendChild(figure);
+
+    const x = Array.isArray(site.x) ? site.x : [];
+    const xLabels = Array.isArray(site.x_labels) ? site.x_labels : [];
+    const sky = site.series && Array.isArray(site.series.sky_cover) ? site.series.sky_cover : [];
+    const humidity = site.series && Array.isArray(site.series.humidity) ? site.series.humidity : [];
+    const tempPlot = site.series && Array.isArray(site.series.temperature_plot) ? site.series.temperature_plot : [];
+    const tempReal = site.series && Array.isArray(site.series.temperature_c) ? site.series.temperature_c : [];
+    const softText = getComputedStyle(document.documentElement).getPropertyValue('--text-soft').trim() || '#b3c2cc';
+    const plotWidth = Math.max(320, Math.round(figure.clientWidth || panel.clientWidth || Number(layout.width) || 873));
+    const maxX = Math.max(...x, 168);
+    const startHour = extractHourNumber(xLabels[0]);
+    const tickIndexes = computeTickIndexes(x, xLabels);
+    const axisFontSize = getWeatherAxisFontSize(plotWidth);
+
+    const opts = {
+      width: plotWidth,
+      height: Number(layout.height) || 218,
+      legend: { show: false },
+      select: { show: false },
+      cursor: { drag: { x: false, y: false, setScale: false } },
+      scales: {
+        x: { time: false, range: [0, maxX] },
+        y: { range: [0, 100] },
+        hidden: { range: [0, 100] }
+      },
+      series: [
+        {},
+        pointSeries('sky_cover', true),
+        pointSeries('humidity', false),
+        pointSeries('temperature_plot', false)
+      ],
+      axes: [
+        {
+          stroke: 'rgba(179, 194, 204, 0.88)',
+          grid: { show: false },
+          values: () => [],
+          size: axisFontSize + 18
+        },
+        {
+          stroke: 'rgba(179, 194, 204, 0.88)',
+          grid: { show: false },
+          splits: () => [0, 20, 40, 60, 80, 100],
+          values: () => ['0', '20', '40', '60', '80', '100']
+        },
+        {
+          side: 1,
+          stroke: 'rgba(179, 194, 204, 0.88)',
+          grid: { show: false },
+          splits: () => [0, 20, 40, 60, 80, 100],
+          values: (self, splits) => splits.map((value) => tempAxisLabel(value))
+        }
+      ],
+      hooks: {
+        drawClear: [
+          (u) => {
+            const ctx = u.ctx;
+            const top = u.bbox.top;
+            const height = u.bbox.height;
+            if (startHour == null) {
+              return;
+            }
+
+            ctx.save();
+            for (let hour = 0; hour < Math.ceil(maxX); hour += 1) {
+              const midpointHour = (startHour + hour + 0.5) % 24;
+              const fill = midpointHour >= 6 && midpointHour < 18
+                ? 'rgba(179, 194, 204, 0.07)'
+                : 'rgba(7, 19, 29, 0.34)';
+              const xStart = u.valToPos(hour, 'x', true);
+              const xEnd = u.valToPos(Math.min(hour + 1, maxX), 'x', true);
+              ctx.fillStyle = fill;
+              ctx.fillRect(xStart, top, Math.max(0, xEnd - xStart), height);
+            }
+            ctx.restore();
+          }
+        ],
+        drawAxes: [
+          (u) => {
+            const ctx = u.ctx;
+            ctx.save();
+            ctx.strokeStyle = 'rgba(179, 194, 204, 0.88)';
+            ctx.lineWidth = 1;
+            const mobilePlot = isMobileWeatherPlot(u.bbox.width);
+            const xAxisFontSize = mobilePlot ? 18 : 12;
+            const dayLabelFontSize = mobilePlot ? 14 : 11;
+            const dayLabelOffset = mobilePlot ? 10 : 6;
+            ctx.textBaseline = 'alphabetic';
+            const top = u.bbox.top;
+            const bottom = u.bbox.top + u.bbox.height;
+            [0, 20, 40, 60, 80, 100].forEach((value) => {
+              const yPos = Math.round(u.valToPos(value, 'y', true));
+              ctx.beginPath();
+              ctx.moveTo(u.bbox.left, yPos);
+              ctx.lineTo(u.bbox.left + u.bbox.width, yPos);
+              ctx.setLineDash([2, 4]);
+              ctx.stroke();
+              ctx.setLineDash([]);
+            });
+            ctx.font = `${xAxisFontSize}px sans-serif`;
+            tickIndexes.forEach((idx) => {
+              const hourLabel = extractHourLabel(xLabels[idx]);
+              const hourX = Math.round(u.valToPos(x[idx], 'x', true));
+              ctx.beginPath();
+              ctx.moveTo(hourX, bottom);
+              ctx.lineTo(hourX, bottom + 4);
+              ctx.stroke();
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'top';
+              ctx.fillStyle = softText;
+              ctx.fillText(hourLabel, hourX, bottom + 10);
+            });
+            if (startHour != null) {
+              const firstDayOffset = (24 - startHour) % 24;
+              for (let dayOffset = firstDayOffset; dayOffset <= maxX; dayOffset += 24) {
+                const leftDayLabel = dayLabelBeforeOffset(dayOffset, x, xLabels);
+                const rightDayLabel = dayLabelAfterOffset(dayOffset, x, xLabels) || dayLabelAtOffset(dayOffset, x, xLabels);
+                if (!leftDayLabel && !rightDayLabel) {
+                  continue;
+                }
+                const dayX = Math.round(u.valToPos(dayOffset, 'x', true));
+                ctx.beginPath();
+                ctx.moveTo(dayX, top - (dayLabelFontSize + 6));
+                ctx.lineTo(dayX, bottom);
+                ctx.setLineDash([3, 5]);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.font = `${dayLabelFontSize}px sans-serif`;
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = softText;
+                if (leftDayLabel) {
+                  ctx.textAlign = 'right';
+                  ctx.fillText(leftDayLabel, dayX - dayLabelOffset, top - 4);
+                }
+                if (rightDayLabel) {
+                  ctx.textAlign = 'left';
+                  ctx.fillText(rightDayLabel, dayX + dayLabelOffset, top - 4);
+                }
+                ctx.textBaseline = 'alphabetic';
+              }
+            }
+            ctx.restore();
+          }
+        ],
+        setCursor: [
+          (u) => {
+            const idx = u.cursor.idx;
+            if (idx == null || idx < 0 || idx >= xLabels.length) {
+              tooltip.hidden = true;
+              tooltip.textContent = '';
+              return;
+            }
+
+            const candidates = [
+              { label: 'SkyCover', value: sky[idx], suffix: '%', scale: 'y' },
+              { label: 'Humidity', value: humidity[idx], suffix: '%', scale: 'hidden' },
+              { label: 'Temp', value: tempPlot[idx], displayValue: tempReal[idx], suffix: ' C', scale: 'hidden' },
+            ];
+            let activePoint = null;
+            let minDistance = Infinity;
+            const pointX = u.valToPos(x[idx], 'x', true);
+
+            candidates.forEach((candidate) => {
+              if (candidate.value == null) {
+                return;
+              }
+              const pointY = u.valToPos(candidate.value, candidate.scale, true);
+              const distance = Math.hypot(u.cursor.left - pointX, u.cursor.top - pointY);
+              if (distance < minDistance) {
+                minDistance = distance;
+                activePoint = {
+                  label: candidate.label,
+                  displayValue: candidate.displayValue != null ? candidate.displayValue : candidate.value,
+                  suffix: candidate.suffix,
+                };
+              }
+            });
+
+            if (!activePoint || minDistance > 10) {
+              tooltip.hidden = true;
+              tooltip.textContent = '';
+              return;
+            }
+
+            tooltip.textContent = `${xLabels[idx]} | ${activePoint.label}: ${activePoint.displayValue}${activePoint.suffix}`;
+            tooltip.hidden = false;
+            const left = Math.max(8, Math.min(u.cursor.left + 14, plot.width - 260));
+            const top = Math.max(8, u.cursor.top - 10);
+            tooltip.style.left = `${left}px`;
+            tooltip.style.top = `${top}px`;
+          }
+        ]
+      }
+    };
+
+    const plot = new uPlot(opts, [x, sky, humidity, tempPlot], canvas);
+    figure.addEventListener('mouseleave', () => {
+      tooltip.hidden = true;
+      tooltip.textContent = '';
+    });
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver((entries) => {
+        const entry = entries[0];
+        if (!entry) {
+          return;
+        }
+        const nextWidth = Math.max(320, Math.round(entry.contentRect.width));
+        if (Math.abs(nextWidth - plot.width) > 1) {
+          plot.setSize({ width: nextWidth, height: plot.height });
+        }
+      });
+      resizeObserver.observe(figure);
+    }
+    return panel;
+  }
+
+  async function init() {
+    if (!window.uPlot) {
+      setStatus('uPlot did not load.');
+      return;
+    }
+
+    try {
+      const response = await fetch(endpoint, { headers: { Accept: 'application/json' } });
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload && payload.error ? payload.error : `Request failed: ${response.status}`);
+      }
+
+      const sites = Array.isArray(payload.sites) ? payload.sites : [];
+      if (!sites.length) {
+        setStatus('No weather plot data was returned.');
+        return;
+      }
+
+      const layout = payload.layout || {};
+      root.innerHTML = '';
+      sites.forEach((site) => {
+        root.appendChild(createCard(site, layout));
+      });
+    } catch (error) {
+      setStatus(`Unable to load weather plot data: ${error.message}`);
+    }
+  }
+
+  init();
+})();
+</script>

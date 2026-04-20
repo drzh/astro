@@ -89,6 +89,14 @@ $format_timestamp = static function ($value) {
     }
 };
 
+$format_altitude = static function ($value) {
+    if (!is_numeric($value)) {
+        return '';
+    }
+
+    return number_format((float) $value, 1) . ' deg';
+};
+
 $normalize_payload = static function ($payload, $fallback_illumination) {
     $prediction = array();
     $request = array();
@@ -101,6 +109,9 @@ $normalize_payload = static function ($payload, $fallback_illumination) {
     $target_name = '';
     $latitude = null;
     $longitude = null;
+    $celestial = array();
+    $active_body_label = '';
+    $active_body_altitude = null;
 
     if (isset($payload['prediction']) && is_array($payload['prediction'])) {
         $prediction = $payload['prediction'];
@@ -115,6 +126,11 @@ $normalize_payload = static function ($payload, $fallback_illumination) {
     }
     if (isset($prediction['sources']) && is_array($prediction['sources'])) {
         $sources = $prediction['sources'];
+    }
+    if (isset($payload['celestial']) && is_array($payload['celestial'])) {
+        $celestial = $payload['celestial'];
+    } elseif (isset($prediction['celestial']) && is_array($prediction['celestial'])) {
+        $celestial = $prediction['celestial'];
     }
     if (isset($prediction['phenomena']) && is_array($prediction['phenomena'])) {
         $phenomena = $prediction['phenomena'];
@@ -151,6 +167,23 @@ $normalize_payload = static function ($payload, $fallback_illumination) {
             $longitude = (float) $target['location']['lon'];
         }
     }
+    if ($illumination === 'solar' && isset($celestial['sun']) && is_array($celestial['sun'])) {
+        $active_body_label = 'Sun';
+        if (isset($celestial['sun']['altitude']) && is_numeric($celestial['sun']['altitude'])) {
+            $active_body_altitude = (float) $celestial['sun']['altitude'];
+        }
+    } elseif ($illumination === 'lunar' && isset($celestial['moon']) && is_array($celestial['moon'])) {
+        $active_body_label = 'Moon';
+        if (isset($celestial['moon']['altitude']) && is_numeric($celestial['moon']['altitude'])) {
+            $active_body_altitude = (float) $celestial['moon']['altitude'];
+        }
+    } elseif (isset($celestial['sun']) && is_array($celestial['sun']) && isset($celestial['sun']['altitude']) && is_numeric($celestial['sun']['altitude'])) {
+        $active_body_label = 'Sun';
+        $active_body_altitude = (float) $celestial['sun']['altitude'];
+    } elseif (isset($celestial['moon']) && is_array($celestial['moon']) && isset($celestial['moon']['altitude']) && is_numeric($celestial['moon']['altitude'])) {
+        $active_body_label = 'Moon';
+        $active_body_altitude = (float) $celestial['moon']['altitude'];
+    }
 
     return array(
         'request' => $request,
@@ -163,6 +196,8 @@ $normalize_payload = static function ($payload, $fallback_illumination) {
         'target_name' => $target_name,
         'latitude' => $latitude,
         'longitude' => $longitude,
+        'active_body_label' => $active_body_label,
+        'active_body_altitude' => $active_body_altitude,
     );
 };
 
@@ -195,10 +230,6 @@ foreach ($datasets as $dataset) {
     );
 }
 ?>
-<section class="panel">
-  <h1 class="panel-title">Atmospheric Optics</h1>
-  <p class="page-note">Current sunlit and moonlit optics predictions for the configured site.</p>
-</section>
 <?php foreach ($loaded_datasets as $dataset): ?>
 <?php
 $payload = $dataset['payload'];
@@ -227,6 +258,11 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
     if ($normalized['prediction_time'] !== '') {
         $details[] = 'Prediction time: ' . htmlspecialchars($format_timestamp($normalized['prediction_time']), ENT_QUOTES, 'UTF-8');
     }
+    if ($normalized['active_body_label'] !== '' && $normalized['active_body_altitude'] !== null) {
+        $details[] = htmlspecialchars($normalized['active_body_label'], ENT_QUOTES, 'UTF-8') .
+            ' altitude: ' .
+            htmlspecialchars($format_altitude($normalized['active_body_altitude']), ENT_QUOTES, 'UTF-8');
+    }
     ?>
   <p class="weather-card__meta" style="margin:0 0 2px 0;"><?php echo implode(' | ', $details); ?></p>
   <p class="weather-card__meta" style="margin:0 0 5px 0;">
@@ -245,7 +281,6 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
       <tr>
         <th>Phenomenon</th>
         <th>Current</th>
-        <th>Confidence</th>
         <th>Timeline</th>
       </tr>
     </thead>
@@ -260,7 +295,6 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
       $row_index++;
       $label = '';
       $current_probability = null;
-      $confidence = null;
       $timeline_summary = '';
       $reason = '';
       if (isset($entry['label']) && is_string($entry['label'])) {
@@ -271,9 +305,6 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
       if (isset($entry['current']) && is_array($entry['current'])) {
           if (isset($entry['current']['probability']) && is_numeric($entry['current']['probability'])) {
               $current_probability = (float) $entry['current']['probability'];
-          }
-          if (isset($entry['current']['confidence']) && is_numeric($entry['current']['confidence'])) {
-              $confidence = (float) $entry['current']['confidence'];
           }
           if (isset($entry['current']['reason']) && is_string($entry['current']['reason'])) {
               $reason = $entry['current']['reason'];
@@ -306,7 +337,6 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
       <tr>
         <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></td>
         <td class="<?php echo $row_class; ?>"><?php echo $render_current_probability($current_probability, $reason); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo $render_probability_chip($confidence, true); ?></td>
         <td class="<?php echo $row_class; ?>"><?php echo $timeline_summary; ?></td>
       </tr>
       <?php endforeach; ?>
