@@ -9,10 +9,10 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
 ?>
 <link rel="stylesheet" href="https://unpkg.com/uplot@1.6.31/dist/uPlot.min.css">
 <section class="panel">
-  <div class="weather-plot-legend">
-    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--sky"></span>SkyCover</span>
-    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--humidity"></span>Humidity</span>
-    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--temperature"></span>Temp</span>
+  <div class="weather-plot-legend" aria-label="Weather plot series">
+    <button type="button" class="weather-plot-legend__item weather-plot-legend__toggle" data-weather-plot-toggle="sky_cover" aria-pressed="true"><span class="weather-plot-legend__dot weather-plot-legend__dot--sky"></span><span>SkyCover</span></button>
+    <button type="button" class="weather-plot-legend__item weather-plot-legend__toggle" data-weather-plot-toggle="humidity" aria-pressed="true"><span class="weather-plot-legend__dot weather-plot-legend__dot--humidity"></span><span>Humidity</span></button>
+    <button type="button" class="weather-plot-legend__item weather-plot-legend__toggle" data-weather-plot-toggle="temperature_plot" aria-pressed="true"><span class="weather-plot-legend__dot weather-plot-legend__dot--temperature"></span><span>Temp</span></button>
   </div>
 </section>
 <section class="panel">
@@ -33,6 +33,18 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
   }
 
   const endpoint = root.dataset.endpoint || '';
+  const legendButtons = Array.from(document.querySelectorAll('[data-weather-plot-toggle]'));
+  const weatherPlots = [];
+  const seriesVisibility = {
+    sky_cover: true,
+    humidity: true,
+    temperature_plot: true
+  };
+  const SERIES_INDEX = {
+    sky_cover: 1,
+    humidity: 2,
+    temperature_plot: 3
+  };
   const SERIES_STYLE = {
     sky_cover: { stroke: 'firebrick', fill: 'firebrick', size: 6, label: 'SkyCover' },
     humidity: { stroke: 'green', fill: 'green', size: 2, label: 'Humidity' },
@@ -60,6 +72,34 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
       scale: showAxis ? 'y' : 'hidden'
     };
   }
+
+  function updateLegendButtons() {
+    legendButtons.forEach((button) => {
+      const key = button.dataset.weatherPlotToggle;
+      const visible = seriesVisibility[key] !== false;
+      button.classList.toggle('is-active', visible);
+      button.setAttribute('aria-pressed', visible ? 'true' : 'false');
+    });
+  }
+
+  function applySeriesVisibility(plot) {
+    Object.keys(SERIES_INDEX).forEach((key) => {
+      plot.setSeries(SERIES_INDEX[key], { show: seriesVisibility[key] !== false }, false);
+    });
+  }
+
+  legendButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const key = button.dataset.weatherPlotToggle;
+      if (!Object.prototype.hasOwnProperty.call(seriesVisibility, key)) {
+        return;
+      }
+      seriesVisibility[key] = !seriesVisibility[key];
+      updateLegendButtons();
+      weatherPlots.forEach(applySeriesVisibility);
+    });
+  });
+  updateLegendButtons();
 
   function tempAxisLabel(value) {
     return (((value / 100) * 50) - 10).toFixed(0);
@@ -219,10 +259,13 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
     const startHour = extractHourNumber(xLabels[0]);
     const tickIndexes = computeTickIndexes(x, xLabels);
     const axisFontSize = getWeatherAxisFontSize(plotWidth);
+    const yAxisFontSize = isMobileWeatherPlot(plotWidth) ? 14 : 11;
+    const yAxisSize = yAxisFontSize + 14;
 
     const opts = {
       width: plotWidth,
       height: Number(layout.height) || 218,
+      padding: [null, 0, null, 0],
       legend: { show: false },
       select: { show: false },
       cursor: { drag: { x: false, y: false, setScale: false } },
@@ -247,15 +290,24 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
         {
           stroke: 'rgba(179, 194, 204, 0.88)',
           grid: { show: false },
+          ticks: { show: false },
           splits: () => [0, 20, 40, 60, 80, 100],
-          values: () => ['0', '20', '40', '60', '80', '100']
+          values: () => ['0', '20', '40', '60', '80', '100'],
+          font: `${yAxisFontSize}px sans-serif`,
+          gap: 5,
+          size: yAxisSize
         },
         {
           side: 1,
+          scale: 'hidden',
           stroke: 'rgba(179, 194, 204, 0.88)',
           grid: { show: false },
+          ticks: { show: false },
           splits: () => [0, 20, 40, 60, 80, 100],
-          values: (self, splits) => splits.map((value) => tempAxisLabel(value))
+          values: (self, splits) => splits.map((value) => tempAxisLabel(value)),
+          font: `${yAxisFontSize}px sans-serif`,
+          gap: 5,
+          size: yAxisSize
         }
       ],
       hooks: {
@@ -295,15 +347,24 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
             ctx.textBaseline = 'alphabetic';
             const top = u.bbox.top;
             const bottom = u.bbox.top + u.bbox.height;
+            const left = u.bbox.left;
+            const right = u.bbox.left + u.bbox.width;
             [0, 20, 40, 60, 80, 100].forEach((value) => {
               const yPos = Math.round(u.valToPos(value, 'y', true));
               ctx.beginPath();
-              ctx.moveTo(u.bbox.left, yPos);
-              ctx.lineTo(u.bbox.left + u.bbox.width, yPos);
+              ctx.moveTo(left, yPos);
+              ctx.lineTo(right, yPos);
               ctx.setLineDash([2, 4]);
               ctx.stroke();
               ctx.setLineDash([]);
             });
+            ctx.setLineDash([]);
+            ctx.beginPath();
+            ctx.moveTo(left, top);
+            ctx.lineTo(left, bottom);
+            ctx.moveTo(right, top);
+            ctx.lineTo(right, bottom);
+            ctx.stroke();
             ctx.font = `${xAxisFontSize}px sans-serif`;
             tickIndexes.forEach((idx) => {
               const hourLabel = extractHourLabel(xLabels[idx]);
@@ -359,16 +420,16 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
             }
 
             const candidates = [
-              { label: 'SkyCover', value: sky[idx], suffix: '%', scale: 'y' },
-              { label: 'Humidity', value: humidity[idx], suffix: '%', scale: 'hidden' },
-              { label: 'Temp', value: tempPlot[idx], displayValue: tempReal[idx], suffix: ' C', scale: 'hidden' },
+              { key: 'sky_cover', label: 'SkyCover', value: sky[idx], suffix: '%', scale: 'y' },
+              { key: 'humidity', label: 'Humidity', value: humidity[idx], suffix: '%', scale: 'hidden' },
+              { key: 'temperature_plot', label: 'Temp', value: tempPlot[idx], displayValue: tempReal[idx], suffix: ' C', scale: 'hidden' },
             ];
             let activePoint = null;
             let minDistance = Infinity;
             const pointX = u.valToPos(x[idx], 'x', true);
 
             candidates.forEach((candidate) => {
-              if (candidate.value == null) {
+              if (seriesVisibility[candidate.key] === false || candidate.value == null) {
                 return;
               }
               const pointY = u.valToPos(candidate.value, candidate.scale, true);
@@ -401,6 +462,8 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
     };
 
     const plot = new uPlot(opts, [x, sky, humidity, tempPlot], canvas);
+    applySeriesVisibility(plot);
+    weatherPlots.push(plot);
     figure.addEventListener('mouseleave', () => {
       tooltip.hidden = true;
       tooltip.textContent = '';

@@ -504,7 +504,7 @@ if (!function_exists('astro_menu_rows')) {
             ),
             array(
                 array('href' => '/atmos_optics.php', 'label' => 'Atmos Optics'),
-                array('href' => '/daynight.php', 'label' => 'Night'),
+                array('href' => '/daynight.php', 'label' => 'Twilight'),
                 array('href' => '/light_pollution/lp.php', 'label' => 'LPollution'),
                 array('href' => '/economy.php', 'label' => 'Eco'),
                 array('href' => '/map.php', 'label' => 'Maps'),

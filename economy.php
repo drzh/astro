@@ -8,13 +8,13 @@ $economy_plot_endpoint = 'economy_plot_data.php';
 ?>
 <link rel="stylesheet" href="https://unpkg.com/uplot@1.6.31/dist/uPlot.min.css">
 <section class="panel">
-  <div class="weather-plot-legend">
-    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-3mo"></span>3Mo</span>
-    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-1yr"></span>1Yr</span>
-    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-2yr"></span>2Yr</span>
-    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-5yr"></span>5Yr</span>
-    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-10yr"></span>10Yr</span>
-    <span class="weather-plot-legend__item"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-30yr"></span>30Yr</span>
+  <div class="weather-plot-legend" aria-label="Economy plot series">
+    <button type="button" class="weather-plot-legend__item weather-plot-legend__toggle" data-economy-plot-toggle="3Mo" aria-pressed="true"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-3mo"></span><span>3Mo</span></button>
+    <button type="button" class="weather-plot-legend__item weather-plot-legend__toggle" data-economy-plot-toggle="1Yr" aria-pressed="true"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-1yr"></span><span>1Yr</span></button>
+    <button type="button" class="weather-plot-legend__item weather-plot-legend__toggle" data-economy-plot-toggle="2Yr" aria-pressed="true"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-2yr"></span><span>2Yr</span></button>
+    <button type="button" class="weather-plot-legend__item weather-plot-legend__toggle" data-economy-plot-toggle="5Yr" aria-pressed="true"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-5yr"></span><span>5Yr</span></button>
+    <button type="button" class="weather-plot-legend__item weather-plot-legend__toggle" data-economy-plot-toggle="10Yr" aria-pressed="true"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-10yr"></span><span>10Yr</span></button>
+    <button type="button" class="weather-plot-legend__item weather-plot-legend__toggle" data-economy-plot-toggle="30Yr" aria-pressed="true"><span class="weather-plot-legend__dot weather-plot-legend__dot--treasury-30yr"></span><span>30Yr</span></button>
   </div>
 </section>
 <section class="panel">
@@ -31,6 +31,13 @@ $economy_plot_endpoint = 'economy_plot_data.php';
   }
 
   const endpoint = root.dataset.endpoint || '';
+  const SERIES_NAMES = ['3Mo', '1Yr', '2Yr', '5Yr', '10Yr', '30Yr'];
+  const legendButtons = Array.from(document.querySelectorAll('[data-economy-plot-toggle]'));
+  const economyPlots = [];
+  const seriesVisibility = SERIES_NAMES.reduce((visibility, name) => {
+    visibility[name] = true;
+    return visibility;
+  }, {});
   const SERIES_STYLES = {
     '3Mo': { stroke: 'purple', fill: 'purple' },
     '1Yr': { stroke: 'firebrick', fill: 'firebrick' },
@@ -59,6 +66,34 @@ $economy_plot_endpoint = 'economy_plot_data.php';
       }
     };
   }
+
+  function updateLegendButtons() {
+    legendButtons.forEach((button) => {
+      const name = button.dataset.economyPlotToggle;
+      const visible = seriesVisibility[name] !== false;
+      button.classList.toggle('is-active', visible);
+      button.setAttribute('aria-pressed', visible ? 'true' : 'false');
+    });
+  }
+
+  function applySeriesVisibility(plot) {
+    SERIES_NAMES.forEach((name, index) => {
+      plot.setSeries(index + 1, { show: seriesVisibility[name] !== false }, false);
+    });
+  }
+
+  legendButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const name = button.dataset.economyPlotToggle;
+      if (!Object.prototype.hasOwnProperty.call(seriesVisibility, name)) {
+        return;
+      }
+      seriesVisibility[name] = !seriesVisibility[name];
+      updateLegendButtons();
+      economyPlots.forEach(applySeriesVisibility);
+    });
+  });
+  updateLegendButtons();
 
   function computeLabelIndexes(x, width) {
     const indexes = [];
@@ -97,13 +132,14 @@ $economy_plot_endpoint = 'economy_plot_data.php';
 
     const x = Array.isArray(chart.x) ? chart.x : [];
     const xLabels = Array.isArray(chart.x_labels) ? chart.x_labels : [];
-    const names = ['3Mo', '1Yr', '2Yr', '5Yr', '10Yr', '30Yr'];
+    const names = SERIES_NAMES;
     const series = names.map((name) => Array.isArray(chart.series && chart.series[name]) ? chart.series[name] : []);
     const softText = getComputedStyle(document.documentElement).getPropertyValue('--text-soft').trim() || '#b3c2cc';
 
     const opts = {
       width: Number(layout.width) || 873,
       height: Math.max(320, Number(layout.height) || 290),
+      legend: { show: false },
       cursor: { drag: { x: true, y: false } },
       scales: {
         x: { time: false, range: [Math.min(...x), Math.max(...x)] },
@@ -165,6 +201,9 @@ $economy_plot_endpoint = 'economy_plot_data.php';
             }
             const parts = [xLabels[idx]];
             names.forEach((name, seriesIndex) => {
+              if (seriesVisibility[name] === false) {
+                return;
+              }
               const value = series[seriesIndex][idx];
               if (value != null) {
                 parts.push(`${name}: ${Number(value).toFixed(2)}`);
@@ -176,7 +215,9 @@ $economy_plot_endpoint = 'economy_plot_data.php';
       }
     };
 
-    new uPlot(opts, [x, ...series], canvas);
+    const plot = new uPlot(opts, [x, ...series], canvas);
+    applySeriesVisibility(plot);
+    economyPlots.push(plot);
     return panel;
   }
 

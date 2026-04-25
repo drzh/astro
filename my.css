@@ -1192,7 +1192,7 @@ a:focus-visible {
 .sort-button {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     gap: 0.38rem;
     width: 100%;
     padding: 0;
@@ -1201,7 +1201,7 @@ a:focus-visible {
     color: var(--heading);
     font: inherit;
     font-weight: 700;
-    text-align: left;
+    text-align: center;
     cursor: pointer;
 }
 
@@ -1326,6 +1326,7 @@ th[aria-sort="descending"] .sort-indicator::before {
 }
 
 .weather-plot-title {
+    margin: 0 !important;
     white-space: nowrap;
 }
 
@@ -1372,7 +1373,7 @@ th[aria-sort="descending"] .sort-indicator::before {
 }
 
 .weather-plot-panel .weather-card__header--compact {
-    padding: 0 0.88rem 0.08rem;
+    padding: 0;
 }
 
 .weather-plot-status {
@@ -1393,6 +1394,29 @@ th[aria-sort="descending"] .sort-indicator::before {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
+}
+
+.weather-plot-legend__toggle {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+}
+
+.weather-plot-legend__toggle[aria-pressed="false"] {
+    opacity: 0.45;
+}
+
+.weather-plot-legend__toggle[aria-pressed="false"] .weather-plot-legend__dot {
+    background: transparent;
+    box-shadow: inset 0 0 0 1px currentColor;
+}
+
+.weather-plot-legend__toggle:focus-visible {
+    outline: 1px solid var(--accent);
+    outline-offset: 0.18rem;
 }
 
 .weather-plot-legend__dot {
@@ -1697,8 +1721,8 @@ figure svg {
 .table1 td,
 .legacy-html-panel th,
 .legacy-html-panel td {
-    padding: 5px !important;
-    text-align: left;
+    padding: 2.5px 5px !important;
+    text-align: center;
     border-right: 1px solid var(--border) !important;
     border-bottom: 1px solid var(--border) !important;
 }
@@ -1706,7 +1730,7 @@ figure svg {
 .td0,
 .td1,
 .table-head-cell {
-    text-align: left;
+    text-align: center;
 }
 
 .table1 tr > *:last-child,
@@ -1793,6 +1817,8 @@ figure svg {
 
 .atmos-optics-table th,
 .atmos-optics-table td {
+    padding-top: 1.25px !important;
+    padding-bottom: 1.25px !important;
     vertical-align: middle;
 }
 
@@ -1801,7 +1827,7 @@ figure svg {
     align-items: center;
     justify-content: center;
     min-width: 4.5em;
-    padding: 0.16rem 0.42rem;
+    padding: 0.08rem 0.42rem;
     border-radius: 0.35rem;
     white-space: nowrap;
 }
@@ -1834,6 +1860,7 @@ figure svg {
     position: relative;
     display: inline-flex;
     align-items: center;
+    z-index: 4;
 }
 
 .atmos-optics-current-trigger {
@@ -1853,7 +1880,7 @@ figure svg {
     position: absolute;
     top: 50%;
     left: calc(100% + 0.28rem);
-    z-index: 3;
+    z-index: 10;
     width: max-content;
     min-width: 14rem;
     max-width: min(24rem, 60vw);
@@ -1877,6 +1904,22 @@ figure svg {
     visibility: visible;
 }
 
+.atmos-optics-current-column {
+    position: relative;
+    overflow: visible;
+}
+
+.atmos-optics-current-column:hover,
+.atmos-optics-current-column:focus-within {
+    z-index: 6;
+}
+
+.atmos-optics-timeline-heading,
+.atmos-optics-timeline-cell {
+    text-align: center !important;
+    white-space: nowrap;
+}
+
 .atmos-optics-timeline-entry {
     display: inline-flex;
     align-items: center;
@@ -1887,7 +1930,7 @@ figure svg {
 
 .atmos-optics-timeline-entry .atmos-optics-probability {
     min-width: 3.9em;
-    padding: 0.12rem 0.28rem;
+    padding: 0.06rem 0.28rem;
 }
 
 .atmos-optics-timeline-label {
@@ -1943,7 +1986,7 @@ figure svg {
 
     .atmos-optics-timeline-entry .atmos-optics-probability {
         min-width: 3.6em;
-        padding: 0.1rem 0.24rem;
+        padding: 0.05rem 0.24rem;
     }
 
     .atmos-optics-timeline-separator {
@@ -1952,7 +1995,7 @@ figure svg {
 
     .atmos-optics-probability {
         min-width: 4.1em;
-        padding: 0.12rem 0.35rem;
+        padding: 0.06rem 0.35rem;
     }
 
     .ham-media-panel {

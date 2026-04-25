@@ -252,9 +252,6 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
     if ($normalized['mode'] !== '') {
         $details[] = 'Mode: ' . htmlspecialchars(ucfirst($normalized['mode']), ENT_QUOTES, 'UTF-8');
     }
-    if ($normalized['illumination'] !== '') {
-        $details[] = 'Illumination: ' . htmlspecialchars(ucfirst($normalized['illumination']), ENT_QUOTES, 'UTF-8');
-    }
     if ($normalized['prediction_time'] !== '') {
         $details[] = 'Prediction time: ' . htmlspecialchars($format_timestamp($normalized['prediction_time']), ENT_QUOTES, 'UTF-8');
     }
@@ -275,13 +272,40 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
   <?php if ($normalized['phenomena'] === array()): ?>
   <p>No phenomena were included in this payload.</p>
   <?php else: ?>
+  <?php
+  $timeline_labels = array();
+  foreach ($normalized['phenomena'] as $timeline_entry_source) {
+      if (!is_array($timeline_entry_source) || !isset($timeline_entry_source['timeline']) || !is_array($timeline_entry_source['timeline'])) {
+          continue;
+      }
+      foreach ($timeline_entry_source['timeline'] as $timeline_entry) {
+          if (!is_array($timeline_entry)) {
+              continue;
+          }
+          if (!isset($timeline_entry['label']) || !is_string($timeline_entry['label'])) {
+              continue;
+          }
+          if ($timeline_entry['label'] === 'now') {
+              continue;
+          }
+          if (!isset($timeline_entry['probability']) || !is_numeric($timeline_entry['probability'])) {
+              continue;
+          }
+          if (!array_key_exists($timeline_entry['label'], $timeline_labels)) {
+              $timeline_labels[$timeline_entry['label']] = $timeline_entry['label'];
+          }
+      }
+  }
+  ?>
   <div class="table-wrap">
   <table class="table1 atmos-optics-table">
     <thead>
       <tr>
         <th>Phenomenon</th>
         <th>Current</th>
-        <th>Timeline</th>
+        <?php foreach ($timeline_labels as $timeline_label): ?>
+        <th class="atmos-optics-timeline-heading"><?php echo htmlspecialchars($timeline_label, ENT_QUOTES, 'UTF-8'); ?></th>
+        <?php endforeach; ?>
       </tr>
     </thead>
     <tbody>
@@ -295,7 +319,7 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
       $row_index++;
       $label = '';
       $current_probability = null;
-      $timeline_summary = '';
+      $timeline_values = array();
       $reason = '';
       if (isset($entry['label']) && is_string($entry['label'])) {
           $label = $entry['label'];
@@ -311,7 +335,6 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
           }
       }
       if (isset($entry['timeline']) && is_array($entry['timeline'])) {
-          $timeline_parts = array();
           foreach ($entry['timeline'] as $timeline_entry) {
               if (!is_array($timeline_entry)) {
                   continue;
@@ -325,19 +348,16 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
               if (!isset($timeline_entry['probability']) || !is_numeric($timeline_entry['probability'])) {
                   continue;
               }
-              $timeline_parts[] =
-                  '<span class="atmos-optics-timeline-entry">' .
-                  '<span class="atmos-optics-timeline-label">' . htmlspecialchars($timeline_entry['label'], ENT_QUOTES, 'UTF-8') . '</span>' .
-                  $render_probability_chip($timeline_entry['probability']) .
-                  '</span>';
+              $timeline_values[$timeline_entry['label']] = $timeline_entry['probability'];
           }
-          $timeline_summary = implode('<span class="atmos-optics-timeline-separator" aria-hidden="true">|</span>', $timeline_parts);
       }
       ?>
       <tr>
         <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo $render_current_probability($current_probability, $reason); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo $timeline_summary; ?></td>
+        <td class="<?php echo $row_class; ?> atmos-optics-current-column"><?php echo $render_current_probability($current_probability, $reason); ?></td>
+        <?php foreach ($timeline_labels as $timeline_label): ?>
+        <td class="<?php echo $row_class; ?> atmos-optics-timeline-cell"><?php echo array_key_exists($timeline_label, $timeline_values) ? $render_probability_chip($timeline_values[$timeline_label]) : ''; ?></td>
+        <?php endforeach; ?>
       </tr>
       <?php endforeach; ?>
     </tbody>
