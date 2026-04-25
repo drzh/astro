@@ -132,9 +132,10 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
     return hourMinute.hour;
   }
 
-  function computeTickIndexes(x, xLabels) {
+  function computeTickIndexes(x, xLabels, width) {
     const tickIndexes = [];
     let lastTickOffset = null;
+    const hourStep = isMobileWeatherPlot(width) ? 6 : 3;
 
     x.forEach((value, idx) => {
       const hourMinute = extractHourMinute(xLabels[idx]);
@@ -143,10 +144,10 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
       }
 
       if (tickIndexes.length === 0) {
-        if (hourMinute.minute !== 0 || hourMinute.hour % 3 !== 0) {
+        if (hourMinute.minute !== 0 || hourMinute.hour % hourStep !== 0) {
           return;
         }
-      } else if (value - lastTickOffset < 3) {
+      } else if (value - lastTickOffset < hourStep) {
         return;
       }
 
@@ -196,7 +197,7 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
   }
 
   function getWeatherAxisFontSize(width) {
-    return isMobileWeatherPlot(width) ? 18 : 12;
+    return isMobileWeatherPlot(width) ? 14 : 12;
   }
 
   function createCard(site, layout) {
@@ -254,11 +255,13 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
     const tempPlot = site.series && Array.isArray(site.series.temperature_plot) ? site.series.temperature_plot : [];
     const tempReal = site.series && Array.isArray(site.series.temperature_c) ? site.series.temperature_c : [];
     const softText = getComputedStyle(document.documentElement).getPropertyValue('--text-soft').trim() || '#b3c2cc';
-    const plotWidth = Math.max(320, Math.round(figure.clientWidth || panel.clientWidth || Number(layout.width) || 873));
+    const plotWidth = Math.max(320, Math.round(figure.clientWidth || panel.clientWidth || root.clientWidth || Number(layout.width) || 873));
     const maxX = Math.max(...x, 168);
     const startHour = extractHourNumber(xLabels[0]);
-    const tickIndexes = computeTickIndexes(x, xLabels);
     const axisFontSize = getWeatherAxisFontSize(plotWidth);
+    const mobileWeatherPlot = isMobileWeatherPlot(plotWidth);
+    const xAxisLabelOffset = mobileWeatherPlot ? 4 : 5;
+    const xAxisBottomMargin = mobileWeatherPlot ? 4 : 2;
     const yAxisFontSize = isMobileWeatherPlot(plotWidth) ? 14 : 11;
     const yAxisSize = yAxisFontSize + 14;
 
@@ -285,7 +288,7 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
           stroke: 'rgba(179, 194, 204, 0.88)',
           grid: { show: false },
           values: () => [],
-          size: axisFontSize + 18
+          size: axisFontSize + xAxisLabelOffset + xAxisBottomMargin
         },
         {
           stroke: 'rgba(179, 194, 204, 0.88)',
@@ -341,9 +344,11 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
             ctx.strokeStyle = 'rgba(179, 194, 204, 0.88)';
             ctx.lineWidth = 1;
             const mobilePlot = isMobileWeatherPlot(u.bbox.width);
-            const xAxisFontSize = mobilePlot ? 18 : 12;
+            const xAxisFontSize = getWeatherAxisFontSize(u.bbox.width);
+            const xAxisLabelOffset = mobilePlot ? 4 : 5;
             const dayLabelFontSize = mobilePlot ? 14 : 11;
             const dayLabelOffset = mobilePlot ? 10 : 6;
+            const tickIndexes = computeTickIndexes(x, xLabels, u.bbox.width);
             ctx.textBaseline = 'alphabetic';
             const top = u.bbox.top;
             const bottom = u.bbox.top + u.bbox.height;
@@ -376,7 +381,7 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
               ctx.textAlign = 'center';
               ctx.textBaseline = 'top';
               ctx.fillStyle = softText;
-              ctx.fillText(hourLabel, hourX, bottom + 10);
+              ctx.fillText(hourLabel, hourX, bottom + xAxisLabelOffset);
             });
             if (startHour != null) {
               const firstDayOffset = (24 - startHour) % 24;

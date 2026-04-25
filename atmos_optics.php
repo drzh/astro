@@ -64,14 +64,13 @@ $render_current_probability = static function ($value, $reason) use ($render_pro
 
     $reason_text = trim($reason);
 
-    return '<span class="atmos-optics-current-cell">' .
+    return '<span class="atmos-optics-current-cell" data-atmos-optics-reason="' .
+        htmlspecialchars($reason_text, ENT_QUOTES, 'UTF-8') .
+        '">' .
         '<span class="atmos-optics-current-trigger" tabindex="0" aria-label="' .
         htmlspecialchars($reason_text, ENT_QUOTES, 'UTF-8') .
         '">' .
         $chip .
-        '</span>' .
-        '<span class="atmos-optics-reason-tooltip" role="tooltip">' .
-        htmlspecialchars($reason_text, ENT_QUOTES, 'UTF-8') .
         '</span>' .
         '</span>';
 };
@@ -297,7 +296,7 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
       }
   }
   ?>
-  <div class="table-wrap">
+  <div class="table-wrap atmos-optics-table-wrap">
   <table class="table1 atmos-optics-table">
     <thead>
       <tr>
@@ -392,6 +391,56 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
   <?php endif; ?>
 </section>
 <?php endforeach; ?>
+<script>
+(() => {
+  const tooltip = document.createElement('div');
+  tooltip.className = 'atmos-optics-pointer-tooltip';
+  tooltip.setAttribute('role', 'tooltip');
+  document.body.appendChild(tooltip);
+
+  function moveAtmosOpticsTooltip(cell, pointerEvent) {
+    const trigger = cell.querySelector('.atmos-optics-current-trigger');
+    const reason = cell.dataset.atmosOpticsReason || (trigger ? trigger.getAttribute('aria-label') : '');
+    if (!trigger || !reason) {
+      return;
+    }
+
+    const padding = 8;
+    const pointerGap = 12;
+    const anchor = pointerEvent && typeof pointerEvent.clientX === 'number'
+      ? { x: pointerEvent.clientX, y: pointerEvent.clientY }
+      : (() => {
+          const rect = trigger.getBoundingClientRect();
+          return { x: rect.right, y: rect.top + rect.height / 2 };
+        })();
+    tooltip.textContent = reason;
+    tooltip.classList.add('is-visible');
+    tooltip.style.maxWidth = '';
+    const availableWidth = Math.max(96, window.innerWidth - anchor.x - pointerGap - padding);
+    tooltip.style.maxWidth = `${availableWidth}px`;
+    const tooltipRect = tooltip.getBoundingClientRect();
+    let left = anchor.x + pointerGap;
+    let top = anchor.y + padding;
+
+    top = Math.max(padding, Math.min(top, window.innerHeight - tooltipRect.height - padding));
+
+    tooltip.style.setProperty('--atmos-tooltip-left', `${Math.round(left)}px`);
+    tooltip.style.setProperty('--atmos-tooltip-top', `${Math.round(top)}px`);
+  }
+
+  function hideAtmosOpticsTooltip() {
+    tooltip.classList.remove('is-visible');
+  }
+
+  document.querySelectorAll('.atmos-optics-current-cell').forEach((cell) => {
+    cell.addEventListener('pointerenter', (event) => moveAtmosOpticsTooltip(cell, event));
+    cell.addEventListener('pointermove', (event) => moveAtmosOpticsTooltip(cell, event));
+    cell.addEventListener('focusin', () => moveAtmosOpticsTooltip(cell, null));
+    cell.addEventListener('pointerleave', hideAtmosOpticsTooltip);
+    cell.addEventListener('focusout', hideAtmosOpticsTooltip);
+  });
+})();
+</script>
 <?php include 'tail.php'; ?>
 </body>
 </html>
