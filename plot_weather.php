@@ -261,7 +261,7 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
     const axisFontSize = getWeatherAxisFontSize(plotWidth);
     const mobileWeatherPlot = isMobileWeatherPlot(plotWidth);
     const xAxisLabelOffset = mobileWeatherPlot ? 4 : 5;
-    const xAxisBottomMargin = mobileWeatherPlot ? 4 : 2;
+    const xAxisBottomMargin = 2;
     const yAxisFontSize = isMobileWeatherPlot(plotWidth) ? 14 : 11;
     const yAxisSize = yAxisFontSize + 14;
 

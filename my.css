@@ -573,6 +573,46 @@ a:focus-visible {
     position: static;
 }
 
+.table-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0.325rem 0;
+    color: var(--text-soft);
+    font-size: 0.82rem;
+}
+
+.table-pagination__status {
+    margin-right: 0.2rem;
+}
+
+.table-pagination__link,
+.table-pagination__current {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+    padding: 0 0.45rem;
+    border: 1px solid rgba(137, 171, 188, 0.24);
+    background: rgba(17, 36, 50, 0.74);
+    color: var(--heading);
+    text-decoration: none;
+}
+
+.table-pagination__link:hover,
+.table-pagination__link:focus-visible {
+    border-color: rgba(125, 196, 228, 0.5);
+    color: var(--link-hover);
+}
+
+.table-pagination__current {
+    border-color: rgba(222, 181, 105, 0.58);
+    color: var(--accent);
+    font-weight: 700;
+}
+
 .table1 {
     width: auto;
     min-width: max-content;
@@ -1544,7 +1584,7 @@ th[aria-sort="descending"] .sort-indicator::before {
     }
 
     .weather-plot-root {
-        gap: 0.105rem;
+        gap: 0.0525rem;
     }
 
     .weather-plot-title,

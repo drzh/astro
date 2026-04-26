@@ -134,12 +134,6 @@ echo '</form>';
 echo '</section>';
 
 echo '<section class="panel">';
-echo '<div class="chip-row">';
-if ($sat !== '') {
-    echo '<span class="page-toolbar__label">List: ', htmlspecialchars($sat, ENT_QUOTES, 'UTF-8'), '</span>';
-}
-echo '<span class="page-toolbar__label">Max magnitude: ', htmlspecialchars((string) $mag, ENT_QUOTES, 'UTF-8'), '</span><span class="page-toolbar__label">Rows: ', htmlspecialchars((string) $max, ENT_QUOTES, 'UTF-8'), '</span>';
-echo '</div>';
 if (!empty($headers)) {
     render_sortable_table($headers, $rows, $sort_values, array('empty_message' => 'No visible passes match the current filters.'));
 } else {

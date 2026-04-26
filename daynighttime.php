@@ -99,14 +99,15 @@ foreach ($pos as $p) {
 
     echo '<section class="panel">';
     echo '<div class="weather-card__header weather-card__header--compact">';
-    echo '<h2 class="weather-card__title weather-card__title--compact"><a href="', htmlspecialchars($siteLink, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '</a></h2>';
-    echo '<div class="weather-card__meta weather-card__meta--compact">';
+    echo '<h2 class="weather-card__title weather-card__title--compact"><a class="weather-card__title-link--inline" href="', htmlspecialchars($siteLink, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($siteName, ENT_QUOTES, 'UTF-8'), '</a>';
+    echo '<span class="weather-card__meta weather-card__meta--compact weather-card__meta--inline">';
+    echo '<span class="weather-card__dot" aria-hidden="true">&bull;</span>';
     if (!empty($siteState)) {
         echo '<span class="weather-card__badge">', htmlspecialchars($siteState, ENT_QUOTES, 'UTF-8'), '</span>';
         echo '<span class="weather-card__dot" aria-hidden="true">&bull;</span>';
     }
     echo '<a href="', htmlspecialchars($coord_link, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">', htmlspecialchars($latitude . ', ' . $longitude, ENT_QUOTES, 'UTF-8'), '</a>';
-    echo '</div>';
+    echo '</span></h2>';
     echo '</div>';
 
     if (!$has_data) {
