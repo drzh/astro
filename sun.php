@@ -26,7 +26,7 @@ $aia304_title = 'AIA 304';
 if ($aia304_overlay_exists) {
     $aia304_title .= ' | <a href="#" data-aia304-toggle="off">Show Lat/Lon</a>';
 }
-$aia304_title .= ' | <a href="/sun/AIAsynoptic0304.full.txt">Max: ' . $intensity_max . '</a> <a href="/table/table.php?tb=AIAsynoptic0304.hist.txt&amp;sort=obs_time&amp;order=desc">History</a>';
+$aia304_title .= ' | <a href="/sun/AIAsynoptic0304.full.txt">Max: ' . $intensity_max . '</a> &bull; <a href="/table/table.php?tb=AIAsynoptic0304.hist.txt&amp;sort=obs_time&amp;order=desc">History</a>';
 $aia304_title .= ' | <a href="https://www.swpc.noaa.gov/products/goes-solar-ultraviolet-imager-suvi" target="_blank" rel="noopener noreferrer">GOES SUVI</a>';
 
 $imgurl = [

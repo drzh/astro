@@ -405,6 +405,10 @@ a:focus-visible {
     color: rgba(179, 194, 204, 0.65);
 }
 
+.weather-card__meta--inline .weather-card__dot:first-child {
+    margin-left: 0.4rem;
+}
+
 .weather-card__grid,
 .media-grid-two,
 .noaa1 {
