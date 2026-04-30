@@ -311,6 +311,26 @@ if (!function_exists('render_table_pagination')) {
     }
 }
 
+if (!function_exists('astro_escape_table_cell')) {
+    function astro_escape_table_cell($cell)
+    {
+        return htmlspecialchars((string) $cell, ENT_QUOTES, 'UTF-8');
+    }
+}
+
+if (!function_exists('astro_escape_table_rows')) {
+    function astro_escape_table_rows($rows)
+    {
+        foreach ($rows as $row_index => $row) {
+            foreach ($row as $column => $cell) {
+                $rows[$row_index][$column] = astro_escape_table_cell($cell);
+            }
+        }
+
+        return $rows;
+    }
+}
+
 if (!function_exists('display_table_from_tsv')) {
     function display_table_from_tsv($tb = '', $display_date = 0, $options = array())
     {
@@ -365,6 +385,18 @@ if (!function_exists('display_table_from_tsv')) {
                     'per_page' => $per_page,
                     'params' => $options['pagination_params'] ?? array(),
                 );
+            }
+
+            $escape_cells = true;
+            if (array_key_exists('allow_html', $options)) {
+                $escape_cells = !$options['allow_html'];
+            }
+            if (array_key_exists('escape_cells', $options)) {
+                $escape_cells = (bool) $options['escape_cells'];
+            }
+            if ($escape_cells) {
+                $headers = astro_escape_table_rows(array($headers))[0] ?? array();
+                $rows = astro_escape_table_rows($rows);
             }
 
             if ($pagination !== null) {
