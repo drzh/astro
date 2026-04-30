@@ -498,9 +498,9 @@ if (!function_exists('astro_menu_rows')) {
             array(
                 array('href' => '/sun.php', 'label' => 'Sun'),
                 array('href' => '/aurora.php', 'label' => 'Aurora'),
-                array('href' => '/table/table.php?tb=cobs.commet.list.observed.json.txt', 'label' => 'Comets'),
+                array('href' => '/table.php?tb=cobs.commet.list.observed.json.txt', 'label' => 'Comets'),
                 array('href' => '/planets.php', 'label' => 'Planets'),
-                array('href' => '/table/table.php?tb=occultation.txt', 'label' => 'Occultation'),
+                array('href' => '/table.php?tb=occultation.txt', 'label' => 'Occultation'),
             ),
             array(
                 array('href' => '/atmos_optics.php', 'label' => 'Atmos Optics'),
@@ -510,12 +510,12 @@ if (!function_exists('astro_menu_rows')) {
                 array('href' => '/map.php', 'label' => 'Maps'),
             ),
             array(
-                array('href' => '/satellite_ha.php?sat=All&mag=3&max=20', 'label' => 'Sate (Vis)'),
-                array('href' => '/satellite.php?sat=ALL_PRI&max=20', 'label' => 'Sate (Ham)'),
+                array('href' => '/table.php?tbm=satellite_vis&sat=All&mag=3&max=20', 'label' => 'Sate (Vis)'),
+                array('href' => '/table.php?tbm=satellite_ham&sat=ALL_PRI&max=20', 'label' => 'Sate (Ham)'),
                 array('href' => '/ham.php', 'label' => 'HAM'),
                 array('href' => '/link.php', 'label' => 'Links'),
                 array('href' => '/about.php', 'label' => 'About'),
-                array('href' => '/table/table.php?tb=C_2025_R3_PANSTARRS.rise_set.2025.CDT.table.txt', 'label' => 'C/2025 R3 (PANSTARRS)'),
+                array('href' => '/table.php?tb=C_2025_R3_PANSTARRS.rise_set.2025.CDT.table.txt', 'label' => 'C/2025 R3 (PANSTARRS)'),
             ),
         );
     }
