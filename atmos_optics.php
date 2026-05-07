@@ -6,16 +6,11 @@
 <?php
 $datasets = array(
     array(
-        'title' => 'Sun Optics',
-        'json_path' => __DIR__ . '/table/data/atmospheric_optics_solar.json',
-        'json_href' => '/table/data/atmospheric_optics_solar.json',
-        'fallback_illumination' => 'solar',
-    ),
-    array(
-        'title' => 'Moon Optics',
-        'json_path' => __DIR__ . '/table/data/atmospheric_optics_lunar.json',
-        'json_href' => '/table/data/atmospheric_optics_lunar.json',
-        'fallback_illumination' => 'lunar',
+        'title' => 'Atmospheric Optics',
+        'json_path' => __DIR__ . '/table/data/atmospheric_optics.json',
+        'json_href' => '/table/data/atmospheric_optics.json',
+        'fallback_illumination' => 'solar,lunar',
+        'show_cloud_classification' => true,
     ),
 );
 
@@ -96,12 +91,39 @@ $format_altitude = static function ($value) {
     return number_format((float) $value, 1) . ' deg';
 };
 
-$normalize_payload = static function ($payload, $fallback_illumination) {
+$format_meters = static function ($value) {
+    if (!is_numeric($value)) {
+        return '';
+    }
+
+    $meters = (float) $value;
+    if (abs($meters) >= 1000.0) {
+        return number_format($meters / 1000.0, 1) . ' km';
+    }
+    return number_format($meters, 0) . ' m';
+};
+
+$is_lunar_phenomenon = static function ($entry) {
+    if (!is_array($entry) || !isset($entry['id']) || !is_string($entry['id'])) {
+        return false;
+    }
+
+    $id = $entry['id'];
+    return in_array($id, array('lunar_halo', 'paraselenae', 'lunar_pillar', 'lunar_corona', 'moonbow'), true) ||
+        strpos($id, 'lunar_') === 0;
+};
+
+$illumination_label_for_entry = static function ($entry) use ($is_lunar_phenomenon) {
+    return $is_lunar_phenomenon($entry) ? 'Lunar' : 'Solar';
+};
+
+$normalize_payload = static function ($payload, $fallback_illumination) use ($is_lunar_phenomenon) {
     $prediction = array();
     $request = array();
     $target = array();
     $sources = array();
     $phenomena = array();
+    $clouds = array();
     $mode = '';
     $illumination = $fallback_illumination;
     $prediction_time = '';
@@ -111,6 +133,7 @@ $normalize_payload = static function ($payload, $fallback_illumination) {
     $celestial = array();
     $active_body_label = '';
     $active_body_altitude = null;
+    $celestial_details = array();
 
     if (isset($payload['prediction']) && is_array($payload['prediction'])) {
         $prediction = $payload['prediction'];
@@ -134,6 +157,23 @@ $normalize_payload = static function ($payload, $fallback_illumination) {
     if (isset($prediction['phenomena']) && is_array($prediction['phenomena'])) {
         $phenomena = $prediction['phenomena'];
     }
+    if ($phenomena !== array() && in_array($fallback_illumination, array('solar', 'lunar'), true)) {
+        $filtered_phenomena = array();
+        foreach ($phenomena as $entry) {
+            $entry_is_lunar = $is_lunar_phenomenon($entry);
+            if ($fallback_illumination === 'lunar' && $entry_is_lunar) {
+                $filtered_phenomena[] = $entry;
+            } elseif ($fallback_illumination === 'solar' && !$entry_is_lunar) {
+                $filtered_phenomena[] = $entry;
+            }
+        }
+        $phenomena = $filtered_phenomena;
+    }
+    if (isset($prediction['clouds']) && is_array($prediction['clouds'])) {
+        $clouds = $prediction['clouds'];
+    } elseif (isset($prediction['cloud_classification']) && is_array($prediction['cloud_classification'])) {
+        $clouds = $prediction['cloud_classification'];
+    }
     if (isset($request['mode']) && is_string($request['mode'])) {
         $mode = $request['mode'];
     } elseif (isset($target['mode']) && is_string($target['mode'])) {
@@ -146,6 +186,9 @@ $normalize_payload = static function ($payload, $fallback_illumination) {
         $illumination = $request['options']['illumination'];
     } elseif (isset($target['illumination']) && is_string($target['illumination'])) {
         $illumination = $target['illumination'];
+    }
+    if (strpos($illumination, ',') !== false && in_array($fallback_illumination, array('solar', 'lunar'), true)) {
+        $illumination = $fallback_illumination;
     }
     if (isset($target['name']) && is_string($target['name'])) {
         $target_name = $target['name'];
@@ -183,12 +226,25 @@ $normalize_payload = static function ($payload, $fallback_illumination) {
         $active_body_label = 'Moon';
         $active_body_altitude = (float) $celestial['moon']['altitude'];
     }
+    if (isset($celestial['sun']) && is_array($celestial['sun']) && isset($celestial['sun']['altitude']) && is_numeric($celestial['sun']['altitude'])) {
+        $celestial_details[] = array(
+            'label' => 'Sun',
+            'altitude' => (float) $celestial['sun']['altitude'],
+        );
+    }
+    if (isset($celestial['moon']) && is_array($celestial['moon']) && isset($celestial['moon']['altitude']) && is_numeric($celestial['moon']['altitude'])) {
+        $celestial_details[] = array(
+            'label' => 'Moon',
+            'altitude' => (float) $celestial['moon']['altitude'],
+        );
+    }
 
     return array(
         'request' => $request,
         'target' => $target,
         'sources' => $sources,
         'phenomena' => $phenomena,
+        'clouds' => $clouds,
         'mode' => $mode,
         'illumination' => $illumination,
         'prediction_time' => $prediction_time,
@@ -197,6 +253,7 @@ $normalize_payload = static function ($payload, $fallback_illumination) {
         'longitude' => $longitude,
         'active_body_label' => $active_body_label,
         'active_body_altitude' => $active_body_altitude,
+        'celestial_details' => $celestial_details,
     );
 };
 
@@ -237,6 +294,7 @@ $maps_href = '';
 if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longitude'] !== null) {
     $maps_href = 'https://maps.google.com/maps?q=' . $normalized['latitude'] . ',' . $normalized['longitude'];
 }
+$show_cloud_classification = isset($dataset['show_cloud_classification']) && $dataset['show_cloud_classification'] === true;
 ?>
 <section class="panel">
   <h2 class="panel-title"><?php echo htmlspecialchars($dataset['title'], ENT_QUOTES, 'UTF-8'); ?></h2>
@@ -254,7 +312,20 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
     if ($normalized['prediction_time'] !== '') {
         $details[] = 'Prediction time: ' . htmlspecialchars($format_timestamp($normalized['prediction_time']), ENT_QUOTES, 'UTF-8');
     }
-    if ($normalized['active_body_label'] !== '' && $normalized['active_body_altitude'] !== null) {
+    if ($normalized['celestial_details'] !== array()) {
+        $celestial_parts = array();
+        foreach ($normalized['celestial_details'] as $celestial_detail) {
+            if (!is_array($celestial_detail) || !isset($celestial_detail['label']) || !isset($celestial_detail['altitude'])) {
+                continue;
+            }
+            $celestial_parts[] = htmlspecialchars((string) $celestial_detail['label'], ENT_QUOTES, 'UTF-8') .
+                ' altitude: ' .
+                htmlspecialchars($format_altitude($celestial_detail['altitude']), ENT_QUOTES, 'UTF-8');
+        }
+        if ($celestial_parts !== array()) {
+            $details[] = implode(' | ', $celestial_parts);
+        }
+    } elseif ($normalized['active_body_label'] !== '' && $normalized['active_body_altitude'] !== null) {
         $details[] = htmlspecialchars($normalized['active_body_label'], ENT_QUOTES, 'UTF-8') .
             ' altitude: ' .
             htmlspecialchars($format_altitude($normalized['active_body_altitude']), ENT_QUOTES, 'UTF-8');
@@ -300,6 +371,7 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
   <table class="table1 atmos-optics-table">
     <thead>
       <tr>
+        <th>Illumination</th>
         <th>Phenomenon</th>
         <th>Current</th>
         <?php foreach ($timeline_labels as $timeline_label): ?>
@@ -320,6 +392,7 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
       $current_probability = null;
       $timeline_values = array();
       $reason = '';
+      $illumination_label = $illumination_label_for_entry($entry);
       if (isset($entry['label']) && is_string($entry['label'])) {
           $label = $entry['label'];
       } elseif (isset($entry['id']) && is_string($entry['id'])) {
@@ -352,11 +425,66 @@ if (is_array($payload) && $normalized['latitude'] !== null && $normalized['longi
       }
       ?>
       <tr>
+        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($illumination_label, ENT_QUOTES, 'UTF-8'); ?></td>
         <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></td>
         <td class="<?php echo $row_class; ?> atmos-optics-current-column"><?php echo $render_current_probability($current_probability, $reason); ?></td>
         <?php foreach ($timeline_labels as $timeline_label): ?>
         <td class="<?php echo $row_class; ?> atmos-optics-timeline-cell"><?php echo array_key_exists($timeline_label, $timeline_values) ? $render_probability_chip($timeline_values[$timeline_label]) : ''; ?></td>
         <?php endforeach; ?>
+      </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+  </div>
+  <?php endif; ?>
+  <?php
+  $cloud_layers = array();
+  if (isset($normalized['clouds']['cloud_layers']) && is_array($normalized['clouds']['cloud_layers'])) {
+      $cloud_layers = $normalized['clouds']['cloud_layers'];
+  }
+  ?>
+  <?php if ($show_cloud_classification && $cloud_layers !== array()): ?>
+  <h3 class="panel-subtitle" style="margin:12px 0 4px 0;">Cloud Classification</h3>
+  <div class="table-wrap atmos-optics-table-wrap">
+  <table class="table1 atmos-optics-table atmos-optics-cloud-table">
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>WMO</th>
+        <th>Altitude</th>
+        <th>Coverage</th>
+        <th>Base</th>
+        <th>Top</th>
+        <th>Confidence</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php $cloud_row_index = 0; ?>
+      <?php foreach ($cloud_layers as $cloud_layer): ?>
+      <?php
+      if (!is_array($cloud_layer)) {
+          continue;
+      }
+      $row_class = ($cloud_row_index % 2 === 0) ? 'td0' : 'td1';
+      $cloud_row_index++;
+      $layer_id = isset($cloud_layer['layer_id']) ? $cloud_layer['layer_id'] : $cloud_row_index;
+      $genus = isset($cloud_layer['wmo_genus']) && is_string($cloud_layer['wmo_genus']) ? $cloud_layer['wmo_genus'] : '';
+      $code = isset($cloud_layer['wmo_code']) && is_string($cloud_layer['wmo_code']) ? $cloud_layer['wmo_code'] : '';
+      $altitude_category = isset($cloud_layer['altitude_category']) && is_string($cloud_layer['altitude_category']) ? $cloud_layer['altitude_category'] : '';
+      $coverage = isset($cloud_layer['coverage']) && is_string($cloud_layer['coverage']) ? $cloud_layer['coverage'] : '';
+      $cloud_base = isset($cloud_layer['cloud_base_m']) ? $cloud_layer['cloud_base_m'] : null;
+      $cloud_top = isset($cloud_layer['cloud_top_m']) ? $cloud_layer['cloud_top_m'] : null;
+      $confidence = isset($cloud_layer['confidence']) ? $cloud_layer['confidence'] : null;
+      $wmo_label = trim($genus . ($code !== '' ? ' (' . $code . ')' : ''));
+      ?>
+      <tr>
+        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars((string) $layer_id, ENT_QUOTES, 'UTF-8'); ?></td>
+        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($wmo_label, ENT_QUOTES, 'UTF-8'); ?></td>
+        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars(ucfirst($altitude_category), ENT_QUOTES, 'UTF-8'); ?></td>
+        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars(ucfirst($coverage), ENT_QUOTES, 'UTF-8'); ?></td>
+        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($format_meters($cloud_base), ENT_QUOTES, 'UTF-8'); ?></td>
+        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($format_meters($cloud_top), ENT_QUOTES, 'UTF-8'); ?></td>
+        <td class="<?php echo $row_class; ?>"><?php echo $render_probability_chip($confidence); ?></td>
       </tr>
       <?php endforeach; ?>
     </tbody>
