@@ -36,18 +36,325 @@ if (!function_exists('astro_time_to_seconds')) {
     }
 }
 
+if (!function_exists('astro_table_class_list')) {
+    function astro_table_class_list($classes)
+    {
+        $class_list = array();
+        foreach ((array) $classes as $class) {
+            if (is_array($class)) {
+                $nested = astro_table_class_list($class);
+                if ($nested !== '') {
+                    $class_list[] = $nested;
+                }
+                continue;
+            }
+
+            $class = trim((string) $class);
+            if ($class !== '') {
+                $class_list[] = preg_replace('/\s+/', ' ', $class);
+            }
+        }
+
+        return trim(implode(' ', $class_list));
+    }
+}
+
+if (!function_exists('astro_table_style_value')) {
+    function astro_table_style_value($style)
+    {
+        if (is_array($style)) {
+            $declarations = array();
+            foreach ($style as $property => $value) {
+                if ($value === null || $value === false) {
+                    continue;
+                }
+
+                if (is_int($property)) {
+                    if (is_array($value)) {
+                        $nested_style = astro_table_style_value($value);
+                        if ($nested_style !== '') {
+                            $declarations[] = $nested_style;
+                        }
+                        continue;
+                    }
+                    $declaration = trim((string) $value);
+                } else {
+                    $property = trim((string) $property);
+                    if (!preg_match('/^[a-zA-Z][-a-zA-Z0-9]*$/', $property)) {
+                        continue;
+                    }
+                    if (is_array($value)) {
+                        continue;
+                    }
+                    $declaration = $property . ': ' . trim((string) $value);
+                }
+
+                if ($declaration !== '') {
+                    $declarations[] = rtrim($declaration, ';') . ';';
+                }
+            }
+
+            return implode(' ', $declarations);
+        }
+
+        return trim((string) $style);
+    }
+}
+
+if (!function_exists('astro_table_attributes')) {
+    function astro_table_attributes($attributes = array(), $classes = array(), $style = '')
+    {
+        if (!is_array($attributes)) {
+            $attributes = array();
+        }
+
+        if (array_key_exists('attributes', $attributes) && is_array($attributes['attributes'])) {
+            $attributes = array_merge($attributes['attributes'], $attributes);
+            unset($attributes['attributes']);
+        }
+        if (array_key_exists('attrs', $attributes) && is_array($attributes['attrs'])) {
+            $attributes = array_merge($attributes['attrs'], $attributes);
+            unset($attributes['attrs']);
+        }
+        if (array_key_exists('data', $attributes) && is_array($attributes['data'])) {
+            foreach ($attributes['data'] as $key => $value) {
+                $attributes['data-' . str_replace('_', '-', (string) $key)] = $value;
+            }
+            unset($attributes['data']);
+        }
+
+        if (array_key_exists('class', $attributes)) {
+            $classes = array($classes, $attributes['class']);
+            unset($attributes['class']);
+        }
+        if (array_key_exists('style', $attributes)) {
+            $style = array($style, $attributes['style']);
+            unset($attributes['style']);
+        }
+
+        $class_value = astro_table_class_list($classes);
+        $style_value = astro_table_style_value($style);
+        $html = '';
+
+        if ($class_value !== '') {
+            $html .= ' class="' . htmlspecialchars($class_value, ENT_QUOTES, 'UTF-8') . '"';
+        }
+        if ($style_value !== '') {
+            $html .= ' style="' . htmlspecialchars($style_value, ENT_QUOTES, 'UTF-8') . '"';
+        }
+
+        foreach ($attributes as $name => $value) {
+            if ($value === null || $value === false) {
+                continue;
+            }
+
+            $name = trim((string) $name);
+            if (!preg_match('/^[a-zA-Z_:][-a-zA-Z0-9_:.]*$/', $name) || stripos($name, 'on') === 0) {
+                continue;
+            }
+
+            if ($value === true) {
+                $html .= ' ' . $name;
+            } else {
+                $html .= ' ' . $name . '="' . htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8') . '"';
+            }
+        }
+
+        return $html;
+    }
+}
+
+if (!function_exists('astro_table_cell_html')) {
+    function astro_table_cell_html($cell)
+    {
+        if (!is_array($cell)) {
+            return (string) $cell;
+        }
+
+        foreach (array('html', 'content') as $key) {
+            if (array_key_exists($key, $cell)) {
+                return (string) $cell[$key];
+            }
+        }
+
+        foreach (array('text', 'value', 'label') as $key) {
+            if (array_key_exists($key, $cell)) {
+                return htmlspecialchars((string) $cell[$key], ENT_QUOTES, 'UTF-8');
+            }
+        }
+
+        return '';
+    }
+}
+
+if (!function_exists('astro_table_text_cell')) {
+    function astro_table_text_cell($text, $options = array())
+    {
+        if (!is_array($options)) {
+            $options = array();
+        }
+        $options['text'] = $text;
+        return $options;
+    }
+}
+
+if (!function_exists('astro_table_html_cell')) {
+    function astro_table_html_cell($html, $options = array())
+    {
+        if (!is_array($options)) {
+            $options = array();
+        }
+        $options['html'] = $html;
+        return $options;
+    }
+}
+
+if (!function_exists('astro_table_cell_text')) {
+    function astro_table_cell_text($cell)
+    {
+        return trim(preg_replace(
+            '/\s+/',
+            ' ',
+            html_entity_decode(strip_tags(astro_table_cell_html($cell)), ENT_QUOTES | ENT_HTML5, 'UTF-8')
+        ));
+    }
+}
+
+if (!function_exists('astro_table_cell_sort_source')) {
+    function astro_table_cell_sort_source($cell, $fallback = null)
+    {
+        if (is_array($cell)) {
+            if (array_key_exists('sort_value', $cell)) {
+                return $cell['sort_value'];
+            }
+            if (array_key_exists('sort', $cell)) {
+                return $cell['sort'];
+            }
+        }
+
+        if ($fallback !== null) {
+            return $fallback;
+        }
+
+        return astro_table_cell_text($cell);
+    }
+}
+
+if (!function_exists('astro_table_cell_attributes')) {
+    function astro_table_cell_attributes($cell, $default_class = '', $extra_attributes = array())
+    {
+        $classes = array($default_class);
+        $style = '';
+        $attributes = array();
+
+        if (is_array($cell)) {
+            if (array_key_exists('class', $cell)) {
+                $classes[] = $cell['class'];
+            }
+            if (array_key_exists('style', $cell)) {
+                $style = $cell['style'];
+            }
+            foreach (array('attrs', 'attributes') as $key) {
+                if (array_key_exists($key, $cell) && is_array($cell[$key])) {
+                    $attributes = array_merge($attributes, $cell[$key]);
+                }
+            }
+            if (array_key_exists('data', $cell) && is_array($cell['data'])) {
+                $existing_data = isset($attributes['data']) && is_array($attributes['data']) ? $attributes['data'] : array();
+                $attributes['data'] = $existing_data + $cell['data'];
+            }
+            foreach (array('colspan', 'rowspan', 'scope') as $key) {
+                if (array_key_exists($key, $cell)) {
+                    $attributes[$key] = $cell[$key];
+                }
+            }
+        }
+
+        $attributes = array_merge($attributes, $extra_attributes);
+        return astro_table_attributes($attributes, $classes, $style);
+    }
+}
+
+if (!function_exists('astro_table_row_cells')) {
+    function astro_table_row_cells($row)
+    {
+        if (is_array($row) && array_key_exists('cells', $row) && is_array($row['cells'])) {
+            return $row['cells'];
+        }
+
+        return is_array($row) ? $row : array($row);
+    }
+}
+
+if (!function_exists('astro_table_row_sort_values')) {
+    function astro_table_row_sort_values($row)
+    {
+        if (is_array($row) && array_key_exists('sort_values', $row) && is_array($row['sort_values'])) {
+            return $row['sort_values'];
+        }
+
+        return array();
+    }
+}
+
+if (!function_exists('astro_table_row_attributes')) {
+    function astro_table_row_attributes($row)
+    {
+        if (!is_array($row) || !array_key_exists('cells', $row)) {
+            return '';
+        }
+
+        $attributes = array();
+        foreach (array('attrs', 'attributes') as $key) {
+            if (array_key_exists($key, $row) && is_array($row[$key])) {
+                $attributes = array_merge($attributes, $row[$key]);
+            }
+        }
+        if (array_key_exists('data', $row) && is_array($row['data'])) {
+            $existing_data = isset($attributes['data']) && is_array($attributes['data']) ? $attributes['data'] : array();
+            $attributes['data'] = $existing_data + $row['data'];
+        }
+
+        return astro_table_attributes(
+            $attributes,
+            array_key_exists('class', $row) ? $row['class'] : '',
+            array_key_exists('style', $row) ? $row['style'] : ''
+        );
+    }
+}
+
+if (!function_exists('astro_table_option_attributes')) {
+    function astro_table_option_attributes($options, $prefix, $base_class = '')
+    {
+        $attributes = array();
+        foreach (array($prefix . '_attrs', $prefix . '_attributes') as $key) {
+            if (array_key_exists($key, $options) && is_array($options[$key])) {
+                $attributes = array_merge($attributes, $options[$key]);
+            }
+        }
+
+        return astro_table_attributes(
+            $attributes,
+            array($base_class, $options[$prefix . '_class'] ?? ''),
+            $options[$prefix . '_style'] ?? ''
+        );
+    }
+}
+
 if (!function_exists('render_plain_table')) {
     function render_plain_table($headers = array(), $rows = array(), $options = array())
     {
-        $table_class = trim('table1 ' . ($options['table_class'] ?? ''));
         $empty_message = $options['empty_message'] ?? '';
 
-        echo "<div class='table-wrap'><table class='", $table_class, "'>";
+        echo '<div', astro_table_option_attributes($options, 'wrapper', 'table-wrap'), '>';
+        echo '<table', astro_table_option_attributes($options, 'table', 'table1'), '>';
         if (!empty($headers)) {
             echo '<thead><tr>';
             foreach ($headers as $header) {
-                $label = trim(strip_tags((string) $header)) === '' ? '&nbsp;' : $header;
-                echo '<th scope="col"><span class="table-head-cell">', $label, '</span></th>';
+                $label = trim(strip_tags(astro_table_cell_html($header))) === '' ? '&nbsp;' : astro_table_cell_html($header);
+                $attributes = array('scope' => is_array($header) && array_key_exists('scope', $header) ? $header['scope'] : 'col');
+                echo '<th', astro_table_cell_attributes($header, '', $attributes), '>';
+                echo '<span class="table-head-cell">', $label, '</span></th>';
             }
             echo '</tr></thead>';
         }
@@ -55,16 +362,17 @@ if (!function_exists('render_plain_table')) {
         echo '<tbody>';
         if (!empty($rows)) {
             foreach ($rows as $row_index => $row) {
+                $cells = astro_table_row_cells($row);
                 $cell_class = 'td' . (($row_index + 1) % 2);
-                echo '<tr>';
-                foreach ($row as $cell) {
-                    echo '<td class="', $cell_class, '">', $cell, '</td>';
+                echo '<tr', astro_table_row_attributes($row), '>';
+                foreach ($cells as $cell) {
+                    echo '<td', astro_table_cell_attributes($cell, $cell_class), '>', astro_table_cell_html($cell), '</td>';
                 }
                 echo '</tr>';
             }
         } elseif ($empty_message !== '') {
             $colspan = max(1, count($headers));
-            echo '<tr><td class="td1" colspan="', $colspan, '">', $empty_message, '</td></tr>';
+            echo '<tr><td', astro_table_attributes(array('colspan' => $colspan), 'td1'), '>', htmlspecialchars((string) $empty_message, ENT_QUOTES, 'UTF-8'), '</td></tr>';
         }
         echo "</tbody></table></div>\n";
     }
@@ -73,16 +381,17 @@ if (!function_exists('render_plain_table')) {
 if (!function_exists('render_sortable_table')) {
     function render_sortable_table($headers = array(), $rows = array(), $sort_values = array(), $options = array())
     {
-        $table_class = trim('table1 sortable ' . ($options['table_class'] ?? ''));
         $empty_message = $options['empty_message'] ?? '';
         $sorted_column = $options['sorted_column'] ?? null;
         $sort_order = astro_normalize_table_sort_order($options['sort_order'] ?? 'asc');
 
-        echo "<div class='table-wrap'><table class='", $table_class, "'>";
+        $options['table_class'] = array('sortable', $options['table_class'] ?? '');
+        echo '<div', astro_table_option_attributes($options, 'wrapper', 'table-wrap'), '>';
+        echo '<table', astro_table_option_attributes($options, 'table', 'table1'), '>';
         if (!empty($headers)) {
             echo '<thead><tr>';
             foreach ($headers as $column => $header) {
-                $label = trim(strip_tags((string) $header)) === '' ? '&nbsp;' : $header;
+                $label = trim(strip_tags(astro_table_cell_html($header))) === '' ? '&nbsp;' : astro_table_cell_html($header);
                 $column_is_sorted = $sorted_column !== null && (int) $sorted_column === (int) $column;
                 $column_sort_order = $column_is_sorted ? $sort_order : 'none';
                 $aria_sort = 'none';
@@ -92,8 +401,16 @@ if (!function_exists('render_sortable_table')) {
                     $aria_sort = 'descending';
                 }
 
-                echo '<th scope="col" aria-sort="', $aria_sort, '">';
-                echo '<button type="button" class="sort-button" data-direction="', $column_sort_order, '" data-column="', htmlspecialchars((string) $column, ENT_QUOTES, 'UTF-8'), '">';
+                $header_attributes = array(
+                    'scope' => is_array($header) && array_key_exists('scope', $header) ? $header['scope'] : 'col',
+                    'aria-sort' => $aria_sort,
+                );
+                echo '<th', astro_table_cell_attributes($header, '', $header_attributes), '>';
+                echo '<button', astro_table_attributes(array(
+                    'type' => 'button',
+                    'data-direction' => $column_sort_order,
+                    'data-column' => $column,
+                ), array('sort-button', is_array($header) && array_key_exists('button_class', $header) ? $header['button_class'] : ''), is_array($header) && array_key_exists('button_style', $header) ? $header['button_style'] : ''), '>';
                 echo '<span class="sort-label">', $label, '</span><span class="sort-indicator" aria-hidden="true"></span>';
                 echo '</button></th>';
             }
@@ -103,20 +420,30 @@ if (!function_exists('render_sortable_table')) {
         echo '<tbody>';
         if (!empty($rows)) {
             foreach ($rows as $row_index => $row) {
+                $cells = astro_table_row_cells($row);
+                $row_sort_values = astro_table_row_sort_values($row);
                 $cell_class = 'td' . (($row_index + 1) % 2);
-                echo '<tr>';
-                foreach ($row as $column => $cell) {
-                    echo '<td class="', $cell_class, '"';
-                    if (isset($sort_values[$row_index][$column]) && $sort_values[$row_index][$column] !== '') {
-                        echo ' data-sort-value="', htmlspecialchars((string) $sort_values[$row_index][$column], ENT_QUOTES, 'UTF-8'), '"';
+                echo '<tr', astro_table_row_attributes($row), '>';
+                foreach ($cells as $column => $cell) {
+                    $sort_value = null;
+                    if (array_key_exists($column, $row_sort_values)) {
+                        $sort_value = $row_sort_values[$column];
+                    } elseif (isset($sort_values[$row_index]) && is_array($sort_values[$row_index]) && array_key_exists($column, $sort_values[$row_index])) {
+                        $sort_value = $sort_values[$row_index][$column];
                     }
-                    echo '>', $cell, '</td>';
+                    $sort_value = astro_table_cell_sort_source($cell, $sort_value);
+                    $attributes = array();
+                    if ($sort_value !== null && $sort_value !== '') {
+                        $attributes['data-sort-value'] = $sort_value;
+                    }
+
+                    echo '<td', astro_table_cell_attributes($cell, $cell_class, $attributes), '>', astro_table_cell_html($cell), '</td>';
                 }
                 echo '</tr>';
             }
         } elseif ($empty_message !== '') {
             $colspan = max(1, count($headers));
-            echo '<tr><td class="td1" colspan="', $colspan, '">', $empty_message, '</td></tr>';
+            echo '<tr><td', astro_table_attributes(array('colspan' => $colspan), 'td1'), '>', htmlspecialchars((string) $empty_message, ENT_QUOTES, 'UTF-8'), '</td></tr>';
         }
         echo "</tbody></table></div>\n";
     }
@@ -161,7 +488,9 @@ if (!function_exists('astro_table_sort_column_index')) {
 if (!function_exists('astro_normalize_table_sort_label')) {
     function astro_normalize_table_sort_label($value)
     {
-        $text = html_entity_decode(strip_tags((string) $value), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $text = is_array($value)
+            ? astro_table_cell_text($value)
+            : html_entity_decode(strip_tags((string) $value), ENT_QUOTES | ENT_HTML5, 'UTF-8');
         return strtolower(trim(preg_replace('/\s+/', ' ', $text)));
     }
 }
@@ -169,7 +498,9 @@ if (!function_exists('astro_normalize_table_sort_label')) {
 if (!function_exists('astro_table_sort_value')) {
     function astro_table_sort_value($value)
     {
-        $text = trim(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags((string) $value), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+        $text = is_array($value)
+            ? astro_table_cell_text($value)
+            : trim(preg_replace('/\s+/', ' ', html_entity_decode(strip_tags((string) $value), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
         if ($text === '') {
             return array('type' => 'empty', 'value' => '');
         }
@@ -228,8 +559,10 @@ if (!function_exists('astro_sort_table_rows')) {
         }
 
         usort($decorated_rows, function ($left, $right) use ($column, $direction) {
-            $left_value = astro_table_sort_value($left['row'][$column] ?? '');
-            $right_value = astro_table_sort_value($right['row'][$column] ?? '');
+            $left_cells = astro_table_row_cells($left['row']);
+            $right_cells = astro_table_row_cells($right['row']);
+            $left_value = astro_table_sort_value(astro_table_cell_sort_source($left_cells[$column] ?? ''));
+            $right_value = astro_table_sort_value(astro_table_cell_sort_source($right_cells[$column] ?? ''));
             $result = astro_compare_table_sort_values($left_value, $right_value);
             if ($result !== 0) {
                 return $direction === 'asc' ? $result : -$result;
@@ -314,6 +647,15 @@ if (!function_exists('render_table_pagination')) {
 if (!function_exists('astro_escape_table_cell')) {
     function astro_escape_table_cell($cell)
     {
+        if (is_array($cell)) {
+            foreach (array('html', 'content') as $key) {
+                if (array_key_exists($key, $cell)) {
+                    $cell[$key] = htmlspecialchars((string) $cell[$key], ENT_QUOTES, 'UTF-8');
+                }
+            }
+            return $cell;
+        }
+
         return htmlspecialchars((string) $cell, ENT_QUOTES, 'UTF-8');
     }
 }
@@ -322,8 +664,14 @@ if (!function_exists('astro_escape_table_rows')) {
     function astro_escape_table_rows($rows)
     {
         foreach ($rows as $row_index => $row) {
-            foreach ($row as $column => $cell) {
-                $rows[$row_index][$column] = astro_escape_table_cell($cell);
+            $is_structured_row = is_array($row) && array_key_exists('cells', $row) && is_array($row['cells']);
+            $cells = astro_table_row_cells($row);
+            foreach ($cells as $column => $cell) {
+                if ($is_structured_row) {
+                    $rows[$row_index]['cells'][$column] = astro_escape_table_cell($cell);
+                } else {
+                    $rows[$row_index][$column] = astro_escape_table_cell($cell);
+                }
             }
         }
 

@@ -36,9 +36,9 @@ if ($st != '') {
         $fh = fopen($fname, 'r') or die("Cannot open file $fname!\n");
         while (($e = fgetcsv($fh)) !== false) {
             if (empty($headers)) {
-                $headers = $e;
+                $headers = array_map('astro_table_text_cell', $e);
             } else {
-                $rows[] = $e;
+                $rows[] = array_map('astro_table_text_cell', $e);
             }
         }
         fclose($fh);

@@ -12,7 +12,7 @@ $today = date('Ymd');
 
 function planets_clean_cell($value)
 {
-    return htmlspecialchars(trim((string) $value), ENT_QUOTES, 'UTF-8');
+    return astro_table_text_cell(trim((string) $value));
 }
 
 echo '<div class="weather-stack">';

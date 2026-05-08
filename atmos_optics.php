@@ -4,6 +4,8 @@
 <body>
 <?php include 'menu.php'; ?>
 <?php
+require_once __DIR__ . '/includes/table.php';
+
 $datasets = array(
     array(
         'title' => 'Atmospheric Optics',
@@ -319,7 +321,7 @@ $show_cloud_classification = isset($dataset['show_cloud_classification']) && $da
                 continue;
             }
             $celestial_parts[] = htmlspecialchars((string) $celestial_detail['label'], ENT_QUOTES, 'UTF-8') .
-                ' altitude: ' .
+                ': ' .
                 htmlspecialchars($format_altitude($celestial_detail['altitude']), ENT_QUOTES, 'UTF-8');
         }
         if ($celestial_parts !== array()) {
@@ -327,7 +329,7 @@ $show_cloud_classification = isset($dataset['show_cloud_classification']) && $da
         }
     } elseif ($normalized['active_body_label'] !== '' && $normalized['active_body_altitude'] !== null) {
         $details[] = htmlspecialchars($normalized['active_body_label'], ENT_QUOTES, 'UTF-8') .
-            ' altitude: ' .
+            ': ' .
             htmlspecialchars($format_altitude($normalized['active_body_altitude']), ENT_QUOTES, 'UTF-8');
     }
     ?>
@@ -367,27 +369,80 @@ $show_cloud_classification = isset($dataset['show_cloud_classification']) && $da
       }
   }
   ?>
-  <div class="table-wrap atmos-optics-table-wrap">
-  <table class="table1 atmos-optics-table">
-    <thead>
-      <tr>
-        <th>Illumination</th>
-        <th>Phenomenon</th>
-        <th>Current</th>
-        <?php foreach ($timeline_labels as $timeline_label): ?>
-        <th class="atmos-optics-timeline-heading"><?php echo htmlspecialchars($timeline_label, ENT_QUOTES, 'UTF-8'); ?></th>
-        <?php endforeach; ?>
-      </tr>
-    </thead>
-    <tbody>
-      <?php $row_index = 0; ?>
-      <?php foreach ($normalized['phenomena'] as $entry): ?>
-      <?php
+  <?php
+  $atmos_table_options = array(
+      'table_class' => 'atmos-optics-table',
+      'table_style' => array(
+          'font-size' => 'clamp(0.74rem, 0.68rem + 0.35vw, 0.94rem)',
+          'overflow' => 'visible !important',
+      ),
+      'wrapper_class' => 'atmos-optics-table-wrap',
+      'wrapper_style' => 'overflow: visible;',
+  );
+  $atmos_cell_style = array(
+      'padding-top' => '1.25px !important',
+      'padding-bottom' => '1.25px !important',
+      'vertical-align' => 'middle',
+  );
+  $atmos_timeline_cell_style = array_merge($atmos_cell_style, array(
+      'text-align' => 'center !important',
+      'white-space' => 'nowrap',
+  ));
+  $atmos_current_cell_style = array_merge($atmos_cell_style, array(
+      'position' => 'relative',
+      'overflow' => 'visible',
+  ));
+  $atmos_header_cell = static function ($text, $style = array(), $class = '') use ($atmos_cell_style) {
+      $cell = array(
+          'text' => $text,
+          'style' => array_merge($atmos_cell_style, $style),
+      );
+      if ($class !== '') {
+          $cell['class'] = $class;
+      }
+      return $cell;
+  };
+  $atmos_text_cell = static function ($text, $sort_value = null, $style = array(), $class = '') use ($atmos_cell_style) {
+      $cell = array(
+          'text' => $text,
+          'style' => array_merge($atmos_cell_style, $style),
+      );
+      if ($class !== '') {
+          $cell['class'] = $class;
+      }
+      if ($sort_value !== null) {
+          $cell['sort_value'] = $sort_value;
+      }
+      return $cell;
+  };
+  $atmos_html_cell = static function ($html, $sort_value = null, $style = array(), $class = '') use ($atmos_cell_style) {
+      $cell = array(
+          'html' => $html,
+          'style' => array_merge($atmos_cell_style, $style),
+      );
+      if ($class !== '') {
+          $cell['class'] = $class;
+      }
+      if ($sort_value !== null) {
+          $cell['sort_value'] = $sort_value;
+      }
+      return $cell;
+  };
+
+  $phenomena_headers = array(
+      $atmos_header_cell('Illumination'),
+      $atmos_header_cell('Phenomenon'),
+      $atmos_header_cell('Current', $atmos_timeline_cell_style),
+  );
+  foreach ($timeline_labels as $timeline_label) {
+      $phenomena_headers[] = $atmos_header_cell($timeline_label, $atmos_timeline_cell_style, 'atmos-optics-timeline-heading');
+  }
+
+  $phenomena_rows = array();
+  foreach ($normalized['phenomena'] as $entry) {
       if (!is_array($entry)) {
           continue;
       }
-      $row_class = ($row_index % 2 === 0) ? 'td0' : 'td1';
-      $row_index++;
       $label = '';
       $current_probability = null;
       $timeline_values = array();
@@ -423,19 +478,21 @@ $show_cloud_classification = isset($dataset['show_cloud_classification']) && $da
               $timeline_values[$timeline_entry['label']] = $timeline_entry['probability'];
           }
       }
-      ?>
-      <tr>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($illumination_label, ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($label, ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?> atmos-optics-current-column"><?php echo $render_current_probability($current_probability, $reason); ?></td>
-        <?php foreach ($timeline_labels as $timeline_label): ?>
-        <td class="<?php echo $row_class; ?> atmos-optics-timeline-cell"><?php echo array_key_exists($timeline_label, $timeline_values) ? $render_probability_chip($timeline_values[$timeline_label]) : ''; ?></td>
-        <?php endforeach; ?>
-      </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
-  </div>
+
+      $row = array(
+          $atmos_text_cell($illumination_label, $illumination_label),
+          $atmos_text_cell($label, $label),
+          $atmos_html_cell($render_current_probability($current_probability, $reason), $current_probability, $atmos_current_cell_style, 'atmos-optics-current-column'),
+      );
+      foreach ($timeline_labels as $timeline_label) {
+          $row[] = array_key_exists($timeline_label, $timeline_values)
+              ? $atmos_html_cell($render_probability_chip($timeline_values[$timeline_label]), $timeline_values[$timeline_label], $atmos_timeline_cell_style, 'atmos-optics-timeline-cell')
+              : $atmos_html_cell('', null, $atmos_timeline_cell_style, 'atmos-optics-timeline-cell');
+      }
+      $phenomena_rows[] = $row;
+  }
+  render_sortable_table($phenomena_headers, $phenomena_rows, array(), $atmos_table_options);
+  ?>
   <?php endif; ?>
   <?php
   $cloud_layers = array();
@@ -444,30 +501,24 @@ $show_cloud_classification = isset($dataset['show_cloud_classification']) && $da
   }
   ?>
   <?php if ($show_cloud_classification && $cloud_layers !== array()): ?>
-  <h3 class="panel-subtitle" style="margin:12px 0 4px 0;">Cloud Classification</h3>
-  <div class="table-wrap atmos-optics-table-wrap">
-  <table class="table1 atmos-optics-table atmos-optics-cloud-table">
-    <thead>
-      <tr>
-        <th>Layer</th>
-        <th>WMO</th>
-        <th>Altitude</th>
-        <th>Coverage</th>
-        <th>Base</th>
-        <th>Top</th>
-        <th>Confidence</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php $cloud_row_index = 0; ?>
-      <?php foreach ($cloud_layers as $cloud_layer): ?>
-      <?php
+  <h2 class="panel-title" style="margin:12px 0 4px 0;">Cloud Classification</h2>
+  <?php
+  $cloud_headers = array(
+      $atmos_header_cell('Layer'),
+      $atmos_header_cell('WMO'),
+      $atmos_header_cell('Altitude'),
+      $atmos_header_cell('Coverage'),
+      $atmos_header_cell('Base'),
+      $atmos_header_cell('Top'),
+      $atmos_header_cell('Confidence', $atmos_timeline_cell_style),
+  );
+  $cloud_rows = array();
+  foreach ($cloud_layers as $cloud_layer) {
       if (!is_array($cloud_layer)) {
           continue;
       }
-      $row_class = ($cloud_row_index % 2 === 0) ? 'td0' : 'td1';
-      $cloud_row_index++;
-      $layer_id = isset($cloud_layer['layer_id']) ? $cloud_layer['layer_id'] : $cloud_row_index;
+      $row_number = count($cloud_rows) + 1;
+      $layer_id = isset($cloud_layer['layer_id']) ? $cloud_layer['layer_id'] : $row_number;
       $genus = isset($cloud_layer['wmo_genus']) && is_string($cloud_layer['wmo_genus']) ? $cloud_layer['wmo_genus'] : '';
       $code = isset($cloud_layer['wmo_code']) && is_string($cloud_layer['wmo_code']) ? $cloud_layer['wmo_code'] : '';
       $altitude_category = isset($cloud_layer['altitude_category']) && is_string($cloud_layer['altitude_category']) ? $cloud_layer['altitude_category'] : '';
@@ -476,20 +527,19 @@ $show_cloud_classification = isset($dataset['show_cloud_classification']) && $da
       $cloud_top = isset($cloud_layer['cloud_top_m']) ? $cloud_layer['cloud_top_m'] : null;
       $confidence = isset($cloud_layer['confidence']) ? $cloud_layer['confidence'] : null;
       $wmo_label = trim($genus . ($code !== '' ? ' (' . $code . ')' : ''));
-      ?>
-      <tr>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars((string) $layer_id, ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($wmo_label, ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars(ucfirst($altitude_category), ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars(ucfirst($coverage), ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($format_meters($cloud_base), ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo htmlspecialchars($format_meters($cloud_top), ENT_QUOTES, 'UTF-8'); ?></td>
-        <td class="<?php echo $row_class; ?>"><?php echo $render_probability_chip($confidence); ?></td>
-      </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
-  </div>
+
+      $cloud_rows[] = array(
+          $atmos_text_cell((string) $layer_id, $layer_id),
+          $atmos_text_cell($wmo_label, $wmo_label),
+          $atmos_text_cell(ucfirst($altitude_category), $altitude_category),
+          $atmos_text_cell(ucfirst($coverage), $coverage),
+          $atmos_text_cell($format_meters($cloud_base), is_numeric($cloud_base) ? (float) $cloud_base : ''),
+          $atmos_text_cell($format_meters($cloud_top), is_numeric($cloud_top) ? (float) $cloud_top : ''),
+          $atmos_html_cell($render_probability_chip($confidence), is_numeric($confidence) ? (float) $confidence : '', $atmos_timeline_cell_style),
+      );
+  }
+  render_sortable_table($cloud_headers, $cloud_rows, array(), $atmos_table_options);
+  ?>
   <?php endif; ?>
   <?php if ($normalized['sources'] !== array()): ?>
   <p class="page-note" style="margin-top:10px;">

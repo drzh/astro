@@ -515,7 +515,6 @@ if (!function_exists('astro_menu_rows')) {
                 array('href' => '/ham.php', 'label' => 'HAM'),
                 array('href' => '/link.php', 'label' => 'Links'),
                 array('href' => '/about.php', 'label' => 'About'),
-                array('href' => '/table.php?tb=C_2025_R3_PANSTARRS.rise_set.2025.CDT.table.txt', 'label' => 'C/2025 R3 (PANSTARRS)'),
             ),
         );
     }

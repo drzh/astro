@@ -9,7 +9,6 @@ require_once __DIR__ . '/../includes/table.php';
 $fi = 'freq.csv';
 $headers = array('Satellite', 'ID', 'Uplink', 'Downlink', 'Beacon', 'Mode', 'Callsign', 'Status');
 $rows = array();
-$sort_values = array();
 
 $fh = fopen($fi, 'r') or die("Cannot open file $fi!\n");
 while (($row = fgetcsv($fh, 1000, ';')) !== false) {
@@ -18,20 +17,17 @@ while (($row = fgetcsv($fh, 1000, ';')) !== false) {
     }
 
     $display_row = array();
-    $sort_row = array();
     foreach (range(0, 7) as $i) {
         $value = $row[$i] ?? '';
-        $display_row[] = htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
-        $sort_row[] = trim((string) $value);
+        $display_row[] = astro_table_text_cell($value, array('sort_value' => trim((string) $value)));
     }
     $rows[] = $display_row;
-    $sort_values[] = $sort_row;
 }
 fclose($fh);
 
 echo '<section class="panel">';
 echo '<div class="chip-row"><span class="page-toolbar__label">Satellite Frequencies</span></div>';
-render_sortable_table($headers, $rows, $sort_values, array('empty_message' => 'No active satellite frequencies were found.'));
+render_sortable_table($headers, $rows, array(), array('empty_message' => 'No active satellite frequencies were found.'));
 echo '</section>';
 
 include '../tail.php';

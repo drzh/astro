@@ -1855,22 +1855,6 @@ figure svg {
     background-color: var(--table-head) !important;
 }
 
-.atmos-optics-table {
-    font-size: clamp(0.74rem, 0.68rem + 0.35vw, 0.94rem);
-    overflow: visible !important;
-}
-
-.atmos-optics-table-wrap {
-    overflow: visible;
-}
-
-.atmos-optics-table th,
-.atmos-optics-table td {
-    padding-top: 1.25px !important;
-    padding-bottom: 1.25px !important;
-    vertical-align: middle;
-}
-
 .atmos-optics-probability {
     display: inline-flex;
     align-items: center;
@@ -1952,45 +1936,6 @@ figure svg {
     visibility: visible;
 }
 
-.atmos-optics-current-column {
-    position: relative;
-    overflow: visible;
-}
-
-.atmos-optics-current-column:hover,
-.atmos-optics-current-column:focus-within {
-    z-index: 6;
-}
-
-.atmos-optics-timeline-heading,
-.atmos-optics-timeline-cell {
-    text-align: center !important;
-    white-space: nowrap;
-}
-
-.atmos-optics-timeline-entry {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.16rem;
-    margin: 0.04rem 0;
-    white-space: nowrap;
-}
-
-.atmos-optics-timeline-entry .atmos-optics-probability {
-    min-width: 3.9em;
-    padding: 0.06rem 0.28rem;
-}
-
-.atmos-optics-timeline-label {
-    color: var(--text-soft);
-}
-
-.atmos-optics-timeline-separator {
-    display: inline-block;
-    margin: 0 0.18rem;
-    color: var(--text-soft);
-}
-
 .ham-media-grid {
     justify-items: start;
     align-items: start;
@@ -2018,26 +1963,9 @@ figure svg {
 }
 
 @media (max-width: 720px) {
-    .atmos-optics-table {
-        font-size: clamp(0.68rem, 1.8vw, 0.82rem);
-    }
-
     .atmos-optics-pointer-tooltip {
         max-width: min(18rem, 55vw);
         padding: 0.24rem 0.36rem;
-    }
-
-    .atmos-optics-timeline-entry {
-        gap: 0.12rem;
-    }
-
-    .atmos-optics-timeline-entry .atmos-optics-probability {
-        min-width: 3.6em;
-        padding: 0.05rem 0.24rem;
-    }
-
-    .atmos-optics-timeline-separator {
-        margin: 0 0.12rem;
     }
 
     .atmos-optics-probability {

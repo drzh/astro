@@ -16,7 +16,6 @@ return static function ($request) {
     $offset = 60 * 3;
     $headers = array();
     $rows = array();
-    $sort_values = array();
     $satellite_lists = array();
 
     foreach ($files as $file) {
@@ -46,6 +45,7 @@ return static function ($request) {
                 if (empty($headers)) {
                     $headers = $fields;
                     $headers[1] = 'Date';
+                    $headers = array_map('astro_table_text_cell', $headers);
                     continue;
                 }
 
@@ -69,8 +69,7 @@ return static function ($request) {
 
                 $display = $fields;
                 $display[1] = date('D, n/j', $start_time);
-                $rows[] = $display;
-                $sort_values[] = array(
+                $sort_row = array(
                     $display[0],
                     $start_time,
                     (float) $display[2],
@@ -84,6 +83,11 @@ return static function ($request) {
                     (int) preg_replace('/[^0-9\-]/', '', $display[10]),
                     $display[11],
                 );
+                $display_row = array();
+                foreach ($display as $column => $value) {
+                    $display_row[] = astro_table_text_cell($value, array('sort_value' => $sort_row[$column] ?? $value));
+                }
+                $rows[] = $display_row;
                 $count++;
             }
             fclose($fh);
@@ -127,7 +131,6 @@ return static function ($request) {
                 'type' => 'sortable_table',
                 'headers' => $headers,
                 'rows' => $rows,
-                'sort_values' => $sort_values,
                 'options' => array('empty_message' => 'No visible passes match the current filters.'),
             ),
         );

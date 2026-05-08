@@ -17,7 +17,6 @@ return static function ($request) {
     $offset = 60;
     $headers = array();
     $rows = array();
-    $sort_values = array();
     $tz_label = date('T');
     $priority_satellites = array();
     $other_satellites = array();
@@ -68,6 +67,7 @@ return static function ($request) {
                     $headers[1] = str_replace('UTC', $tz_label, $headers[1]);
                     $headers[2] = str_replace('UTC', $tz_label, $headers[2]);
                     $headers[8] = str_replace('UTC', $tz_label, $headers[8]);
+                    $headers = array_map('astro_table_html_cell', $headers);
                     continue;
                 }
 
@@ -93,8 +93,7 @@ return static function ($request) {
                 $display[1] = date('D, n/j', $start_time);
                 $display[2] = date('H:i:s', $start_time);
                 $display[8] = date('H:i:s', $end_time);
-                $rows[] = $display;
-                $sort_values[] = array(
+                $sort_row = array(
                     $display[0],
                     $start_time,
                     $start_time,
@@ -105,6 +104,11 @@ return static function ($request) {
                     (int) $display[7],
                     $end_time,
                 );
+                $display_row = array();
+                foreach ($display as $column => $value) {
+                    $display_row[] = astro_table_text_cell($value, array('sort_value' => $sort_row[$column] ?? $value));
+                }
+                $rows[] = $display_row;
                 $count++;
             }
             fclose($fh);
@@ -156,7 +160,6 @@ return static function ($request) {
                 'type' => 'sortable_table',
                 'headers' => $headers,
                 'rows' => $rows,
-                'sort_values' => $sort_values,
                 'options' => array('empty_message' => 'No upcoming passes match the current filters.'),
             ),
         );

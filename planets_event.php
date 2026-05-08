@@ -103,9 +103,9 @@ foreach ($filepattern as $fp) {
         }
 
         $sections[$day_key]['rows'][] = array(
-            $e[0],
-            planet_event_label($e[1]),
-            htmlspecialchars($time_label, ENT_QUOTES, 'UTF-8'),
+            astro_table_html_cell($e[0]),
+            astro_table_html_cell(planet_event_label($e[1])),
+            astro_table_text_cell($time_label),
         );
     }
 
