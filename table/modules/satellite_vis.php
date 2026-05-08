@@ -83,11 +83,7 @@ return static function ($request) {
                     (int) preg_replace('/[^0-9\-]/', '', $display[10]),
                     $display[11],
                 );
-                $display_row = array();
-                foreach ($display as $column => $value) {
-                    $display_row[] = astro_table_text_cell($value, array('sort_value' => $sort_row[$column] ?? $value));
-                }
-                $rows[] = $display_row;
+                $rows[] = astro_table_text_row($display, $sort_row);
                 $count++;
             }
             fclose($fh);

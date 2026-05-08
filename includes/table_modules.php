@@ -7,6 +7,10 @@ if (!function_exists('astro_table_module_registry')) {
     function astro_table_module_registry()
     {
         return array(
+            'atmos_optics' => array(
+                'label' => 'Atmospheric Optics',
+                'file' => astro_path('table/modules/atmos_optics.php'),
+            ),
             'satellite_ham' => array(
                 'label' => 'Satellite Ham',
                 'file' => astro_path('table/modules/satellite_ham.php'),

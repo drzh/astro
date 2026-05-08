@@ -209,6 +209,22 @@ if (!function_exists('astro_table_html_cell')) {
     }
 }
 
+if (!function_exists('astro_table_text_row')) {
+    function astro_table_text_row($values, $sort_values = array())
+    {
+        $row = array();
+        foreach ((array) $values as $column => $value) {
+            $options = array();
+            if (is_array($sort_values) && array_key_exists($column, $sort_values)) {
+                $options['sort_value'] = $sort_values[$column];
+            }
+            $row[] = astro_table_text_cell($value, $options);
+        }
+
+        return $row;
+    }
+}
+
 if (!function_exists('astro_table_cell_text')) {
     function astro_table_cell_text($cell)
     {

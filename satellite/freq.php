@@ -19,9 +19,9 @@ while (($row = fgetcsv($fh, 1000, ';')) !== false) {
     $display_row = array();
     foreach (range(0, 7) as $i) {
         $value = $row[$i] ?? '';
-        $display_row[] = astro_table_text_cell($value, array('sort_value' => trim((string) $value)));
+        $display_row[] = $value;
     }
-    $rows[] = $display_row;
+    $rows[] = astro_table_text_row($display_row, array_map('trim', array_map('strval', $display_row)));
 }
 fclose($fh);
 
