@@ -160,6 +160,7 @@ if (!function_exists('astro_atmos_optics_normalize_payload')) {
         $illumination = $fallback_illumination;
         $prediction_time = '';
         $target_name = '';
+        $site_name = '';
         $latitude = null;
         $longitude = null;
         $celestial = array();
@@ -225,7 +226,13 @@ if (!function_exists('astro_atmos_optics_normalize_payload')) {
         if (isset($target['name']) && is_string($target['name'])) {
             $target_name = $target['name'];
         }
+        if (isset($payload['site']) && is_string($payload['site'])) {
+            $site_name = trim($payload['site']);
+        }
         if (isset($request['location']) && is_array($request['location'])) {
+            if ($site_name === '' && isset($request['location']['site']) && is_string($request['location']['site'])) {
+                $site_name = trim($request['location']['site']);
+            }
             if (isset($request['location']['lat']) && is_numeric($request['location']['lat'])) {
                 $latitude = (float) $request['location']['lat'];
             }
@@ -240,6 +247,12 @@ if (!function_exists('astro_atmos_optics_normalize_payload')) {
             if ($longitude === null && isset($target['location']['lon']) && is_numeric($target['location']['lon'])) {
                 $longitude = (float) $target['location']['lon'];
             }
+            if ($site_name === '' && isset($target['location']['site']) && is_string($target['location']['site'])) {
+                $site_name = trim($target['location']['site']);
+            }
+        }
+        if (strtoupper($site_name) === 'NA') {
+            $site_name = '';
         }
         if ($illumination === 'solar' && isset($celestial['sun']) && is_array($celestial['sun'])) {
             $active_body_label = 'Sun';
@@ -281,12 +294,73 @@ if (!function_exists('astro_atmos_optics_normalize_payload')) {
             'illumination' => $illumination,
             'prediction_time' => $prediction_time,
             'target_name' => $target_name,
+            'site_name' => $site_name,
             'latitude' => $latitude,
             'longitude' => $longitude,
             'active_body_label' => $active_body_label,
             'active_body_altitude' => $active_body_altitude,
             'celestial_details' => $celestial_details,
         );
+    }
+}
+
+if (!function_exists('astro_atmos_optics_payload_locations')) {
+    function astro_atmos_optics_payload_locations($payload)
+    {
+        if (!is_array($payload) || !isset($payload['locations']) || !is_array($payload['locations'])) {
+            return array(
+                array(
+                    'payload' => $payload,
+                    'site' => '',
+                ),
+            );
+        }
+
+        $locations = array();
+        foreach ($payload['locations'] as $location_entry) {
+            if (!is_array($location_entry)) {
+                continue;
+            }
+
+            $site = '';
+            if (isset($location_entry['site']) && is_string($location_entry['site'])) {
+                $site = trim($location_entry['site']);
+            }
+            $prediction = array();
+            if (isset($location_entry['prediction']) && is_array($location_entry['prediction'])) {
+                $prediction = $location_entry['prediction'];
+            } elseif (isset($location_entry['request']) && is_array($location_entry['request'])) {
+                $prediction = $location_entry;
+            }
+            if ($prediction === array()) {
+                continue;
+            }
+            if ($site !== '' && !isset($prediction['site'])) {
+                $prediction['site'] = $site;
+            }
+            if ($site !== '' && isset($prediction['request']) && is_array($prediction['request'])) {
+                if (!isset($prediction['request']['location']) || !is_array($prediction['request']['location'])) {
+                    $prediction['request']['location'] = array();
+                }
+                if (!isset($prediction['request']['location']['site'])) {
+                    $prediction['request']['location']['site'] = $site;
+                }
+            }
+
+            $locations[] = array(
+                'payload' => $prediction,
+                'site' => strtoupper($site) === 'NA' ? '' : $site,
+            );
+        }
+
+        return $locations !== array()
+            ? $locations
+            : array(
+                array(
+                    'payload' => $payload,
+                    'site' => '',
+                ),
+            );
     }
 }
 
@@ -312,12 +386,30 @@ if (!function_exists('astro_atmos_optics_loaded_datasets')) {
                 $error_message = 'The atmospheric optics JSON file does not exist yet.';
             }
 
+            if (is_array($payload)) {
+                foreach (astro_atmos_optics_payload_locations($payload) as $location_payload) {
+                    $section_dataset = $dataset;
+                    if (isset($location_payload['site']) && is_string($location_payload['site']) && $location_payload['site'] !== '') {
+                        $section_dataset['title'] .= ' - ' . $location_payload['site'];
+                    }
+                    $loaded_datasets[] = array_merge(
+                        $section_dataset,
+                        array(
+                            'payload' => $location_payload['payload'],
+                            'error_message' => '',
+                            'normalized' => astro_atmos_optics_normalize_payload($location_payload['payload'], $dataset['fallback_illumination']),
+                        )
+                    );
+                }
+                continue;
+            }
+
             $loaded_datasets[] = array_merge(
                 $dataset,
                 array(
                     'payload' => $payload,
                     'error_message' => $error_message,
-                    'normalized' => is_array($payload) ? astro_atmos_optics_normalize_payload($payload, $dataset['fallback_illumination']) : array(),
+                    'normalized' => array(),
                 )
             );
         }
@@ -568,6 +660,9 @@ if (!function_exists('astro_atmos_optics_dataset_details')) {
     function astro_atmos_optics_dataset_details($normalized)
     {
         $details = array();
+        if ($normalized['site_name'] !== '') {
+            $details[] = 'Site: ' . htmlspecialchars($normalized['site_name'], ENT_QUOTES, 'UTF-8');
+        }
         if ($normalized['target_name'] !== '') {
             $details[] = 'Target: ' . htmlspecialchars($normalized['target_name'], ENT_QUOTES, 'UTF-8');
         }
