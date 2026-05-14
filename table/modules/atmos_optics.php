@@ -108,7 +108,7 @@ if (!function_exists('astro_atmos_optics_format_altitude')) {
             return '';
         }
 
-        return number_format((float) $value, 1) . ' deg';
+        return number_format((float) $value, 1) . "\u{00B0}";
     }
 }
 
@@ -660,9 +660,6 @@ if (!function_exists('astro_atmos_optics_dataset_details')) {
     function astro_atmos_optics_dataset_details($normalized)
     {
         $details = array();
-        if ($normalized['site_name'] !== '') {
-            $details[] = 'Site: ' . htmlspecialchars($normalized['site_name'], ENT_QUOTES, 'UTF-8');
-        }
         if ($normalized['target_name'] !== '') {
             $details[] = 'Target: ' . htmlspecialchars($normalized['target_name'], ENT_QUOTES, 'UTF-8');
         }
@@ -720,6 +717,42 @@ if (!function_exists('astro_atmos_optics_sources_text')) {
     }
 }
 
+if (!function_exists('astro_atmos_optics_header_links_html')) {
+    function astro_atmos_optics_header_links_html($normalized)
+    {
+        $parts = array();
+        if (
+            isset($normalized['latitude'], $normalized['longitude']) &&
+            $normalized['latitude'] !== null &&
+            $normalized['longitude'] !== null
+        ) {
+            $maps_href = 'https://maps.google.com/maps?q=' . $normalized['latitude'] . ',' . $normalized['longitude'];
+            $parts[] = '<a href="' . htmlspecialchars($maps_href, ENT_QUOTES, 'UTF-8') . '" target="_blank" rel="noopener noreferrer">' .
+                htmlspecialchars(number_format((float) $normalized['latitude'], 2) . ', ' . number_format((float) $normalized['longitude'], 2), ENT_QUOTES, 'UTF-8') .
+                '</a>';
+        }
+
+        return implode('<span class="weather-card__dot" aria-hidden="true">&bull;</span>', $parts);
+    }
+}
+
+if (!function_exists('astro_atmos_optics_dataset_header')) {
+    function astro_atmos_optics_dataset_header($dataset, $normalized = array())
+    {
+        echo '<h2 class="panel-title" style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;">',
+            htmlspecialchars($dataset['title'], ENT_QUOTES, 'UTF-8');
+        if ($normalized !== array()) {
+            $header_links = astro_atmos_optics_header_links_html($normalized);
+            if ($header_links !== '') {
+                echo '<span class="weather-card__meta" style="font-size:1em;font-weight:400;">',
+                    $header_links,
+                    '</span>';
+            }
+        }
+        echo '</h2>';
+    }
+}
+
 if (!function_exists('astro_atmos_optics_dataset_html')) {
     function astro_atmos_optics_dataset_html($dataset)
     {
@@ -727,27 +760,17 @@ if (!function_exists('astro_atmos_optics_dataset_html')) {
 
         $payload = $dataset['payload'];
         if (!is_array($payload)) {
+            astro_atmos_optics_dataset_header($dataset);
             echo '<p>', htmlspecialchars($dataset['error_message'], ENT_QUOTES, 'UTF-8'), '</p>';
             return ob_get_clean();
         }
 
         $normalized = $dataset['normalized'];
+        astro_atmos_optics_dataset_header($dataset, $normalized);
         $details = astro_atmos_optics_dataset_details($normalized);
-        $maps_href = '';
-        if ($normalized['latitude'] !== null && $normalized['longitude'] !== null) {
-            $maps_href = 'https://maps.google.com/maps?q=' . $normalized['latitude'] . ',' . $normalized['longitude'];
+        if ($details !== array()) {
+            echo '<p class="weather-card__meta" style="margin:0 0 5px 0;">', implode(' | ', $details), '</p>';
         }
-
-        echo '<p class="weather-card__meta" style="margin:0 0 2px 0;">', implode(' | ', $details), '</p>';
-        echo '<p class="weather-card__meta" style="margin:0 0 5px 0;">';
-        if ($maps_href !== '') {
-            echo '<a href="', htmlspecialchars($maps_href, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">',
-                htmlspecialchars(number_format((float) $normalized['latitude'], 2) . ', ' . number_format((float) $normalized['longitude'], 2), ENT_QUOTES, 'UTF-8'),
-                '</a>';
-            echo '<span class="weather-card__dot" aria-hidden="true">&bull;</span>';
-        }
-        echo '<a href="', htmlspecialchars($dataset['json_href'], ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">Raw JSON</a>';
-        echo '</p>';
 
         if ($normalized['phenomena'] === array()) {
             echo '<p>No phenomena were included in this payload.</p>';
@@ -760,7 +783,13 @@ if (!function_exists('astro_atmos_optics_dataset_html')) {
             $cloud_layers = $normalized['clouds']['cloud_layers'];
         }
         if (!empty($dataset['show_cloud_classification']) && $cloud_layers !== array()) {
-            echo '<h2 class="panel-title" style="margin:12px 0 4px 0;">Cloud Classification</h2>';
+            $cloud_title = 'Cloud Classification';
+            if ($normalized['site_name'] !== '') {
+                $cloud_title .= ' - ' . $normalized['site_name'];
+            }
+            echo '<h2 class="panel-title" style="margin:12px 0 4px 0;">',
+                htmlspecialchars($cloud_title, ENT_QUOTES, 'UTF-8'),
+                '</h2>';
             astro_atmos_optics_render_cloud_table($cloud_layers);
         }
 
@@ -839,7 +868,6 @@ if (!function_exists('astro_atmos_optics_module_payload')) {
         foreach (astro_atmos_optics_loaded_datasets() as $dataset) {
             $sections[] = array(
                 'type' => 'html',
-                'title' => $dataset['title'],
                 'html' => astro_atmos_optics_dataset_html($dataset),
             );
         }
