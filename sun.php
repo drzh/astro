@@ -7,8 +7,11 @@
 $fi = 'sun/AIAsynoptic0304.full.txt';
 $intensity_max = null;
 $aia304_image = 'sun/AIAsynoptic0304.full.png';
-$aia304_overlay_image = 'sun/AIAsynoptic0304.full.latlon.png';
-$aia304_overlay_exists = file_exists(__DIR__ . '/' . $aia304_overlay_image);
+$aia304_latlon_image = 'sun/AIAsynoptic0304.full.latlon.png';
+$aia304_carrington_image = 'sun/AIAsynoptic0304.full.carrington.png';
+$aia304_latlon_exists = file_exists(__DIR__ . '/' . $aia304_latlon_image);
+$aia304_carrington_exists = file_exists(__DIR__ . '/' . $aia304_carrington_image);
+$aia304_has_layout = $aia304_latlon_exists || $aia304_carrington_exists;
 if (file_exists($fi)) {
     $lines = file($fi);
     foreach ($lines as $line) {
@@ -23,8 +26,11 @@ if (file_exists($fi)) {
 }
 
 $aia304_title = 'AIA 304';
-if ($aia304_overlay_exists) {
-    $aia304_title .= ' | <a href="#" data-aia304-toggle="off">Show Lat/Lon</a>';
+if ($aia304_latlon_exists) {
+    $aia304_title .= ' | <a href="#" data-aia304-toggle="latlon" data-aia304-state="off">Show Lat/Lon</a>';
+}
+if ($aia304_carrington_exists) {
+    $aia304_title .= ' | <a href="#" data-aia304-toggle="carrington" data-aia304-state="off">Show Carrington</a>';
 }
 $aia304_title .= ' | <a href="/sun/AIAsynoptic0304.full.txt">Max: ' . $intensity_max . '</a> &bull; <a href="/table.php?tb=AIAsynoptic0304.hist.txt&amp;sort=obs_time&amp;order=desc">History</a>';
 $aia304_title .= ' | <a href="https://www.swpc.noaa.gov/products/goes-solar-ultraviolet-imager-suvi" target="_blank" rel="noopener noreferrer">GOES SUVI</a>';
@@ -94,6 +100,15 @@ $imgurl = [
         'height' => 175,
     ],
     [
+        'id' => 'solar_orbiter_phi',
+        'title' => 'Solar Obiter PHI',
+        'alt' => 'Solar Obiter PHI',
+        'src' => 'https://www2.mps.mpg.de/projects/soho/sumer/phiimg/solo_LL02_phi-fdt-icnt_last.png',
+        'href' => 'https://www2.mps.mpg.de/projects/soho/sumer/phiimg/solo_LL02_phi-fdt-icnt_last.png',
+        'width' => 256,
+        'height' => 256,
+    ],
+    [
         'id' => 'cycle25',
         'title' => 'Solar Cycle Sunspot Number Progression',
         'alt' => 'Solar cycle sunspot number progression chart',
@@ -113,10 +128,14 @@ foreach ($imgurl as $item) {
     $image_src = $item['src'] . '?=' . $ran;
     $image_href = $item['href'] . '?=' . $ran;
     $image_alt = $item['alt'];
-    $overlay_src = '';
+    $latlon_src = '';
+    $carrington_src = '';
 
-    if ($item['id'] === 'aia304' && $aia304_overlay_exists) {
-        $overlay_src = $aia304_overlay_image . '?=' . $ran;
+    if ($item['id'] === 'aia304' && $aia304_latlon_exists) {
+        $latlon_src = $aia304_latlon_image . '?=' . $ran;
+    }
+    if ($item['id'] === 'aia304' && $aia304_carrington_exists) {
+        $carrington_src = $aia304_carrington_image . '?=' . $ran;
     }
 
     echo '<section class="panel">';
@@ -126,10 +145,15 @@ foreach ($imgurl as $item) {
         $figure_classes .= ' media-panel--align-start';
     }
     echo '<figure class="', $figure_classes, '">';
-    if ($item['id'] === 'aia304' && $overlay_src !== '') {
+    if ($item['id'] === 'aia304' && $aia304_has_layout) {
         echo '<a class="sun-overlay-image" data-aia304-container style="--media-max-width:', $display_width, 'px;" href="', htmlspecialchars($image_href, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer">';
         echo '<img class="sun-overlay-image__base" width="', $item['width'], '" height="', $item['height'], '" src="', htmlspecialchars($image_src, ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($image_alt, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async">';
-        echo '<img class="sun-overlay-image__overlay" width="', $item['width'], '" height="', $item['height'], '" src="', htmlspecialchars($overlay_src, ENT_QUOTES, 'UTF-8'), '" alt="" loading="lazy" decoding="async" data-aia304-overlay aria-hidden="true">';
+        if ($latlon_src !== '') {
+            echo '<img class="sun-overlay-image__overlay" width="', $item['width'], '" height="', $item['height'], '" src="', htmlspecialchars($latlon_src, ENT_QUOTES, 'UTF-8'), '" alt="" loading="lazy" decoding="async" data-aia304-overlay="latlon" aria-hidden="true">';
+        }
+        if ($carrington_src !== '') {
+            echo '<img class="sun-overlay-image__overlay" width="', $item['width'], '" height="', $item['height'], '" src="', htmlspecialchars($carrington_src, ENT_QUOTES, 'UTF-8'), '" alt="" loading="lazy" decoding="async" data-aia304-overlay="carrington" aria-hidden="true">';
+        }
         echo '</a>';
     } else {
         echo '<a href="', htmlspecialchars($image_href, ENT_QUOTES, 'UTF-8'), '" target="_blank" rel="noopener noreferrer"><img class="media-panel__image--scaled" style="--media-max-width:', $display_width, 'px;" width="', $item['width'], '" height="', $item['height'], '" src="', htmlspecialchars($image_src, ENT_QUOTES, 'UTF-8'), '" alt="', htmlspecialchars($image_alt, ENT_QUOTES, 'UTF-8'), '" loading="lazy" decoding="async"></a>';
@@ -139,30 +163,50 @@ foreach ($imgurl as $item) {
 }
 echo '</div>';
 
-if ($aia304_overlay_exists) {
+if ($aia304_has_layout) {
     ?>
 <script>
 (function () {
+    const labels = {
+        latlon: 'Lat/Lon',
+        carrington: 'Carrington',
+    };
+
     document.addEventListener('click', (event) => {
         const toggle = event.target.closest('[data-aia304-toggle]');
         if (!toggle) {
             return;
         }
 
+        const type = toggle.dataset.aia304Toggle;
         const container = document.querySelector('[data-aia304-container]');
-        const overlay = document.querySelector('[data-aia304-overlay]');
-        if (!container || !overlay) {
+        const overlay = document.querySelector(`[data-aia304-overlay="${type}"]`);
+        if (!container || !type || !overlay) {
             return;
         }
 
         event.preventDefault();
-        const showingOverlay = toggle.dataset.aia304Toggle === 'on';
-        const nextState = showingOverlay ? 'off' : 'on';
+        const nextVisible = toggle.dataset.aia304State !== 'on';
 
-        container.classList.toggle('sun-overlay-image--latlon-visible', nextState === 'on');
-        overlay.setAttribute('aria-hidden', nextState === 'on' ? 'false' : 'true');
-        toggle.dataset.aia304Toggle = nextState;
-        toggle.textContent = nextState === 'on' ? 'Hide Lat/Lon' : 'Show Lat/Lon';
+        Object.keys(labels).forEach((overlayType) => {
+            const layer = document.querySelector(`[data-aia304-overlay="${overlayType}"]`);
+            const layerToggle = document.querySelector(`[data-aia304-toggle="${overlayType}"]`);
+            container.classList.remove(`sun-overlay-image--${overlayType}-visible`);
+            if (layer) {
+                layer.setAttribute('aria-hidden', 'true');
+            }
+            if (layerToggle) {
+                layerToggle.dataset.aia304State = 'off';
+                layerToggle.textContent = `Show ${labels[overlayType]}`;
+            }
+        });
+
+        if (nextVisible) {
+            container.classList.add(`sun-overlay-image--${type}-visible`);
+            overlay.setAttribute('aria-hidden', 'false');
+            toggle.dataset.aia304State = 'on';
+            toggle.textContent = `Hide ${labels[type] || type}`;
+        }
     });
 }());
 </script>

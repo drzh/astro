@@ -508,7 +508,8 @@ a:focus-visible {
     transition: opacity 160ms ease;
 }
 
-.sun-overlay-image--latlon-visible .sun-overlay-image__overlay {
+.sun-overlay-image--latlon-visible [data-aia304-overlay="latlon"],
+.sun-overlay-image--carrington-visible [data-aia304-overlay="carrington"] {
     opacity: 1;
 }
 
