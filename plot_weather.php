@@ -50,6 +50,7 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
     humidity: { stroke: 'green', fill: 'green', size: 2, label: 'Humidity' },
     temperature_plot: { stroke: 'orange', fill: 'orange', size: 2, label: 'Temp' }
   };
+  const DEFAULT_PLOT_HEIGHT = 131;
 
   function setStatus(message) {
     root.innerHTML = `<p class="weather-plot-status">${message}</p>`;
@@ -200,6 +201,10 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
     return isMobileWeatherPlot(width) ? 14 : 12;
   }
 
+  function coordinateText(value) {
+    return value == null ? '' : String(value);
+  }
+
   function createCard(site, layout) {
     const panel = document.createElement('section');
     panel.className = 'panel weather-plot-panel';
@@ -209,9 +214,11 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
 
     const title = document.createElement('h2');
     title.className = 'weather-card__title weather-card__title--compact weather-plot-title';
-    const coordText = `${Number(site.latitude).toFixed(4)}, ${Number(site.longitude).toFixed(4)}`;
+    const latitudeText = coordinateText(site.latitude);
+    const longitudeText = coordinateText(site.longitude);
+    const coordText = `${latitudeText}, ${longitudeText}`;
     const coordLink = document.createElement('a');
-    coordLink.href = `https://maps.google.com/maps?q=${site.latitude},${site.longitude}`;
+    coordLink.href = `https://maps.google.com/maps?q=${latitudeText},${longitudeText}`;
     coordLink.target = '_blank';
     coordLink.rel = 'noopener noreferrer';
     coordLink.textContent = coordText;
@@ -267,7 +274,7 @@ $weather_plot_endpoint = 'weather_plot_data.php?' . http_build_query(
 
     const opts = {
       width: plotWidth,
-      height: Number(layout.height) || 218,
+      height: Number(layout.height) || DEFAULT_PLOT_HEIGHT,
       padding: [null, 0, null, 0],
       legend: { show: false },
       select: { show: false },

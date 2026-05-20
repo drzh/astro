@@ -18,7 +18,7 @@ try {
         'generated_at' => gmdate('Y-m-d\TH:i:s\Z'),
         'layout' => array(
             'width' => 873,
-            'height' => 164,
+            'height' => 131,
             'temp_min_c' => -10,
             'temp_max_c' => 40,
         ),
